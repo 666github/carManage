@@ -1,0 +1,307 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.Index
+{
+    /// <summary>
+    /// IndexMessage 的摘要说明
+    /// </summary>
+    public class IndexMessage : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //var role = 0;
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 0))
+                return;
+            var role = Convert.ToString(context.Session["role"]);
+            var account = Convert.ToString(context.Session["account"]);
+            var department = Convert.ToInt32(context.Session["department"]);
+
+            dynamic json = new JObject();
+            json.state = "success";
+            
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                if (role == "0")
+                {
+
+                    var audit = cms.borrowregister
+                        .Where(s => s.User == account && s.BorrowState != 2)
+                        .LeftJoin(cms.carinfo, r => r.CarNumber,c=>c.CarNumber,(r,c)=>new { r,c.DepartmentId,c.CarBrand})
+                        .LeftJoin(cms.departmentmanage, r => r.DepartmentId, d => d.Id, (r, d) => new { r, d.Name })
+                        .OrderByDescending(x => x.r.r.BorrowTime)
+                        .ToList()
+                        .Select(item => new
+                        {
+                            auditState = item.r.r.BorrowState == 0 ? "审核中" : (item.r.r.BorrowState == 1 ? "审核通过" : "被拒绝"),
+                            auditSummary = item.Name,
+                            carLicence = item.r.r.CarNumber,
+                            brand = item.r.CarBrand,
+                            applyTime = item.r.r.BorrowTime.Value.ToShortDateString() + " " + item.r.r.BorrowTime.Value.ToShortTimeString()
+                        });
+                    json.audit = JArray.FromObject(audit);
+
+
+                    var auditUser = cms.user
+                        .ToList()
+                        .Where(u => u.Account == account && (!string.IsNullOrEmpty(Convert.ToString(u.ApplyState))))
+                        .Select(item => new
+                        {
+                            auditState = item.ApplyState == 0 ? "审核中" : (item.ApplyState == 1 ? "审核通过" : "被拒绝"),
+                            auditSummary =item.ApplyRole==2?"院级管理员":(item.ApplyRole==1? cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name+"管理员": cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name+"司机") ,
+                        });
+                    json.auditUser = JArray.FromObject(auditUser);
+
+                    var illegal = cms.illegalusecar
+                        .Where(i => i.User == account)
+                        .ToList()
+                        .OrderByDescending(x => x.Time)
+                        .Select(item => new
+                        {
+                            illegaTitle="您有违法用车记录",
+                            auditSummary= cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name,
+                            carLicence= item.CarNumber,
+                            brand= cms.carinfo.FirstOrDefault(s => s.CarNumber == item.CarNumber).CarBrand,
+                            specificTime=item.Time.Value.ToShortDateString()+" "+item.Time.Value.ToShortTimeString()
+                        });
+                    json.illegal = JArray.FromObject(illegal);
+
+                    var returnCar = cms.borrowregister
+                        .Where(b => b.User == account)
+                        .LeftJoin(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b, r })
+                        .Where(s => string.IsNullOrEmpty(s.r.UniqueCode)&&DateTime.Now>=s.b.ExpectReturnTime)
+                        .ToList()
+                        .OrderByDescending(x => x.b.ExpectReturnTime)
+                        .Select(item => new
+                        {
+                            returnTitle= "您已到达还车时间",
+                            auditSummary= cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name,
+                            carLicence=item.b.CarNumber,
+                            brand = cms.carinfo.FirstOrDefault(s => s.CarNumber == item.b.CarNumber).CarBrand,
+                            returnTime=item.b.ExpectReturnTime.Value.ToShortDateString()+" "+ item.b.ExpectReturnTime.Value.ToShortTimeString()
+                        });
+                    json.returnCar = JArray.FromObject(returnCar);
+
+                    var breakRule = cms.illegalstatistic
+                        .ToList()
+                         .Where(i => i.User == account)
+                         .OrderByDescending(x => x.Time)
+                         .Select(item => new
+                         {
+                             breakRuleTitle= "您有违章驾驶记录",
+                             carLicence=item.CarNumber,
+                             ruleReason=item.Type,
+                             breakRulePlace=item.Place,
+                             breakRuleTime=item.Time.Value.ToShortDateString() + " " + item.Time.Value.ToShortTimeString()
+                         });
+                    json.breakRule = JArray.FromObject(breakRule);
+                    context.Response.Write(json.ToString());
+                }
+
+                //管理员页面
+                else if (role == "1" || role == "2")
+                {
+                    int ro = Convert.ToInt32(role);
+
+                    //audit 人员审核
+                    var audit = cms.user
+                        .Where(s => s.ApplyState == 0 && (role == "1" ? (s.Department == department && s.ApplyRole <= ro) : (s.ApplyRole <= ro && s.ApplyRole >= 1)))
+                        .ToList()
+                        .Select(item => new
+                        {
+                            applyid=item.Account,
+                            fast = "[紧急]",
+                            applyfor = ro==1? "向您申请成为部门级管理员":"向您申请成为院级管理员",
+                            applybody=item.RealName,
+                            sendtime=item.ApplyDate.Value.ToShortDateString()+" "+ item.ApplyDate.Value.ToShortTimeString(),
+                        });
+                    json.audit = JArray.FromObject(audit);
+
+                    //auditCar 跨院借车审核
+                    var auditCar = cms.borrowregister
+                        .LeftJoin(cms.user, b=>b.CarNumber,u=>u.Account,(b,u)=>new { b.CarNumber,b.BorrowTime,b.BorrowState,b.Department,u.RealName})
+                        .Where(s => s.BorrowState == 0 && (role == "1" ? (s.Department == department) : false))
+                        .ToList()
+                        .Select(item => new
+                        {
+                            fast = "[紧急]",
+                            applyfor = "向您申请借车 "+item.CarNumber,
+                            applybody = item.RealName,
+                            sendtime = item.BorrowTime.Value.ToShortDateString() + " " + item.BorrowTime.Value.ToShortTimeString(),
+                        });
+                    json.auditCar = JArray.FromObject(auditCar);
+
+                    //myaudit 自己的人员审核
+                    var myaudit = cms.user
+                        .ToList()
+                        .Where(u => u.Account == account && (!string.IsNullOrEmpty(Convert.ToString(u.ApplyState))))
+                        .Select(item => new
+                        {
+                            auditState = item.ApplyState == 0 ? "审核中" : (item.ApplyState == 1 ? "审核通过" : "被拒绝"),
+                            auditSummary = item.ApplyRole == 2 ? "院级管理员" : (item.ApplyRole == 1 ? cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name + "管理员" : cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name + "司机"),
+                        });
+                    json.myaudit = JArray.FromObject(myaudit);
+
+                    //myauditCar 自己的用车审核
+                    var myauditCar = cms.borrowregister
+                        .Where(s => s.User == account && s.BorrowState != 2)
+                        .LeftJoin(cms.carinfo, r => r.CarNumber, c => c.CarNumber, (r, c) => new { r, c.DepartmentId, c.CarBrand })
+                        .LeftJoin(cms.departmentmanage, r => r.DepartmentId, d => d.Id, (r, d) => new { r, d.Name })
+                        .OrderByDescending(x => x.r.r.BorrowTime)
+                        .ToList()
+                        .Select(item => new
+                        {
+                            auditState = item.r.r.BorrowState == 0 ? "审核中" : (item.r.r.BorrowState == 1 ? "审核通过" : "被拒绝"),
+                            auditSummary = item.Name,
+                            carLicence = item.r.r.CarNumber,
+                            brand = item.r.CarBrand,
+                            applyTime = item.r.r.BorrowTime.Value.ToShortDateString() + " " + item.r.r.BorrowTime.Value.ToShortTimeString()
+                        });
+                    json.myauditCar = JArray.FromObject(myauditCar);
+
+                    //remindIlleCar 非法用车提醒，
+                    var remindIlleCar = cms.illegalusecar
+                        .LeftJoin(cms.carinfo,i=>i.CarNumber,c=>c.CarNumber,(i,c)=>new { i.User,i.CarNumber,i.Time,c.CarBrand,c.CarType})
+                        .Where(s => string.IsNullOrEmpty(s.User))
+                        .ToList()
+                        .Select(item => new
+                        {
+                            illegal_infUl21=item.CarBrand,
+                            illegal_infUl3=item.CarNumber,
+                            illegal_infUl51 = item.Time.Value.ToShortDateString()+" "+ item.Time.Value.ToShortTimeString()
+                        });
+
+                    json.remindIlleCar = JArray.FromObject(remindIlleCar);
+
+
+                    //remindOut  院外还车提醒，
+                    var remindOut = cms.carinfo
+                        .Where(s => s.IsOut == 1)
+                        .ToList()
+                        .Select(item => new
+                        {
+                            illegal_infUl21 = item.CarBrand,
+                            illegal_infUl3 = item.CarNumber,
+                            illegal_infUl51 = item.CarType,
+                            //illegal_infUl51 = item.Time.Value.ToShortDateString() + " " + item.Time.Value.ToShortTimeString()
+                        });
+                    json.remindOut = JArray.FromObject(remindOut);
+
+
+                    //remindIlle  违章提醒
+                    //var remindIlle = cms.illegalstatistic
+                    //    .Where(s => string.IsNullOrEmpty(s.User))
+                    //    .ToList()
+                    //    .Select(item=>new
+                    //    {
+
+                    //    });
+                    //json.remindIlle = JArray.FromObject(remindIlle);
+
+                    //myremindIlleCar 非法用车提醒，
+                    var myremindIlleCar = cms.illegalusecar
+                       .Where(i => i.User == account)
+                       .ToList()
+                       .OrderByDescending(x => x.Time)
+                       .Select(item => new
+                       {
+                           illegaTitle = "您有违法用车记录",
+                           auditSummary = cms.departmentmanage.FirstOrDefault(d => d.Id == department).Name,
+                           carLicence = item.CarNumber,
+                           brand = cms.carinfo.FirstOrDefault(s => s.CarNumber == item.CarNumber).CarBrand,
+                           specificTime = item.Time.Value.ToShortDateString() + " " + item.Time.Value.ToShortTimeString()
+                       });
+                    json.myremindIlleCar = JArray.FromObject(myremindIlleCar);
+
+
+                    //myremindIlle  违章提醒
+                    var myremindIlle = cms.illegalstatistic
+                        .ToList()
+                         .Where(i => i.User == account)
+                         .OrderByDescending(x => x.Time)
+                         .Select(item => new
+                         {
+                             breakRuleTitle = "您有违章驾驶记录",
+                             carLicence = item.CarNumber,
+                             ruleReason = item.Type,
+                             breakRulePlace = item.Place,
+                             breakRuleTime = item.Time.Value.ToShortDateString() + " " + item.Time.Value.ToShortTimeString()
+                         });
+                    json.myremindIlle = JArray.FromObject(myremindIlle);
+
+                    //dueNotice 到期提醒
+                    var date = DateTime.Now;
+                    //保养
+                    var byCars = cms.carinfo
+                        .Where(s => date > s.MaintenanceEndDate)
+                        .ToList()
+                        .Select(i => new
+                        {
+                            maturity_inf11 = i.CarBrand,
+                            maturity_inf21 = i.CarNumber,
+                            maturity_inf31 = i.CarType,
+                            maturity_inf32 = "保养到期"
+                        }).ToList();
+                    //年检
+                    var anCars = cms.carinfo
+                        .Where(s => date > s.AnnualEndDate)
+                        .ToList()
+                        .Select(i => new
+                        {
+                            maturity_inf11 = i.CarBrand,
+                            maturity_inf21 = i.CarNumber,
+                            maturity_inf31 = i.CarType,
+                            maturity_inf32 = "年检到期"
+                        }).ToList();
+                    //保险
+                    var inCars = cms.carinfo
+                        .Where(s => date > s.InsuranceEndDate)
+                        .ToList()
+                        .Select(i => new
+                        {
+                            maturity_inf11 = i.CarBrand,
+                            maturity_inf21 = i.CarNumber,
+                            maturity_inf31 = i.CarType,
+                            maturity_inf32 = "保险到期"
+                        }).ToList();
+                    anCars.ForEach(i => byCars.Add(i));
+                    inCars.ForEach(i => byCars.Add(i));
+                    json.dueNotice = JArray.FromObject(anCars);
+
+                    //maintenance 维修申请
+                    var cars = cms.carinfo
+                    .Where(s => s.NeedMaintain == 1)
+                    .ToList()
+                    .Select(i => new
+                    {
+                        maturity_inf11 = i.CarBrand,
+                        maturity_inf21 = i.CarNumber,
+                        maturity_inf31 = i.CarType,
+                        maturity_inf32 = "维修申请"
+                    }).ToList();
+                    json.maintenance = JArray.FromObject(cars);
+
+                    context.Response.Write(json.ToString());
+                }
+            }
+            
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

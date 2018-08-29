@@ -1,0 +1,299 @@
+//
+var accessed;
+$(document).ready(function(){
+	
+	
+	getDepartment()
+	
+	//getCarsInfo();
+	
+	odelSearch();
+	
+	details();
+});
+
+function getDepartment(){
+	var option = $('#regBranch').html().trim();
+	$.ajax({
+  		type: "post",
+  		url: "http://192.168.1.120:2238/handler/GetDepartment.ashx",
+		dataType: "json",
+		xhrFields:{withCredentials:true},
+		success: function (data) {
+//			debugger
+  			var obj = data;
+  			for (var i = 0; i < obj.length; i++) {
+      			option += '<option value="' + obj[i].Name + '">' + obj[i].Name + '</option>';
+ 			}
+			$('#regBranch').html(option);
+			var currentBranch = $(".branchName").text();
+			$("#regBranch").val(currentBranch);
+			getCarsInfo();
+		},
+		error: function () {
+  			console.log("部门获取失败");
+  		}
+	})
+	
+}
+
+//加载车辆信息
+function getCarsInfo(){		
+	var allBranch = $(".allBranch").val();
+	var status = $(".status").val();	
+	//console.log(allBranch+"/"+status);
+	$.ajax({
+		type:"get",
+		url: "http://192.168.1.120:2238/handler/CarManage/CarQuery/ViewCars.ashx",
+		data:{"allBranch":allBranch,"status":status,"from":0},
+		xhrFields:{withCredentials:true},
+		dataType:"json",
+		success:function(data){
+//			debugger
+			if(data.state=="success"){debugger
+				accessed=data.accessed;
+				var car_inf=data.car_inf;
+				var arr_carInf=[];
+				var arr_carImg=[];
+				var arr_brand1=[];
+				var arr_licence=[];
+				var arr_space=[];
+				var arr_state=[];
+				var arr_oilMass=[];
+				var arr_site=[];
+				var arr_lastperson=[];
+				for(var i=0;i<car_inf.length;i++){
+					arr_carImg.push(car_inf[i].carImg);
+					arr_brand1.push(car_inf[i].brand1);
+					arr_licence.push(car_inf[i].licence);
+					arr_space.push(car_inf[i].space);
+					arr_state.push(car_inf[i].state);
+					arr_oilMass.push(car_inf[i].oilMass);
+					arr_site.push(car_inf[i].site);
+					arr_lastperson.push(car_inf[i].lastperson);
+				}
+				carsInf(car_inf,arr_carImg,arr_brand1,arr_licence,arr_space,arr_state,arr_oilMass,arr_site,arr_lastperson);
+				$(".sumNum").text(data.sumNum);
+				$(".used").text(data.used);
+				$(".unUsed").text(data.unUsed);
+			}else if(data.state=="1"){
+				alert("请重新登录");
+				window.location.href="./login.html"
+			}else{
+				alert(data.state);
+			}
+		},error:function(e1,e2,e3){
+			console.log("加载失败")
+		}
+	});
+	
+}
+//改变部门 状态
+function odelSearch(){	
+	$("#regBranch").change(function(){
+		getCarsInfo();
+	})
+	$(".status").change(function(){
+		getCarsInfo();
+	})
+}
+
+//返回车辆信息
+function carsInf(car_inf,arr_carImg,arr_brand1,arr_licence,arr_space,arr_state,arr_oilMass,arr_site,arr_site,arr_lastperson){
+	var carInfo = "";
+	for(var i=0;i<car_inf.length;i++){        //car_inf.length
+		if(arr_state[i]==0){
+			arr_state[i]="空闲";
+		}else if(arr_state[i]==1){
+			arr_state[i]="被预约";
+		}else if(arr_state[i]==2){
+			arr_state[i]="外出";
+		}else if(arr_state[i]==5){
+			arr_state[i]="申请维修中";
+		}else if(arr_state[i]==6){
+			arr_state[i]="已预约";
+			$(".orderTitle").text("预约成功").css("color","#000000");
+			$(".tosee11").text("你已成功预约车辆，点击");
+			$(".tosee2").text("你也可以在还车登记中查询");
+		}else if(arr_state[i]==7){
+			arr_state[i]="审核中";
+			$(".orderTitle2").text("审核中").css("color","red");
+			$(".tosee11").text("正在审批您预约车辆，点击");
+			$(".tosee2").text("管理员审核通过后再使用车辆...");
+		}else{
+			arr_state[i]="不可用";
+		}
+		carInfo += '<ul class="carInf">'+
+			'<li class="choice"><input type="checkbox" name="" id="delinput" value=""  class="ocheck" /></li>'+
+			'<li class="carImg"><img src="'+arr_carImg[i] +'"/></li>'+
+			'<li class="brand"><span class="firBrand">'+arr_brand1[i]+'</span><span class="secBrand"></span><span class="carSpace">'+arr_space[i]+'</span></li>'+
+			'<li class="licence">车牌：<span class="carLicence">'+arr_licence[i]+'</span></li>'+
+			'<li class="remaining">剩余油量：<span class="oilMass">'+arr_oilMass[i]+'</span></li>'+
+			'<li class="parkingPlace">停车地点：<span class="site">'+arr_site[i]+'</span></li>'+
+			'<li class="lastDriver">上次使用：<span class="lastDriver">'+arr_lastperson[i]+'</span></li>'+
+			'<li><div class="carState">'+arr_state[i]+'</div><div class="details">详情>></div></li>'+
+		'</ul>';
+	}
+	$(".carInf").remove();
+	$("#car_inf").append(carInfo);
+	$(".carState").each(function(){
+		if($(this).text().indexOf("外")==0 || $(this).text().indexOf("被")==0){
+			$(this).parents(".carInf").css("border","solid 1px #ff22f2");
+		}
+		if($(this).text().indexOf("空")==0 ||$(this).text().indexOf("申")==0){
+			$(this).addClass("nowOrder");
+			if($(this).text().length==5){$(this).css("color","red");}
+		}
+		if($(this).text().indexOf("已")==0 ||$(this).text().indexOf("审")==0){
+			$(this).addClass("nowOrder");
+			$(this).addClass("haveOrder");
+			$(this).css("color","red");
+			$(this).parents(".carInf").css("border","solid 1px red");
+		}
+	});
+	picSize();
+	order();
+	details();
+}
+
+//改变图片尺寸
+function picSize(){
+	var picWidth = $(".carImg>img").width();
+	var picHeight = picWidth * 5/7;
+	$(".carImg>img").height(picHeight);
+}
+
+window.onresize = picSize;
+
+//预约车辆弹框
+function order(){
+	var content = this;
+	var node=this.node=$(".carInf");
+	var orderState;
+	node.find(".nowOrder").bind("click",function(){
+		$(".infList input").val("");//清空记录
+		$(".infList textarea").val("");
+		orderState = this;
+//		var carLicence=$(this).parent().prev().find(".carLicence").text();
+		var carLicence=$(this).parents(".carInf").find(".carLicence").text();
+		//console.log(carLicence);
+		if(accessed=="1"){
+			$(".orderBg").removeClass('hideBg');
+			$(".orderInf").addClass("hideBg");
+			$(".orderSee").removeClass("hideBg");
+			$(".orderSee").addClass("animated flipInX");
+			$(".orderBg .toSee").click(function(){
+				$("#container").load('driverManagement/carsManage/returnCar.html');				
+				$(".ycsq_dri").trigger('click');				
+				$(".orderBg").addClass("hideBg");
+				$(".orderSee").addClass("hideBg");
+			})
+			$("#sureClose").click(function(){
+				$(".orderBg").addClass("hideBg");
+				$(".orderSee").addClass("hideBg");
+			})
+		}else{
+			$(".orderBg").removeClass('hideBg');
+			$(".orderInf").removeClass("hideBg");
+			$("#quit").hover(function(){
+				$("#quit").css('background','#4375f8');
+				$("#orderSure").css('background','#FFFFFF');
+			},function(){
+				$("#quit").css('background','#FFFFFF');
+				$("#orderSure").css('background','#4375f8');
+			});
+			$("#quit").unbind("click");
+			$("#quit").bind("click",function(){
+				$(".orderBg").addClass("hideBg");				
+			});
+			$("#orderSure").unbind("click");
+			$("#orderSure").bind("click",function(){debugger
+				var useTime=$("#inpstart").val();
+				var retrunTime=$("#inpend").val();
+				var branchs=$(".branchs").val();
+				var destination=$("#destination").val();
+				var resonText=$(".resonText").val();
+				var olengths=$(".olength");
+				var useTime1=useTime.replace(/[\s\-\:]*/g,"");
+				var returnTime1=retrunTime.replace(/[\s\-\:]*/g,"");
+				var useReturn=returnTime1 - useTime1;
+				if(useReturn<3000){alert("请选择合适的时分");return;}
+				for(var i=0;i<olengths.length;i++){
+					if(olengths[i].value.length==0 || branchs=="gray"){
+						alert("有未填写信息");
+						return;
+					}
+				}
+				$("#orderSure").unbind("click");
+				$.ajax({
+					type:"get",
+					url:"http://192.168.1.120:2238/handler/CarManage/CarQuery/BorrowCar.ashx",
+					xhrFields:{withCredentials:true},
+					dataType:'json',
+					data:{
+						'carNumber':carLicence,
+						'useCarTime':useTime,
+						'expectReturnTime':retrunTime,
+						'purpose':branchs,
+						'destination':destination,
+						'cause':resonText,
+						'from':0
+					},success:function(data){
+						if(data.state=="success"){							
+							$(".orderInf").addClass("hideBg");
+							$(".orderSee").removeClass("hideBg");
+							$(".orderSee").addClass("animated flipInX");
+							$(orderState).addClass("haveOrder");
+							$(orderState).parents(".carInf").css("border","solid 1px red");
+							data.needAudit==0?$(orderState).text("已预约") : $(orderState).text("审核中");
+							if(data.needAudit==1){
+								$(".orderTitle2").text("审核中").css("color","red");
+								$(".tosee11").text("正在审批您预约车辆，点击");
+								$(".tosee2").text("管理员审核通过后再使用车辆...");
+							}else{
+								$(".orderTitle").text("预约成功").css("color","#000000");
+								$(".tosee11").text("你已成功预约车辆，点击");
+								$(".tosee2").text("你也可以在还车登记中查询");
+							}
+							$(".orderBg .toSee").click(function(){
+								$("#container").load('driverManagement/carsManage/returnCar.html');
+								
+								$(".ycsq_dri").trigger('click');
+								
+								$(".orderBg").addClass("hideBg");
+								$(".orderSee").addClass("hideBg");
+							})
+//							localStorage.accessed="1";debugger
+						}else if(data.state=="1"){
+								alert("请重新登录");
+								window.location.href="./login.html"
+						}else{
+							alert(data.state);
+							$(".orderBg").addClass("hideBg");
+						}
+					},error:function(e1,e2,e3){				
+						alert("预约失败！")
+					}					
+				})
+				
+			});
+			$("#sureClose").click(function(){
+				$(".orderBg").addClass("hideBg");
+				$(".orderSee").addClass("hideBg");
+			})
+		}
+	})
+	
+
+}
+
+//点击详情
+var carNumber;
+function details(){
+	$(".details").click(function(){
+		carNumber = $(this).parent().prevAll().find(".carLicence").text();
+		$("#container").load('driverManagement/carsManage/carDetails.html');
+		//debugger;
+	});
+}
+

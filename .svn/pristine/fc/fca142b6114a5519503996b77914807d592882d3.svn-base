@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UpdateHolidayUse
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var uri = "http://localhost:2238/handler/Carmanage/HolidayUse/AutoUpdateHolidayUse.ashx";
+            var res = Request(uri);
+            if(res=="success")
+            {
+
+            }
+        }
+
+        static string Request(string uri)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(uri);
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                var stream = response.GetResponseStream();
+                var streamReader = new StreamReader(stream);
+                var result = streamReader.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+    }
+}

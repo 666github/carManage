@@ -1,0 +1,197 @@
+﻿using CarManageSystem.Model;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+
+
+namespace CarManageSystem.helper
+{
+    public class CheckHelper
+    {
+
+        /// <summary>
+        /// 输入需要检查的各个字段进行检查
+        /// </summary>
+        /// <param name="strs"></param>
+        /// <returns></returns>
+        static public bool HasNull(params object[] objs)
+        {
+            var hasNull = false;
+            foreach (var obj in objs)
+            {
+                hasNull = obj == null ? true : hasNull;
+                switch (obj.GetType().ToString())
+                {
+                    case "System.String":
+                        hasNull = string.IsNullOrEmpty((string)obj) ? true : hasNull;
+                        break;
+                    case "System.Byte[]":
+                        hasNull = ((Byte[])obj).Length == 0 ? true : hasNull;
+                        break;
+                    default:
+                        break;
+                }
+                if (hasNull)
+                {
+                    break;
+                }
+            }
+            return hasNull;
+        }
+        
+
+        /// <summary>
+        /// 角色检查
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static user RoleCheck(HttpContext context, int role)
+        {
+            CarManageSystem.user userInfo = ReadUserInfo(context);
+            if (userInfo == null)
+            {
+                ConsoleJson(context, "1");
+                return null;
+            }
+               
+            if(Convert.ToInt32(userInfo.UserType)>=role)
+            {
+                return userInfo;
+            }
+            else
+            {
+                ConsoleJson(context, "没有权限");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 登录时保存用户信息，session  token
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="user"></param>
+        public static string LoginRole(HttpContext context, CarManageSystem.user user)
+        {
+            //先删除已存在的值
+            var tempUser = MyGlobal.userInfo.Where(s => s.Value.Account == user.Account).ToList();
+            lock (MyGlobal.userInfo)
+            {
+                for(var i=tempUser.Count()-1;i>=0;i--)
+                {
+                    if (tempUser[i].Key != null)
+                    {
+                        MyGlobal.userInfo.Remove(tempUser[i].Key);
+                    }
+                }
+            }
+
+            var from = context.Request["from"];
+            if (from == "0")
+            {
+                lock(MyGlobal.userInfo)
+                {
+                    if(MyGlobal.userInfo.Keys.Contains(context.Session.SessionID))
+                    {
+                         MyGlobal.userInfo.Remove(context.Session.SessionID);
+                    }
+                    MyGlobal.userInfo.Add(context.Session.SessionID, user);
+                }
+                return "";
+            }
+            else if (from == "1")
+            {
+                string token = Guid.NewGuid().ToString().Replace("-", "");
+                lock(MyGlobal.userInfo)
+                {
+                    if (MyGlobal.userInfo.Keys.Contains(token))
+                    {
+                        MyGlobal.userInfo.Remove(token);
+                    }
+                    MyGlobal.userInfo.Add(token, user);
+                }
+                return token;
+            }
+            else
+            {
+                ConsoleJson(context, "错误，请重新登录");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 退出时注销用户
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool ExitRole(HttpContext context)
+        {
+            var id = GetKey(context);
+            lock (MyGlobal.userInfo)
+            {
+                MyGlobal.userInfo.Remove(id);
+            }
+            return true;
+        }
+        /// <summary>
+        /// 读取用户信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static CarManageSystem.user ReadUserInfo(HttpContext context)
+        {
+            var id = GetKey(context);
+            if(id==null)
+            {
+                return null;
+            }
+            if (MyGlobal.userInfo.Keys.Contains(id))
+            {
+                return MyGlobal.userInfo[id];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取dic中的key
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static string GetKey(HttpContext context)
+        {
+            var from = context.Request["from"];
+            var id = "";
+            if (from == "0")
+            {
+                id = context.Session.SessionID;
+            }
+            else if (from == "1")
+            {
+                id = context.Request["token"];
+            }
+            else
+            {
+                return null;
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// 输出json 的state
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="str"></param>
+        public static void ConsoleJson(HttpContext context, string str)
+        {
+            dynamic json = new JObject();
+            json.state = str;
+            context.Response.Write(json.ToString());
+        }
+    }
+}

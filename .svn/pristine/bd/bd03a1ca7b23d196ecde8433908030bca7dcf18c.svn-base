@@ -1,0 +1,75 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.PersonalCenter.Reservation
+{
+    /// <summary>
+    /// CancelBorrow 的摘要说明
+    /// </summary>
+    public class CancelBorrow : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            if (!CheckHelper.IsLogin(context))
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var account =Convert.ToString(context.Session["account"]);
+            var uniquecode = context.Request["uniqueCode"];
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var car = cms.borrowregister.FirstOrDefault(s => s.UniqueCode == uniquecode);
+                if (car == null)
+                {
+                    json.state = "没有此借车记录，请刷新重试！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                var tempCar = cms.carinfo.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                var usr = cms.user.FirstOrDefault(s => s.Account == account);
+                switch (car.BorrowState)
+                {
+                    case 0:
+                        car.BorrowState = 2;
+                        break;
+                    case 1:
+                        car.BorrowState = 2;
+                        tempCar.CarState = 0;
+                        tempCar.CurrentUser = "";
+                        usr.state = 0;
+                        break;
+                    case 2:
+                        json.state = "此借车记录已被取消，请刷新重试！";
+                        context.Response.Write(json.ToString());
+                        return;
+                    case 3:
+                        json.state = "此借车记录已被管理员拒绝，请刷新重试！";
+                        context.Response.Write(json.ToString());
+                        return;
+                }
+
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

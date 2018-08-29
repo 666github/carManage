@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/trafficStatistics/drivers.css"/>
+		<script src="js/trafficStatistics/drivers.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul class="wrap_top">
+				<li><p class="cartitle">司机统计</p></li>
+				<li>
+					<ul class="driverCount">
+						<li><span class="partTimeDri">兼职司机:</span> <span class="partTimeDriCount">68</span></li>
+						<li><span class="fullTimeDri">全职司机:</span> <span class="fullTimeDriCount">235</span></li>
+						<li><span class="c2">C1:</span> <span class="c1Count">68</span></li>
+						<li><span class="c2">C2:</span> <span class="c2Count">68</span></li>
+					</ul>
+				</li>
+				<li class="oQuery"><div class="oquery">查看</div></li>
+			</ul>
+			<div class="allBran">				
+				<select name="" class="allBranch driBranch">
+					<option value="">所有部门</option>
+				</select>
+				<div class="driTime">
+					<input type="text" name="driTime1" id="driTime1" class="Wdate olength" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'driTime2\')}'})"/>
+					-
+					<input type="text" name="driTime2" id="driTime2" class="Wdate olength" value="" placeholder="结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'driTime1\')}'})"/>				        
+		        </div>
+			</div>
+			<div class="driversInfo">
+					<!--<ul class="driverInfo">
+						<li class="driverIcon">
+							<div class="icon"><img class="" src="img/driver.png"/></div>
+							<div class="iconInfo"><p>赵新宇</p><p>基础测绘部</p></div>
+						</li>
+						<li class="driveingInfo">
+							<span class="driverType">司机类型 : <span class="driverTypeInfo">兼职</span></span>
+							<span class="driverLicense">驾驶类型 : <span class="driverLicenseInfo">C1</span></span>
+							<span class="driverNum">驾驶次数 : <span class="driverNumInfo">15</span></span>
+							<span class="illegalNum">违章次数 : <span class="illegalNumInfo">2</span></span>
+						</li>
+						<li class="driverMileage">行驶里程 ：<span class="milesNum">451公里</span></li>
+					</ul>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var option = $('.driBranch').html().trim();
+          $.ajax({
+              type: "post",
+              dataType: "json",
+              url: "/handler/GetDepartment.ashx",
+              success: function (data) {
+                  var obj = data;
+                  for (var i = 0; i < obj.length; i++) {
+                      option += '<option value="' + obj[i].Id + '">' + obj[i].Name + '</option>';
+                  }
+                  $('.driBranch').html(option);   
+              },
+              error: function () {
+                  console.log("部门获取失败");
+              }
+          })
+	</script>
+</html>

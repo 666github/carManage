@@ -1,0 +1,260 @@
+﻿using cn.jpush.api;
+using cn.jpush.api.push.mode;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Web;
+
+namespace CarManageSystem.helper
+{
+    public class PushHelper
+    {
+        public static JPushClient jPushClient = new JPushClient("901c1a1a0f0446a092540546", "ffde961e5a68c5fb75ca9b29");
+
+        /// <summary>
+        /// 推送信息
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="msg">信息</param>
+        public static void Push(string userName,string msg)
+        {
+            try
+            {
+                using (cmsdbEntities cms = new cmsdbEntities())
+                {
+                    var user = cms.user.FirstOrDefault(s => s.Account == userName);
+                    if(user!=null)
+                    {
+                        var pushPayload = new PushPayload()
+                        {
+                            platform = Platform.all(),
+                            audience = Audience.s_registrationId(user.DeviceID),
+                            notification = new Notification().setAlert(msg)
+                        };
+                        jPushClient.SendPush(pushPayload);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 向单个用户推送（根据用户实体）
+        /// </summary>
+        /// <param name="user">用户实体</param>
+        /// <param name="msgType">消息类型</param>
+        /// <param name="msg">消息内容</param>
+        public static void PushToUser(user user,string msgType,string msg)
+        {
+            try
+            {
+                if (NotifyHelper.CheckNotify(user, msgType))
+                {
+                    var pushPayload = new PushPayload()
+                    {
+                        platform = Platform.all(),
+                        audience = Audience.s_registrationId(user.DeviceID),
+                        notification = new Notification().setAlert(msg)
+                    };
+                    jPushClient.SendPush(pushPayload);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 向单个用户推送（根据用户名）
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="msgType">消息类型</param>
+        /// <param name="msg">消息内容</param>
+        public static void PushToUser(string userName, string msgType, string msg)
+        {
+            try
+            {
+                using (cmsdbEntities cms = new cmsdbEntities())
+                {
+                    var user = cms.user.FirstOrDefault(s => s.Account == userName);
+                    if (user != null)
+                    {
+                        if (NotifyHelper.CheckNotify(userName, msgType))
+                        {
+                            var pushPayload = new PushPayload()
+                            {
+                                platform = Platform.all(),
+                                audience = Audience.s_registrationId(user.DeviceID),
+                                notification = new Notification().setAlert(msg)
+                            };
+                            jPushClient.SendPush(pushPayload);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// 向部门管理员推送消息（根据用户实体）
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="msgType"></param>
+        /// <param name="msg"></param>
+        public static void PushToDepartCtrl(user user, string msgType, string msg)
+        {
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var list1 = cms.user.Where(s => s.UserType == 1 && s.Department == user.Department ).ToList();
+                var list = list1.Where(s=> NotifyHelper.CheckNotify(s, msgType)).Select(x => x.DeviceID).ToList();
+                if (list.Count>0)
+                {
+                    list.ForEach(x =>
+                    {
+                        try
+                        {
+                            var pushPayload = new PushPayload()
+                            {
+                                platform = Platform.all(),
+                                audience = Audience.s_registrationId(x),
+                                notification = new Notification().setAlert(msg)
+                            };
+                            jPushClient.SendPush(pushPayload);
+                        }
+                        catch (Exception)
+                        {
+                            
+                        }
+                    });
+                }
+                cms.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 向部门管理员推送消息（根据用户名）
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="msgType"></param>
+        /// <param name="msg"></param>
+        public static void PushToDepartCtrl(string userName, string msgType, string msg)
+        {
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var user = cms.user.FirstOrDefault(s => s.Account == userName);
+                if(user==null)
+                {
+                    return;
+                }
+                var list1 = cms.user.Where(s => s.UserType == 1 && s.Department == user.Department).ToList();
+                var list = list1.Where(s => NotifyHelper.CheckNotify(s, msgType)).Select(x => x.DeviceID).ToList();
+                if (list.Count > 0)
+                {
+                    list.ForEach(x =>
+                    {
+                        try
+                        {
+                            var pushPayload = new PushPayload()
+                            {
+                                platform = Platform.all(),
+                                audience = Audience.s_registrationId(x),
+                                notification = new Notification().setAlert(msg)
+                            };
+                            jPushClient.SendPush(pushPayload);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    });
+                }
+                cms.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 向部门管理员推送消息（根据车牌号）
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="msgType"></param>
+        /// <param name="msg"></param>
+        public static void PushToDepartCtrlByCarNumber(string carNumber, string msgType, string msg)
+        {
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var car = cms.carinfo.FirstOrDefault(s => s.CarNumber == carNumber);
+                if (car == null)
+                {
+                    return;
+                }
+                var list1 = cms.user.Where(s => s.UserType == 1 && s.Department == car.DepartmentId).ToList();
+                var list = list1.Where(s => NotifyHelper.CheckNotify(s, msgType)).Select(x => x.DeviceID).ToList();
+                if (list.Count > 0)
+                {
+                    list.ForEach(x =>
+                    {
+                        try
+                        {
+                            var pushPayload = new PushPayload()
+                            {
+                                platform = Platform.all(),
+                                audience = Audience.s_registrationId(x),
+                                notification = new Notification().setAlert(msg)
+                            };
+                            var res = jPushClient.SendPush(pushPayload);
+                            Debug.Write(res.ResponseResult);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.Write(ex.Message);
+                        }
+                    });
+                }
+                cms.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 向院级管理员推送消息
+        /// </summary>
+        /// <param name="msgType"></param>
+        /// <param name="msg"></param>
+        public static void PushToYuanCtrl(string msgType, string msg)
+        {
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var list1 = cms.user.Where(s => s.UserType == 2 ).ToList();
+                var list = list1.Where(s=> NotifyHelper.CheckNotify(s, msgType)).Select(x => x.DeviceID).ToList();
+                if (list.Count > 0)
+                {
+                    list.ForEach(x =>
+                    {
+                        try
+                        {
+                            var pushPayload = new PushPayload()
+                            {
+                                platform = Platform.all(),
+                                audience = Audience.s_registrationId(x),
+                                notification = new Notification().setAlert(msg)
+                            };
+                            jPushClient.SendPush(pushPayload);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    });
+                }
+                cms.Dispose();
+            }
+        }
+    }
+}

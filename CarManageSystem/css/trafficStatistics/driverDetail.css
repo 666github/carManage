@@ -1,0 +1,34 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+html,body{width:100%;;height:100%;}
+.wrap{width: 100%; height: 100%;background: #f0f4fa;padding-left: 2%;position: relative;}
+.detailBack{
+	 height: 50px;
+	 line-height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: solid 3px darkgray;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+.departName{margin-bottom: 5px;}
+.beExcel{background: #4275F8;padding:0 10px;border-radius: 10px;margin: 0 10px;color: #FFFFFF;cursor: pointer;position: relative;}
+.beExcel:active{top: 1px;background: #FF0060;}
+.details{width: 100%;padding: 0 20px 0 0;height: 450px;overflow: auto;}
+.detailInf{width: 80%;border-radius: 10px;background: #e4e4e4;margin:0 0 20px 0;}
+.detailInf>li{height: 30px;line-height:30px;border: solid 1px gray;border-bottom: none;padding: 0 0 0 5px;box-shadow: 2px 0px 5px lightgray;border-radius: 5px;margin: 0 0 4px 0;}
+.detailInf>li>span:first-child{color: #4275f8;}
+.detailInf>li>span:last-child,.fen,.money{color: #FF0060;}	
+@media only screen and (min-height: 768px){
+.details{height: 508px;}
+}
+@media only screen and (min-height: 970px){
+.details{height: 764px;}
+}
+@media only screen and (min-width: 1600px){
+.details{width: 100%;}
+.detailInf{width: 52%;}
+}

@@ -1,0 +1,61 @@
+﻿<!doctype html>
+
+<html lang="en">  
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">
+	<title>车辆登录</title>
+	</head>
+		<!--<link rel="stylesheet" type="text/css" href="css/main.css"/>-->
+		<link rel="Shortcut Icon" href="img/yuanbiao.ico"/>
+		<link rel="stylesheet" type="text/css" href="css/login.css"/>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/login.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="container">
+			<div id="logo">
+				<div>北京市测绘设计研究院车辆管理系统</div>
+				<p>Beijing Institute of Surveing and Mapping vehicle management system</p>
+			</div>
+			<div class="wrap">
+				<img src="img/login/tiantan.png"/>
+				<div id="Ologin">
+					<p class="carlogo">请登录 <img src="img/login/pleaselogin.png" alt="" class="pleaseLogin"/></p>
+					<img src="img/quanshun.png" style="width: 177px;height: 103px;"/>
+					<div class="inf">
+						<ul class="userInf">
+							<li><input type="text" name="userName" id="userName" value="" placeholder="账户" autocomplete="off"/></li>
+							<li><input type="text" name="userPsw" id="userPsw" value="" placeholder="密码" onfocus="this.type='password'"/></li>
+						</ul>
+						<div class="loginInf">
+							<p class="findPsw">忘记密码？</p>
+							<!--<p class="toRegister">还没有账号，马上去<a href="html/registType.html">注册</a></p>-->
+							<p class="toRegister">还没有账号，马上去<a href="html/registerDri.html">注册</a></p>
+							<div class="loginBtn">登录</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="foot">
+				Copyright©北京市测绘设计研究院
+			</p>			
+		</div>
+		<div class="bg hide"></div>
+		<div id="findPsw" class="hide">	
+			<span class="pswClosed">&times;</span>
+			<div class="findDiv1">
+				<p><span>账号:</span> <input type="text" name="" id="findUserName" value="" placeholder="请输入账号"/><span class="emailid"></span></p>
+				<p><span>验证码:</span> <input type="text" name="" id="validation" value="" placeholder="请输入邮箱验证码"/><span class="getValidation">获取邮箱验证码</span></p>
+				<p><span>输入新密码:</span> <input type="password" name="" id="findpsw1" value="" placeholder="请输入密码"/></p>
+				<p><span>确认密码:</span> <input type="password" name="" id="findpsw2" value="" placeholder="请再次输入密码"/></p>		
+				<p class="send">确&nbsp;定</p>
+			</div>
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/homePage/oHome.css" type="text/css">
+		<script src="js/homePage/oHome.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="welcomeTitle">
+				<p>欢迎您进入北京测绘设计研究院车辆管理系统[ 上次登录时间<span class="lastTime"></span> ]</p>
+			</div>
+			<div class="messageRemind">
+				<!--<div class="messageTitle moduleTitle">消息提醒</div>-->
+				<div class="messageNotice">
+					<div class="warningMessage messageModule">
+						<div class="messageTip">审核消息</div>
+						<div class="warningTip remindNum"><span class="remindNum1">0</span><span class="remindTag"></div>
+
+					</div>
+					<div class="illegalCar messageModule">
+						<div class="messageTip">消息提醒</div>
+						<div class="illegalTip remindNum"><span class="remindNum1">0</span><span class="remindTag"></span></div>
+
+					</div>
+					<div class="dueRemind messageModule">
+						<div class="messageTip">到期提醒</div>
+						<div class="dueTip remindNum"><span class="remindNum1">0</span><span class="remindTag"></div>
+
+					</div>
+					<div class="maintenanceRemind messageModule">
+						<div class="messageTip">维修申请</div>
+						<div class="maintenanceTip remindNum"><span class="remindNum1">0</span><span class="remindTag"></div>
+
+					</div>
+				</div>
+			</div>
+			<div class="auditAll">
+				<div class="remindInfo">
+					
+					<!--审核信息-->
+					<div class="auditFrame">
+						<div class="auditTitle moduleTitle">待审核</div>
+						<div class="auditInfo">
+							<!--<div class="auditNode">
+								<div class="auditMessage"><span class="auditState">[紧急]</span><span class="auditSummary">[管理员审核]</span> 向您申请成为部门级管理员</div>
+								<div class="auditIcon">
+									<div><span class="applicant">张</span>&nbsp;提交于<span class="applyTime">2017-06-19 9:26</span></div>
+									<div><span class="newsY">同意</span><span class="newsN">拒绝</span></div>
+								</div>
+							</div>-->
+						</div>
+					</div>
+					<!--消息提醒-->
+					<div class="illegalFrame hide">
+						<div class="titleP moduleTitle">消息提醒</div>
+						<div class="illegalInfo">
+							<!--<div class="illegalNode">
+								<div class="driverPic">
+									<p class="remindTitle">非法用车</p>
+								</div>
+								<div class="carInfo">
+									<span class="brand">品牌：现代-朗动</span>
+									<span class="carLicence">车牌：京B·BP684</span>
+								</div>
+								<div class="transportTime">
+									<span class="specificTime">用车时间：2017/08/08-2017/08/12</span>
+								</div>
+								<div class="dispose"><span>处理</span></div>
+							</div>-->
+						</div>
+					</div>
+					<!--到期提醒-->
+					<div class="dueNoticeFrame hide">
+						<div class="titleP moduleTitle">到期提醒</div>
+						<div class="dueNoticeInfo">
+							<!--<div class="dueNoticeNode">
+								<div class="dueNoticeDriver">斯巴鲁-森林人</div>
+								<div class="carInfo">
+									<span class="carLicence">车牌：京B·BP684</span>
+									<span class="departMent">基础测绘部</span>
+								</div>
+								<div class="transportTime">								
+									到期类型：<span class="expireType">保养</span>
+								</div>
+							</div>-->
+						</div>
+					</div>
+					<!--维修申请-->
+					<div class="maintenanceFrame hide">
+						<div class="titleP moduleTitle">维修申请</div>
+						<div class="maintenanceInfo">
+							<!--<div class="maintenanceNode">
+								<div class="maintenanceDriver">斯巴鲁-森林人</div>
+								<div class="carInfo">
+									<span class="carLicence">车牌：京B·BP684</span>
+									<span class="departMent">基础测绘部</span>
+								</div>
+								<div class="transportTime">								
+									维修申请人：<span class="expireType">王猛</span>
+								</div>
+							</div>-->
+						</div>
+					</div>
+				</div>
+				
+				<!--右侧统计-->
+				<!--<div class="personnelStatistic">
+					<div class="numberType">
+						<p>院级管理员总数</p>
+						<p class="collegaCount">8</p>
+					</div>
+					<div class="numberType">
+						<p>部门级管理员总数</p>
+						<p class="departCount">23</p>
+					</div>
+					<div class="numberType">
+						<p>司机总数</p>
+						<p class="driversCount">164</p>
+					</div>
+				</div>-->
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

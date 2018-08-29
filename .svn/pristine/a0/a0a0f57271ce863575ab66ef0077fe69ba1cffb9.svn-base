@@ -1,0 +1,57 @@
+﻿using CarManageSystem.helper;
+using CarManageSystem.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.CarManage
+{
+    /// <summary>
+    /// DeleteCar 的摘要说明
+    /// </summary>
+    public class DeleteCar : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 1))
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var inJson = context.Request["cars"];
+            var carsObj = JsonConvert.DeserializeObject<RemoveUseCar>(inJson);
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var cars = cms.carinfo.Where(s => carsObj.cars.Contains(s.CarNumber));
+                foreach (var car in cars)
+                {
+                    if(car.CarState!=0)
+                    {
+                        json.state = "包含不是空闲状态的车辆，删除失败";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                    cms.carinfo.Remove(car);
+                }
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

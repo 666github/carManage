@@ -1,0 +1,84 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ChangeSecurityInfo 的摘要说明
+    /// </summary>
+    public class ChangeSecurityInfo : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            if (!CheckHelper.IsLogin(context))
+                return;
+
+            var account = Convert.ToString(context.Session["account"]);
+            var flag = context.Request["flag"].Trim();
+            var value = context.Request["value"].Trim();
+            dynamic json = new JObject();
+
+            if (CheckHelper.HasNull(flag, value))
+            {
+                json.state = "有空值";
+                context.Response.Write(json.ToString());
+                return;
+            }
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var usr = cms.user.FirstOrDefault(s => s.Account == account);
+                switch (flag)
+                {
+                    //case "0":
+                    //    usr.Account = value;
+                    //    break;
+                    case "1":
+                        usr.Phone = value;
+                        break;
+                    case "2":
+                        usr.Email = value;
+                        break;
+                    case "3":
+                        var oldvalue = context.Request["oldvalue"].Trim();
+                        var rvalue = context.Request["rvalue"].Trim();
+                        if (System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(oldvalue, "MD5") != usr.Password)
+                        {
+                            json.state = "输入的旧密码不正确";
+                            context.Response.Write(json.ToString());
+                            return;
+                        }
+                        if (value != rvalue)
+                        {
+                            json.state = "两次输入密码不一致";
+                            context.Response.Write(json.ToString());
+                            return;
+                        }
+                        usr.Password = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(value, "MD5");
+                        break;
+                    default:
+                        break;
+                }
+                cms.SaveChanges();
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

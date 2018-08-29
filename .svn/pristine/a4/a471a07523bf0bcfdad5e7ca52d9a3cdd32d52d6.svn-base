@@ -1,0 +1,219 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+html,body{width:100%;;height:100%;}
+.wrap{width: 100%;height: 100%;padding-left: 2%;}
+.wrap_top,.online_top{width: 100%;height: 50px;line-height: 50px;/*border: solid red 1px;*//*padding-left:2% ;*/}
+.wrap_top>li{width: 33.33%;float: left;}
+.cartitle{width: 75px;height:45px;font-size: 18px;font-weight: bold;border-bottom: solid 3px darkgray;text-align: center;padding: 0 0 5px 0;}
+.carNum{width: 100%;height:40px;}
+.carNum>li{width: 33.33%;float: left;}
+.sumNum,.used,.unUsed{border-radius: 10px;padding: 0 8px;color: #FFFFFF;}
+.sumNum{background: #4275f8;}
+.used{background:#ff0060;}
+.unUsed{background:#38c8ec;}
+.odel,.amend{color: #FFFFFF;background: #ff0060;;width:60px;height: 30px;text-align: center;line-height: 30px;border-radius: 3px;margin: 10px 15px 10px 0;float: right;}
+.odel,.olook{cursor: pointer;}
+.amend{background: #4275f8;}
+.allBran{width: 65%;/*height: 25px;*/margin: 15px 0 10px 0;}
+.allBranch,.status{width: 30%;height: 25px;margin-right: 2.5%;}
+.allBranQuery,.maintQuery{cursor: pointer;background: #4275f8;padding: 5px 15px;color: #FFFFFF;border-radius: 3px;}
+.maintQuery{background: gray;}
+.allBanQuery:hover{background:#FF0060 ;}
+.cars_Inf{width: 100%;height: calc(100% - 120px);height: -webkit-calc(100% -120px);height: -moz-calc(100% -120px);/*border: solid 1px black;*/overflow: auto;}
+#cars_inf{width: 100%;}
+.carInf:hover { border: 1px solid #4275f8; box-shadow: rgba(66, 117, 248, 0.5) 0 1px 5px;}
+.carInf{/*width: 24%;*/width: 19%;/*height: 48%;*/margin:0 1% 1% 0;background: #FFFFFF;float: left;position: relative;/*padding: 1% 1% 0;*/border: solid 1px lightgray;border-radius: 5px;}
+.carInf>li:last-child{height: 40px;line-height: 40px;border-top: solid 1px lightgray;}
+.choice{position: absolute;left: 3px;top: 3px;}
+.choice>input{width: 20px;height: 20px;}
+/*.carImg{height: 56%;}*/
+.carImg>img{width: 100%;height: 150px;}
+.brand,.licence,.remaining,.parkingPlace{/*height: 12%;*/height: 30px;}
+.choice,.carImg,.brand,.licence,.remaining,.parkingPlace,.lastDriver{padding: 1% 2% 0;}
+.firBrand,.details,.agree{color: #4275f8;}
+.licence,.remaining,.parkingPlace,.carSpace,.lastDriver{color: gray;}
+.carSpace,.otime{float: right;}
+.carState,.details{width: 50%;float: left;text-align: center;}
+.details,.agree{cursor: pointer;}
+.agree:hover{background: #FF0060;color: white;}
+.carState{color: #ff22f2;border-right: solid 1px lightgray;}
+@media only screen and (max-width: 1280px){
+.wrap_top>li{width: 25%;float: left;}
+.wrap_top>li:nth-child(2){width: 50%;}
+}
+/*@media only screen and (min-width: 1600px){
+.carInf{width: 19%;}	
+}*/
+@media only screen and (max-width: 1152px){
+.carInf{width: 24%;}	
+}
+@media only screen and (min-width: 1601px){
+.carInf{width: 15.66%;}	
+}
+@media only screen and (max-height: 768px){
+.carImg>img{width: 100%;height: 125px;}
+}
+@media only screen and (max-height: 600px){
+.carImg>img{width: 100%;height: 105px;}
+.carInf>li:last-child{height: 30px;line-height: 30px;border-top: solid 1px lightgray;}
+}
+/*详情*/
+.topBranch{font-size: 16px;font-weight: bold;border: none;background: #f0f4fa;}
+.detChange,.detSave{padding: 5px 10px;background: #4275F8;margin-right: 30px;border-radius: 5px;color: #FFFFFF;cursor: pointer;position: absolute;right: 0;top: 15px;z-index: 1;}
+.wrap_back{height: 50px;line-height: 50px;}
+.back_title{height:45px;font-size: 18px;font-weight: bold;border-bottom: solid 3px darkgray;text-align: center;cursor: pointer;}
+.wrap_back{margin-bottom: 10px;}
+.wrap_back>li{float: left;width: auto;}
+/*.wrap_back>li:last-child{float: right;}*/
+.detailsInf{border: solid 1px lightgray;border-radius: 2px;width: calc(100% - 15px);width: -webkit-calc(100% -15px);width: -moz-calc(100% -15px);height: calc(100% - 100px);height: -webkit-calc(100% -100px);height: -moz-calc(100% -100px);}
+#detailsInf{height: 70%;padding: 20px 0 0 10px;position: relative;}
+.top_branch{font-size: 16px;font-weight: bold;margin-bottom: 10px;}
+.top_img{width: 220px;position: relative;border:solid 1px lightgray;height: 120px;}
+.top_img>p{color: gray;}
+#top_img{position: relative;height: 100%;}
+.topPhoto{opacity: 0;position: absolute;left: 0;top: 0;border: solid red 1px;width: 100%;height: 100%;}
+#topPhoto{width:220px;height:120px;}
+.carInf_det{width: 100%;}
+.carInf_det>li{width: 33.33%;float: left;padding: 0.7% 0;}
+.carInf_det input{border: none;height: 100%;background: #f0f4fa;}
+.carInf_det span{font-size: 14px;}
+@media only screen and (min-width: 1152px){
+.carInf_det input,.carInf_det span{font-size: 16px;}
+}
+.safe_det>input,.annual_det>input,.maintan_det>input{width: 32%;text-align: center;}
+.firBrandDet{color:#4275f8;}
+.mtMoneyDet{color: #ff2275;}
+.mtNumDet{color: #45cced;}
+.state_det{padding:10px 0 0 10px;border-top: solid 1px lightgray;height: 30%;overflow: auto;}
+.currentState{color: #ff2275;}
+.currentInf{width: 100%;}
+.currentInf>li{width:20%;float: left;padding: 10px 0 0 0;}
+.currentInf>li:last-child{width: 100%;}
+.detailsInfBg{position: absolute;left: 0;top: 0;width: 100%;height: 100%;}
+@media only screen and (max-width: 1280px){
+/*.top_img{width: 220px;position: relative;border:solid 1px lightgray;height: 120px;}*/
+.carInf_det>li{width: 30%;}
+.buyday_det,.safe_det,.annual_det,.maintan_det{width: 40%!important;}
+.currentInf>li{width:33.33%;}
+.enginDet{width: 140px;}
+/*.currentInf>li:last-child{width: 100%;}*/
+}
+@media only screen and (max-height: 720px){
+.carInf_det>li{float: left;padding: 0.4% 0;}
+}
+@media only screen and (max-height: 600px){
+.detailsInf{height: calc(100% - 75px);height: -webkit-calc(100% -75px);height: -moz-calc(100% -75px);}
+#detailsInf{height: 76%}
+.currentInf>li{padding: 0;}
+}
+/*司机用车申请*/
+.online_top>li:first-child,.online_top>li:nth-child(2){float: left;width: 90px;}
+.online_top>li:nth-child(2){line-height: 52px;}
+.online_top>li:last-child{float: right;}
+.olook{color: #FFFFFF;background: gray;;width:90px;height: 30px;text-align: center;line-height: 30px;border-radius: 3px;margin: 10px 15px 10px 0;float: right;}
+.nowOrder{color:#4275f8 ;text-align: center;cursor: pointer;}
+.details{cursor: pointer;}
+/*假日用车*/
+.holidayTitle{height: 45px;line-height: 45px;position: relative;}
+.holidayAppoint{display:inline-block;height: 100%;border-bottom: solid lightgray 3px;font-size: 18px;font-weight: bold;}
+.nowAppoint,.Mend{cursor: pointer;/*float: right;*/padding:0px 15px;color: #FFFFFF;background: #4275F8;border-radius: 5px;height: 30px; line-height: 30px; /*margin:15px 15px 0 0;*/position: absolute;right: 120px;bottom: 0;}
+.Mend{right: 15px;}
+.nowAppoint:hover{background: #FF0060;}
+.delAppoint{cursor: pointer;padding:0px 15px;color: #FFFFFF;background:gray; border-radius: 5px;height: 30px; line-height: 30px; position: absolute;right: 15px;bottom: 0;}
+.delAppoint:hover{background:#FF0060;}
+.allBran{width: 80%;margin: 20px 0;height: 25px;}
+.allBranch{float:left; height: 25px;margin-right: 2.5%;color: #4275f8;border-radius: 2px;}
+#holidayDate{height: 30px;border: solid 1px rgb(169,169,169);background: #FFFFFF;position: absolute;bottom: 0;right: 225px;}
+#holidayDate>input,#holidayDate>span{float: left;border: none;height: 100%;padding-left: 2px;line-height: 30px;}
+.holidayDet{text-align: center;width: 100%;}
+.boderNone{border: none!important;}
+.hideDate{width: 100%;height: 100%;position: absolute;left: 0;top: 0;}
+.ohide{display: none;}
+@media only screen and (max-width: 1366px){
+/*.carInf{font-size: 14px;}*/
+.carInf>li:last-child.stateInf{height: 35px;line-height: 35px;}
+.holidayDet{height: 35px!important;}
+}
+/*维修车辆*/
+.maintNav{margin:10px 0 20px 0;}
+.maintNav>a{font-weight: 16px;padding: 5px 0;margin-right: 20px;}
+.a1{border-bottom: solid 2px #4275f8;}
+#box{width: 100%;height: calc(100% - 95px);height: -webkit-calc(100% -95px);height: -moz-calc(100% -95px);position: relative;}
+#maintainIng{overflow-y: auto;}
+#maintainNeed,#maintainIng{width:100%;height:100%;position: absolute;left: 0;top: 0;background: #f0f4fa;overflow-y: auto;}
+#maintainEnd{width:100%;height:100%;position: absolute;left: 0;top: 0;background: #f0f4fa;}
+#maintainNeed:target,#maintainIng:target,#maintainEnd:target{z-index: 2;}
+.maintInf,.maintIngul{width: 24%;margin:0 1% 1% 0;background: #FFFFFF;float: left;position: relative;border: solid 1px lightgray;border-radius: 2px;}
+#brandM,#licenceM,.safe,.lastMaint,.endMaint{height: 22px; padding: 0 2% 0;color:gray;}
+.maintInf>li:last-child,.maintIngul>li:last-child{height: 30px;border-top: solid 1px lightgray;line-height: 30px;}
+@media only screen and (max-width: 1024px){
+.maintInf,.maintIngul{width: 32%;margin:0 1% 1% 0;background: #FFFFFF;float: left;position: relative;border: solid 1px lightgray;border-radius: 2px;}
+.maintInf>li:last-child,.maintIngul>li:last-child{height: 22px;border-top: solid 1px lightgray;line-height: 22px;}
+}
+@media only screen and (max-width: 1279px){#brandM,#licenceM,.safe,.lastMaint,.endMaint{height: 18px;font-size: 14px;}}
+@media only screen and (min-width: 1600px){
+.maintInf ,.maintIngul{width: 19%;}	
+}
+/*维修中*/
+.a1{color: #4275F8;}
+/*.Mneed,.Mend{cursor: pointer;float: right;padding:0px 15px;color: #FFFFFF;background: #4275F8;border-radius: 5px;height: 30px; line-height: 30px; margin:15px 15px 0 0;}*/
+.Mnone{display: none;}
+.stateInfM{text-align: center;color: #FF0060;}
+.stateInfN,.agree,.refused{width: 50%;float: left;text-align: center;}
+.refused{border-left:solid 1px lightgray ;color: #FF1F06;}
+.refused:hover{cursor: pointer;background:#FF0060;color: #FFFFFF;}
+.stateInfN{color: #FF0060;border-right: solid 1px lightgray;}
+/*维修保养结束*/
+.maintEndultop{border: solid 1px lightgray;border-right:none;width: 100%;height: 35px;}
+.maintEndul{border: solid 1px lightgray;border-top:none;border-right:none;width: 100%;height: 35px;}
+
+.maintEndul>li,.maintEndultop>li{float: left;text-align: center;line-height: 35px;border-right: solid 1px lightgray;height:35px;}
+.maintEndul>li{overflow-x: auto;}
+/*#maintainEnd>.maintEndul:last-child{border-bottom: solid 1px lightgray;}*/
+.MElist1,.Elist1{width:5% ;}
+/*.MElist2,.Elist2{width:5%;}*/
+.MElist3,.Elist3{width:12%;}
+.MElist4,.Elist4{width:10%;}
+.MElist5,.Elist5{width:10%;}
+.MElist6,.Elist6{width:12%;}
+.MElist7,.Elist7{width:12%;}
+.MElist8,.Elist8{width:12%;}
+.MElist9,.Elist9{width:11%;}
+.MElist10,.Elist10{width:16%;}
+@media only screen and (max-width: 1023px){
+.maintEndul,.maintEndultop{width:150%;overflow-x: auto;}
+}
+/**/
+.orderInfAdm{width: 36%;position: absolute;padding: 10px;background: #FFFFFF;margin-top:18%;margin-right:42%;border-radius: 5px;}
+/*.orderInfAdm>div{float: right;}*/
+.infListAdm{padding-left: 10px;margin-top: 15px;}
+.infListAdm>li{width: 100%;height: 30px;width: 50%;float: left;}
+.infListAdm>li:last-child{height: 50px;width: 60%;}
+.infListAdm>li>textarea{width: 100%;height:50px;border: none;border: solid 1px lightgray;resize: none;}
+.quitSureAdm{margin:20px 0 15px;}
+.quitSureAdm>span{margin-right: 25px;}
+/*分页*/
+.pageBox{padding-right:10px ;}
+.pageMenu li::selection{background:transparent;}
+.clearfix{zoom:1;}
+.clearfix:after{content:"";display: block;clear: both;}
+.pageDiv{background: #f0f4fa;margin-bottom: 10px;/*height: 360px;*/height: 480px;/*overflow-y: auto;*/width: 100%;}
+/*.pageDiv::-webkit-scrollbar{width: 0;height: 0;}*/
+.top_Page{/*height: 526px;*/height: calc(100% - 90px);height:-webkit-calc(100% - 90px);height:-moz-calc(100% - 90px);overflow: auto;}
+/*.pageDiv::-webkit-scrollbar-track{background:red ;}*/
+.maintEndultop{background: #8e96ab;color: #cc1717;}
+.maintEndul{background: #b6b8bb;}
+.pageDiv>.maintEndul:last-child{border-bottom: solid 1px lightgray;}
+.hide{display: none;}
+.notContent{padding: 15px 0;text-align: center;}
+.page{text-align: center;width: 100%;margin: 0 auto;}
+.pageMenu{display: inline-block;width: 100%;}
+.pageMenu li{border: solid thin #ddd;margin: 3px;float: left;padding: 5px 10px;cursor: pointer;background: #fff;height: 30px;}		
+.pageMenu li.disabled{ background-color: #DDDDDD;   cursor: not-allowed;}
+.pageMenu li.active{ border: solid thin #0099FF;background-color: #0099FF;color: white;}
+.pageMenu li.last{background: transparent;border:0;position: relative;top: -4px;}
+.page .keuInput{padding: 0 5px;width: 50px;border: solid thin #ddd;height: 29px;outline: none;text-align: center;font-size: 16px;}
+.page .btnSure{padding: 4px 8px;border: solid thin #ddd;outline: none;text-align: center;font-size: 16px;background: #fff;/*position: relative;top: 2px;*/height: 29px;}
+.page .btnSure:hover{cursor: pointer;}

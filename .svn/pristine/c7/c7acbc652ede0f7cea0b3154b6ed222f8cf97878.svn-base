@@ -1,0 +1,79 @@
+﻿using CarManageSystem.helper;
+using CarManageSystem.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.UserManage.Driver
+{
+    /// <summary>
+    /// AccessDriver 的摘要说明
+    /// </summary>
+    public class AccessDriver : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var driver = context.Request["drivers"];
+            var driverArry = JsonConvert.DeserializeObject<Users>(driver);
+            var access = context.Request["access"];
+            
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var dri = cms.user.Where(u => driverArry.Ids.Contains(u.Account)).ToList();
+                if(Convert.ToInt16(access)==1)
+                {
+                    foreach (var d in dri)
+                    {
+                        var _msg = cms.msg_userapply
+                           .FirstOrDefault(s => s.AccessUser == d.Account && (s.IsAudit == 0 && s.IsAudit == null && s.AccessRole == d.ApplyRole.ToString()));
+                        _msg.IsAudit = 1;
+                        _msg.AuditTime = DateTime.Now;
+                        _msg.AuditUser = currentUser.Account;
+
+                        var tempRole = d.ApplyRole;
+                        d.UserType = tempRole;
+                        d.ApplyRole = -1;
+                        d.ApplyState = 1;
+                    }
+                }
+                else
+                {
+                    foreach (var d in dri)
+                    {
+                        var _msg = cms.msg_userapply
+                           .FirstOrDefault(s => s.AccessUser == d.Account && (s.IsAudit == 0 && s.IsAudit == null && s.AccessRole == d.ApplyRole.ToString()));
+                        _msg.IsAudit = 2;
+                        _msg.AuditTime = DateTime.Now;
+                        _msg.AuditUser = currentUser.Account;
+
+                        d.ApplyState = 2;
+                    }
+                }
+                
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

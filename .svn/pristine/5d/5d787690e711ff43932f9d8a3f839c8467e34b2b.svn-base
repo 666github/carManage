@@ -1,0 +1,704 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"microsoft yahei", "微软雅黑";
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content:"";
+    visibility: hidden;
+    height: 0;
+}
+html, body {
+    width:100%;
+    ;
+    height:100%;
+}
+.wrap {
+    width: 100%;
+    height: 100%;
+    background: #f0f1f5;
+    padding-left:2%;
+}
+.pertitle {
+    width: 75px;
+    height:45px;
+    line-height:50px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: solid 3px darkgray;
+    text-align: center;
+}
+.personCenter {
+	display: none;
+    width: 50%;
+    margin: 20px 0 10px 0;
+}
+.personCenter>li {
+    float: left;
+    width: 25%;
+}
+.personCenter_a {
+    color: #4375f8;
+    padding: 5px 0;
+    border-bottom: solid 2px #4375f8;
+}
+.personCenter>li>span:hover {
+    color: #4375f8;
+    padding: 5px 0;
+    border-bottom: solid 2px #4375f8;
+}
+#infOrdercar {
+    margin: 20px 20px 0 0;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+.carInf {
+    width: 100%;
+    border-bottom: solid 1px lightgray;
+    padding: 10px 0;
+}
+.carInf>li {
+    float: left;
+    width: 19%;
+    height:70px;
+}
+#inftitle, #infState {
+    line-height: 70px;
+    text-align: center;
+}
+#inftitle {
+    width: 14%;
+}
+#infState {
+    width: 10%;
+}
+.firBrand {
+    color: #4375F8;
+}
+/*.infstate1{padding: 5px 10px;background: #4375F8;border-radius: 5px;color: #FFFFFF;}*/
+ .infstate1, .infstate3, .infstate4 {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background: #4275F8;
+}
+.infstate3 {
+    background:lightgray;
+}
+.stateBack {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background: #ff0060;
+}
+.statecolor {
+    color: #ff0060;
+}
+.infstate3, .infstate4 {
+    background: lightgray;
+}
+.carInf>li>p {
+    height: 35px;
+    line-height: 35px;
+}
+.infOne, .infTwo, .infThree, .infFour, .infState {
+    color: gray;
+}
+@media only screen and (max-width: 1024px) {
+    .carInf {
+        padding: 0;
+    }
+    .carInf>li {
+        float: left;
+        width: 25%;
+        height:50px;
+    }
+    #inftitle, #infState {
+        width: 25%;
+        line-height: 50px;
+    }
+    .infFour {
+        margin-left: 25%;
+    }
+    #infState {
+        text-align: left;
+    }
+    .carInf>li>p {
+        height: 25px;
+        line-height: 25px;
+    }
+}
+/*资料修改*/
+ #infAmend {
+    width: 100%;
+}
+.baseInf, .userSafe {
+    float: left;
+    width: 50%;
+    padding: 15px 10px 10px;
+}
+.baseInf>p, .userSafe>p {
+    font-weight: bold;
+}
+.oleft, .oright {
+    background: #FFFFFF;
+    border: solid 1px lightgray;
+    padding: 10px 0 10px 0;
+    margin-top: 10px;
+}
+.oright input{
+	outline: none;
+}
+.personalLeftInf{
+	padding-left: 10px;
+}
+.personalLeftInf>li {
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 5px;
+}
+.personalLeftInf>li:first-child {
+    height: 80px;
+}
+.driverCard{
+	height: 165px !important;
+	margin-top: 20px;
+	position: relative;
+}
+#topPhoto{
+	height: 160px;
+	width: 250px;
+}
+.personalLeftInf>li>span:first-child {
+    display: block;
+    width: 80px;
+    text-align: right;
+}
+.personalLeftInf>li>div, .personalLeftInf>li>span, .personalLeftInf>li>input, .personalLeftInf>li>select {
+    float: left;
+}
+.personalLeftInf>li>input, .personalLeftInf>li>select {
+    height:100%;
+    width: 50%;
+    border: none;
+    border: solid 1px lightgray;
+    border-radius:5px ;
+    padding-left: 5px;
+    outline: none;
+}
+.personalLeftInf>li>select{
+	appearance: none;
+	-moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url(../../../img/down.png);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 7px) 50%;
+    background-size: auto;
+}
+.personalLeftInf>li:last-child>input {
+    width: 30%;
+}
+.photos {
+    position: relative;
+}
+
+.photos>p {
+    color: gray;
+}
+.carPhoto {
+    width:80px!important;
+    height:30px!important;
+    opacity:0;
+    position: absolute;
+    left:180px;
+    bottom: 0;
+    z-index: 1;
+}
+.otext {
+    position: absolute;
+    left:180px;
+    bottom: 35px;
+    color: gray;
+}
+#carPhoto {
+    width:80px;
+    height:80px;
+    position: absolute;
+    left:80px;
+    bottom: 0;
+    border-radius: 50%;
+    background: lightgray;
+}
+.img1 {
+    border-radius: 50%;
+    border: none!important;
+}
+.carbg {
+    position: absolute;
+    left: 180px;
+    bottom: 0;
+    width:80px;
+    height: 30px;
+    background: #4275F8;
+    text-align: center;
+    border-radius: 5px;
+    line-height: 30px;
+    color: #FFFFFF;
+}
+.topPhoto{
+    position: absolute;
+    left: 345px;
+    top: 131px;
+    width: 80px!important;
+    height: 30px!important;
+    opacity: 0;
+    z-index: 1;
+}
+.licenceBg{
+    position: absolute;
+    left: 345px;
+    top: 131px;
+    width: 80px!important;
+    height: 30px!important;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    background: #4275F8;	
+    border-radius: 5px;
+}
+#mysubmit {
+    display: block;
+    width: 80px;
+    height: 35px;
+    background:#4575f8;
+    color: #FFFFFF;
+    border:none;
+    border-radius:5px;
+    margin-left: 80px;
+}
+.oright li {
+    padding-left:10px;
+    padding-bottom: 10px;
+    height: 45px;
+    margin-bottom: 10px;
+    line-height: 35px;
+}
+.oright li>span:first-child {
+    display: block;
+    width: 80px;
+    text-align: right;
+}
+.oright li>span, .oright li>div, .oright li>input {
+    float: left;
+}
+.oright li>input {
+    width: 40%;
+    height: 100%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+.change {
+    background: #4275F8;
+    padding: 0 10px;
+    margin:0 5px;
+    float: right!important;
+    color: #FFFFFF;
+    border-radius: 5px;
+    line-height: 35px;
+}
+.ohide {
+    display: none;
+}
+.rightList {
+    position: relative;
+}
+.changeBg {
+    width:65%;
+    height:100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.changePsw{
+	width: 65%;
+	height: 155px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.change:hover {
+    background:gray;
+}
+@media only screen and (max-width: 1024px) {
+    .personalLeftInf>li {
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 5px;
+    }
+    .carInf>li {
+        margin-bottom: 3px;
+    }
+    .infState>p {
+        float: left;
+        margin:12px 10px 12px 0;
+    }
+    #mysubmit {
+        height: 30px;
+        margin-top: -10px;
+    }
+    .oleft, .oright {
+        margin-top: 0;
+    }
+    .oleft {
+        padding:10px 0 5px 5px;
+    }
+}
+@media only screen and (max-height: 600px) {
+    .baseInf, .userSafe {
+        float: left;
+        width: 50%;
+        padding:2px 10px 0;
+    }
+}
+/*待审核*/
+ #audit {
+    width: 100%;
+    /*padding: 15px 10px 10px 0;*/
+    overflow-y: auto;
+    height: 400px;
+    padding: 0 10px 0 0;
+    margin-top: 15px;
+}
+.auditInf {
+    width: 100%;
+    background: #FFFFFF;
+}
+.auditInf>li {
+    float: left;
+    /*border: solid 1px gray;*/
+    height: 80px;
+}
+.audit_img {
+    width: 10%;
+    position: relative;
+}
+.audit_inf {
+    width: 60%;
+}
+.audit_node {
+    width: 30%;
+    line-height: 80px;
+    text-align: right;
+    padding-right: 20px;
+    color: gray;
+}
+.audit_inf>p:first-child {
+    margin: 15px 0 5px 0;
+}
+.audit_inf>p:last-child {
+    color: gray;
+}
+.audit_img>img {
+    width: 50px;
+    height: 50px;
+    border:solid 1px lightgray;
+    border-radius: 50%;
+    position:absolute;
+    left:50%;
+    top:15px;
+    margin-left:-25px;
+}
+.fast {
+    color: #ffa886;
+}
+.auditAdm {
+    color: #4275F8;
+}
+@media only screen and (min-width: 1280px) {
+    #audit {
+        height: 500px;
+    }
+    .auditInf>li {
+        float: left;
+        /*border: solid 1px gray;*/
+        height: 100px;
+    }
+    .audit_node {
+        width: 30%;
+        line-height: 100px;
+        text-align: right;
+        padding-right: 20px;
+        color: gray;
+    }
+    .audit_inf>p:first-child {
+        margin: 25px 0 5px 0;
+    }
+    .audit_inf>p:last-child {
+        color: gray;
+    }
+    .audit_img>img {
+        width: 60px;
+        height:60px;
+        border:solid 1px lightgray;
+        border-radius: 50%;
+        position:absolute;
+        left:50%;
+        top:20px;
+        margin-left:-30px;
+    }
+}
+/*消息提醒*/
+ #news {
+    width: 100%;
+    height: calc(100% - 100px);
+    height: -webkit-calc(100% - 100px);
+    height: -moz-calc(100% - 100px);
+    /*border: solid 1px black;*/
+}
+.illegal, .maturity, .maintenance, .warning {
+    width: 50%;
+    float: left;
+    /*border: solid 1px red;*/
+    padding: 5px 10px 5px 5px;
+}
+.illegal, .maturity {
+    height: 60%;
+}
+.maintenance, .warning {
+    height: 40%;
+}
+.titleP {
+    font-size: 14px;
+    font-weight: bold;
+    border-left:solid #4275F8 2px;
+    padding-left: 5px;
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+.illegal1, .maturity1, .maintenance1, .warning1 {
+    height:calc(100% - 30px);
+    height: -webkit-calc(100% - 30px);
+    height: -moz-calc(100% - 30px);
+    width: 100%;
+    overflow: auto;
+    border: solid 1px lightgray;
+    box-shadow: 0 0 2px lightgray;
+}
+.illegalInf, .maturityInf, .maintenanceInf, .warningInf {
+    color: gray;
+    padding-left: 5px;
+}
+.illegalInf:hover, .maturityInf:hover, .maintenanceInf:hover, .warningInf:hover {
+    background: #e3e7f1;
+}
+.illegalInf>li, .maturityInf>li, .maintenanceInf>li, .warningInf>li {
+    height: 100%;
+}
+.illegalInf, .maturityInf {
+    height: 33.33%;
+}
+.maintenanceInf, .warningInf {
+    height: 50%;
+}
+.illegal_infUl {
+    height: 100%;
+    padding: 10px 0;
+}
+.illegal_infUl>li {
+    float: left;
+    height: 33.33%;
+}
+.illegalInf>li, .maturityInf>li, .maintenanceInf>li, .warningInf>li {
+    float: left;
+}
+.illegal_num, .maturity_num, .maintenance_num, .warning_num {
+    width: 2%;
+    color: #000000;
+    font-size: 14px;
+}
+.illegal_img {
+    width: 12%;
+}
+.illegal_inf {
+    width: 86%;
+    padding-left: 5px;
+}
+.illegal_num, .illegal_img, .maturity_num {
+    position: relative;
+    display: table;
+}
+.illegal_num>span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.illegal_img>img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: solid 1px lightgray;
+}
+.illegal_img>img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -27px 0 0 -27px;
+}
+.illegal_infUl1 {
+    width: 100%;
+}
+.illegal_infUl2, .illegal_infUl4 {
+    width: 30%;
+}
+.illegal_infUl3, .illegal_infUl5 {
+    width: 70%;
+    padding-left: 5px;
+}
+.illegal_name {
+    font-size: 18px;
+    margin-right: 5px;
+    color: #000000;
+}
+/**/
+ .maturityInf, .maintenanceInf {
+    padding: 0 0 0 5px;
+}
+.maturity_inf1, .maintenance_inf1 {
+    color: #000000;
+}
+.brand1 {
+    color: #4275F8;
+}
+.maturity_inf1>span:first-child, .maintenance_inf1>span:first-child {
+    color: #4275F8;
+}
+.maturity_type {
+    color: #ff0060
+}
+/*.maturity_inf1,.maturity_inf3,.maintenance_inf1,.maintenance_inf3{width: 32%;}*/
+ .maturity_inf1, .maintenance_inf1 {
+    width: 28%;
+}
+.maturity_inf3, .maintenance_inf3 {
+    width: 34%;
+}
+.maturity_inf2, .maintenance_inf2 {
+    width: 34%;
+}
+.warning_inf1 {
+    width: 98%;
+    padding-left: 5px;
+}
+.maturity_num, .maturity_inf1, .maintenance_num, .maintenance_inf1, .warning_num {
+    display: table;
+}
+.maturity_inf1>p, .maintenance_inf1>p {
+    height: 100%;
+    padding-left: 5px;
+}
+.maturity_inf2>p, .maturity_inf3>p, .maintenance_inf2>p, .maintenance_inf3>p, .warning_inf1>p {
+    height: 50%;
+    display: table;
+    padding: 5px 0;
+}
+.maturity_num>span, .maturity_inf1>p, .maintenance_num>span, .maintenance_inf1>p, .warning_num>span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+.maturity_num>span, .maintenance_num>span, .warning_num>span {
+    text-align: center;
+}
+.maturity_inf21>span, .maturity_inf31>span, .maintenance_inf21>span, .maintenance_inf31>span, .warning_inf11>span {
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+}
+.maturity_inf22>span, .maturity_inf32>span, .maintenance_inf22>span, .maintenance_inf32>span, .warning_inf12>span {
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
+}
+.warning_reson, .warning_times {
+    color: #FF0060;
+}
+.warning_reson, .warning_times {
+    color: #FF0060;
+}
+.warning_reson, .warning_times {
+    color: #FF0060;
+}
+.warning_inf12, .warning_time {
+    float: left;
+}
+.warning_time {
+    float: right;
+    padding: 10px;
+}
+@media only screen and (max-width: 1024px) {
+    #news {
+        overflow: auto;
+    }
+    .illegal, .maturity, .maintenance, .warning {
+        width: 80%;
+        float: left;
+        /*border: solid 1px red;*/
+        padding: 5px 10px 5px 5px;
+    }
+    .illegal_num, .maturity_num, .maintenance_num, .warning_num {
+        width: 4%;
+        color: #000000;
+        font-size: 14px;
+    }
+    .illegal_img {
+        width: 12%;
+    }
+    .illegal_inf {
+        width: 84%;
+        padding-left: 5px;
+    }
+    .illegal_img>img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: solid 1px lightgray;
+    }
+    .illegal_img>img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -30px 0 0 -30px;
+    }
+    .maturity_inf1, .maintenance_inf1 {
+        width: 28%;
+    }
+    .maturity_inf3, .maintenance_inf3 {
+        width: 34%;
+    }
+    .maturity_inf2, .maintenance_inf2 {
+        width: 34%;
+    }
+    .warning_inf1 {
+        width: 96%;
+        padding-left: 5px;
+    }
+}
+
+
+ .carPhoto,.topPhoto,#mysubmit,.change{
+ 	cursor: pointer;
+ }

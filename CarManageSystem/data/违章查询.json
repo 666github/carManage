@@ -1,0 +1,14 @@
+{"传参车牌号是carLicence":"京A00001",
+	"state":"success",
+  "brearule": [
+		    {	
+		    "person":"违章人",  	    
+				"act":"违章行为",
+		    "area": "违章地点",
+		    "date": "违章时间"	, 
+		    "fen": "违章扣分"	, 
+		    "handled": "未处理"	, 
+		    "money": "违章罚款"	  
+		    }
+		]
+}

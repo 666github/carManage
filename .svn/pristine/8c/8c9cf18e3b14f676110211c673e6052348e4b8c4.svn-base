@@ -1,0 +1,21 @@
+{
+	"warning":[
+		{
+			"fast":"[紧急]",
+			"auditAdm":"[院级管理员审核]",
+			"applyfor":"向您申请成为院级管理员",
+			"applybody":"王五",
+			"sendtime":"2017-07-06 19:30",
+			"auditadmin":"院级管理员审批"
+		},
+		{
+			"fast":"[急]",
+			"auditAdm":"[部门级管理员审核]",
+			"applyfor":"向您申请成为部门级管理员",
+			"applybody":"王六",
+			"sendtime":"2017-07-06 19:30",
+			"auditadmin":"部门级管理员审批"
+		}
+
+	]
+}

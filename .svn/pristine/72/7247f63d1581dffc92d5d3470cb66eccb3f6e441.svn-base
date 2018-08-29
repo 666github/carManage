@@ -1,0 +1,70 @@
+{
+	"driversTotal": 12,
+	"driversInfo": [
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "赵新宇",
+			"departMent": "基础测绘部",
+			"typeInfo": "全职",
+			"licenseInfo": "C1",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"driverState":"0",
+			"driverLicenseInfo":"5566",
+			"milesNum":"5555",
+			"illegalNumInfo":"55555",
+			"driverNumInfo":"5555",
+			"driverType":"5555",
+			"driverBranch":"5555"
+		},
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "高师傅",
+			"departMent": "基础测绘部",
+			"typeInfo": "兼职",
+			"licenseInfo": "B2",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"driverState":"1",
+			"driverLicenseInfo":"5566",
+			"milesNum":"5555",
+			"illegalNumInfo":"55555",
+			"driverNumInfo":"5555",
+			"driverType":"5555",
+			"driverBranch":"5555"
+		},
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "师傅",
+			"departMent": "基础测绘部",
+			"typeInfo": "兼职",
+			"licenseInfo": "B2",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"driverState":"1",
+			"driverLicenseInfo":"5566",
+			"milesNum":"5555",
+			"illegalNumInfo":"55555",
+			"driverNumInfo":"5555",
+			"driverType":"5555",
+			"driverBranch":"5555"
+		},
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "傅",
+			"departMent": "基础测绘部",
+			"typeInfo": "兼职",
+			"licenseInfo": "B2",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"driverState":"1",
+			"driverLicenseInfo":"5566",
+			"milesNum":"5555",
+			"illegalNumInfo":"55555",
+			"driverNumInfo":"5555",
+			"driverType":"5555",
+			"driverBranch":"5555"
+		}
+	],
+	"state": "success"
+}

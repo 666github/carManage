@@ -1,0 +1,74 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ViewCarsMileage 的摘要说明
+    /// </summary>
+    public class ViewCarsMileage : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            //查询
+            var department = Convert.ToString(currentUser.Department);
+            var startDate = context.Request["startDate"].Trim();
+            var endDate = context.Request["endDate"].Trim();
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                dynamic json = new JObject();
+                
+                var carList = cms.carinfo.ToList()
+                    .Where(s=> string.IsNullOrEmpty(department) ? true : department == s.DepartmentId.ToString())
+                    .Select(item => new
+                    {
+                        carsImg = ImageHelper.GetImagePath(item.CarPhoto),
+                        firstBrand = item.CarBrand,
+                        plateNum = item.CarNumber,
+                        seat = item.CarModel+"座",
+                        miles = cms.returnregister.ToList()
+                               .Where(r => r.CarNumber == item.CarNumber
+                               && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < r.ReturnTime)
+                               && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > r.ReturnTime))
+                               .Sum(s => s.TravelMileage),
+                        count = cms.returnregister.ToList()
+                               .Count(r => r.CarNumber == item.CarNumber
+                               && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < r.ReturnTime)
+                               && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > r.ReturnTime))
+                    });
+
+                //转Json
+                json.totalNum = carList.Count();
+                json.mileNum = carList.Sum(s => Convert.ToDouble(s.miles));
+                json.travelNum = carList.Sum(s => Convert.ToInt16(s.count));
+                var carJson = JArray.FromObject(carList);
+                json.mileageInfo = carJson;
+                json.state = "success";
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

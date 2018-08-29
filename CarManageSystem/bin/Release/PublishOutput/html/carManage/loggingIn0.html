@@ -1,0 +1,120 @@
+<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<!--<link rel="stylesheet" type="text/css" href="../../css/carManage/loggingIn.css"/>-->
+	<link rel="stylesheet" type="text/css" href="../../css/ifra.css"/>
+	<script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/carManage.js" type="text/javascript" charset="utf-8"></script>
+	<body>		
+		<div class="container">
+			<div class="leftInf">
+				<iframe src="../ifraLists.html" width="100%" height="99%" scrolling="no" frameborder="0" id="iframe1"></iframe>
+				<!--<div class="personInf">
+				<img src="img/login/car.png"/>
+					<div class="personPho"></div>
+					<p>管理员y</p>
+					<p>院级管理员</p>
+				</div>
+				<ul class="lists">
+					<li id="homePage" class="firList">
+						<p>首页</p>
+					</li>
+					<li id="branchManage" class="firList">
+						<p>部门管理</p>
+					</li>
+					<li id="peopleManage" class="firList">
+						<p>人员管理</p>
+						<ul class="secList ohide">
+							<li class="query">院级管理员</li>
+							<li>部门级管理员</li>
+							<li>司机管理</li>
+						</ul>
+					</li>
+					<li id="carManage" class="firList">
+						<p>车辆管理</p>
+						<ul class="secList ohide">
+							<li class="query">车辆查询</li>
+							<li><a href="./loggingIn.html">车辆录入</a></li>
+							<li><a href="./apply.html">用车申请</a></li>
+							<li><a href="./maintain.html">维修车辆</a></li>
+							<li><a href="./holidays.html">节假日用车</a></li>
+						</ul>
+					</li>
+					<li id="railManage" class="firList">
+						<p>轨道管理</p>
+					</li>
+					<li id="statistics" class="firList">
+						<p>统计</p>
+					</li>
+				</ul>-->
+			</div>			
+			<div class="rightInf">
+				<div class="topTitle">
+					<!--<iframe src="../ifraTitle.html" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>-->
+					<img src="../../img/index/biaozhi.png"/>
+					<p class="titleCh">北京市测绘设计研究院车辆管理系统</p>
+					<p class="thrIcon"><img src="../../img/index/infor.png"/><img src="../../img/index/set.png"/><img src="../../img/index/out.png"/></p>
+				</div>
+				<div id="container">
+					<p>车辆录入</p>					
+					<div id="">
+						<div id='userPhoto'>
+    						<img class='img1' src='' width='100%' height='100%' />			
+	    				</div>
+	    				<input type="file" onchange="PreviewImage(this,'userPhoto')" class="userPhoto"/>
+					</div>
+    				<ul class="driverInf">
+						<li><input type="text" name="" id="regUserName" value="" placeholder="品牌"/></li>
+						<li><input type="text" name="" id="regmyName" value="" placeholder="车牌"/></li>
+						<li><input type="text" name="" id="" value="" placeholder="型号"/></li>
+						<li>
+							<select name="" class="brach" id="regBranch">
+								<option value="gray">类型</option>
+								<option value="">大车</option>
+								<option value="">小车</option>							
+							</select>
+						</li>
+						<li class="buyDate"><input type="text" name="" id="buyDate" class="Wdate" value="" placeholder="购买日期" onfocus="WdatePicker()"/></li>
+						<li class="safeDate"><input type="text" name="" id="safeDate" class="Wdate" value="" placeholder="起始日期" onfocus="WdatePicker()"/></li>
+						<li class="effDate"><input type="text" name="" id="effDate" class="Wdate" value="" placeholder="有效日期" onfocus="WdatePicker()"/></li>
+					</ul>
+					
+		
+				</div>
+			</div>			
+		</div>
+	</body>
+	<script type="text/javascript">
+//		$("iframe .lists").on('click','.firList',function(){		
+//			$(this).find('.secList').toggle();
+//		})
+//		$("iframe .secList a").click(function(){console.log($(this))
+//			$(this).parents('.secList').removeClass('ohide')
+//		})
+//		$(document).on('click','iframe .firList',function(){		
+//		$(this).find('.secList').toggle();
+//		})
+//		$(document).on('click',' iframe .secList a',function(){console.log($(this))
+//			$(this).parents('.secList').removeClass('ohide')
+//		})
+
+//		$(function(){
+//			$(window.frames["iframe1"].document).find(".lists").on('click','.firList',function(){		
+//				$(this).find('.secList').toggle();
+//			})
+			
+//		})
+	</script>
+</html>

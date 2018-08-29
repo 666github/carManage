@@ -1,0 +1,58 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ApplyToUser 的摘要说明
+    /// </summary>
+    public class ApplyToUser : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登录
+            if (!CheckHelper.IsHavePri(context, 0))
+                return;
+            dynamic json = new JObject();
+            json.state = "success";
+            var account = Convert.ToString(context.Session["account"]);
+
+            var applyType = context.Request["applyType"];
+            using(cmsdbEntities cms=new cmsdbEntities())
+            {
+                var user = cms.user.FirstOrDefault(u => u.Account == account);
+                if(user.UserType!=Convert.ToInt16(applyType)-1)
+                {
+                    json.state = "不可申请，请刷新重试";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                if(user.ApplyState==0)
+                {
+                    json.state = "您已提交申请，不可重复申请";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                user.ApplyDate = DateTime.Now;
+                user.ApplyRole = user.UserType + 1;
+                user.ApplyState = 0;
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/date-new/js/jquery-ui-1.9.2.custom.js" type = "text/javascript" language="javascript" charset="gbk"></script>
+		<link rel="stylesheet" href="js/date-new/css/jquery-ui-1.9.2.custom.css" type="text/css">
+		<script src="js/date-new/js/share.js" type = "text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="css/trafficStatistics/maintenance.css"/>
+		<script src="js/trafficStatistics/maintenance.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul class="wrap_top">
+				<li><p class="cartitle">费用统计</p></li>
+				<li>
+					<ul class="vehicle">
+						<li>维修费用（元）: <span class="maintenanceCosts">0</span></li>
+						<li>保养费用（元）: <span class="serviceCosts">0</span></li>
+						<li>维修保养次数: <span class="maintenanceCount">0</span></li>
+						<li>加油费用：<span class="refuelingFee">0</span></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="allBran">
+				<select name="" class="mtBranch" disabled="disabled">
+					<option value="">所有部门</option>
+				</select>
+				<select name="" class="status">
+					<option value="">所有车辆</option>
+					<option value="1">维修</option>
+					<option value="2">保养</option>
+					<option value="3">年检</option>
+					<option value="4">保险</option>
+					<option value="5">加油</option>
+				</select>
+				<div class="mtTime">
+					<input type="text" name="mtTime1" id="mtTime1" class="Wdate olength" value="" placeholder="起始时间" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'mtTime2\')}'})"/>
+					-
+					<input type="text" name="mtTime2" id="mtTime2" class="Wdate olength" value="" placeholder="结束时间" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'mtTime1\')}'})"/>				        
+		        </div>
+			</div>
+			<div class="driversInfo">
+					<!--<ul class="carInfo">
+						<li class="carsImg"><img src="img/car02.png"/></li>
+						<li class="brands"><span class="firstBrand">福特</span><span>&nbsp;-&nbsp;</span><span class="serBrand">野马GT</span></li>
+						<li class="license"><span class="carLicense">车牌：京V 00001</span><span class="seat">5座</span></li>
+						<li class="stateInf"><div class="tripMile"><span class="miles">72</span>元</div><div class="tripCount"><span class="count">1</span>次</div></li>
+					</ul>				-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+	</script>
+</html>

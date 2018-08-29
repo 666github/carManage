@@ -1,0 +1,43 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.Index
+{
+    /// <summary>
+    /// GetAuditMsg 的摘要说明
+    /// </summary>
+    public class GetAuditMsg : IHttpHandler,IRequiresSessionState
+    {
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //验证是否登录
+            var currentUser = CheckHelper.RoleCheck(context, 0);
+            if (currentUser == null)
+                return;
+
+            //var currentRole = context.Session["role"];
+            //var currentUser = context.Session["account"];
+            //var currentDepart = context.Session["department"];
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+
+
+            context.Response.Write("Hello World");
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

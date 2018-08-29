@@ -1,0 +1,28 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+html,body{width:100%;;height:100%;}
+.wrap{width: 100%; height: 100%;background: #f0f4fa;padding-left: 2%;position: relative;}
+.cartitle {height: 45px;line-height: 50px;font-size: 18px;font-weight: bold; border-bottom: solid 3px darkgray; text-align: center;}
+#regBranch{margin: 0 0 25px 0;}
+.#regBranch>select{border-radius: 2px;}
+.allBranch,.licences{width: 100px;height: 30px;margin-right: 10px;}
+.allBranch{width: 160px;}
+#usedTime1,#usedTime2{text-align: center;height:30px;background: #FFFFFF;cursor: pointer;width: 120px;}
+.importInf{color: #FFFFFF;background: #4275F8;border-radius: 5px;display: inline-block;line-height: 30px;width: 60px;text-align: center;}
+#usedDiv{width: 99%;height:70%;overflow: auto;}
+.usedInfs{width: 100%;}
+.usedInfsT{width: 100%;height: 30px;line-height: 30px;}
+.usedInfsB{width: 100%;color: gray;}
+.usedInfsT>li,.usedInfs>li{float: left;text-align: center;border: solid 1px gray;border-right: none;border-bottom: none;height: 100%;}
+.usedInfsT>li{border-bottom: solid 1px gray;}
+.usedInfsT>li:last-child,.usedInfs>li:last-child{border-right: 1px solid gray;}
+.usedInfsB>.usedInfs:first-child>li{border-top: none;}
+.usedInfsB>.usedInfs:last-child>li{border-bottom: solid 1px gray;}
+.list1{width: 20%;}
+.list2{width: 15%;}
+.list3{width: 20%;}
+.list4{width: 30%;}
+.list5{width: 15%;}
+.list4{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}	

@@ -1,0 +1,36 @@
+{
+  "branchNum": "13",
+  "maintenanceInfo": [
+		    {		    
+				"carImg":"img/car2.png",
+		      "firstBrand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "seat": "S",
+		      "state": 0,
+		      "price":"555",
+		      "count":"9",
+		      "plateNum":"9"
+		    },
+		     {		    
+				"carImg":"img/car2.png",
+		      "firstBrand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "seat": "S",
+		      "state": 0,
+		      "price":"555",
+		      "count":"9",
+		      "plateNum":"9"
+		    },
+		     {		    
+				"carImg":"img/car2.png",
+		      "firstBrand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "seat": "S",
+		      "state": 0,
+		      "price":"555",
+		      "count":"9",
+		      "plateNum":"9"
+		    }
+  ],
+  "state": "success"
+}

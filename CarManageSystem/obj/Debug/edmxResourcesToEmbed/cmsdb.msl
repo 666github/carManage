@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cmsdbModelStoreContainer" CdmEntityContainer="cmsdbEntities">
+    <EntitySetMapping Name="associatecardinfo">
+      <EntityTypeMapping TypeName="cmsdbModel.associatecardinfo">
+        <MappingFragment StoreEntitySet="associatecardinfo">
+          <ScalarProperty Name="AssociateCardId" ColumnName="AssociateCardId" />
+          <ScalarProperty Name="CardHolder" ColumnName="CardHolder" />
+          <ScalarProperty Name="TradeTime" ColumnName="TradeTime" />
+          <ScalarProperty Name="TradeType" ColumnName="TradeType" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="OilProduct" ColumnName="OilProduct" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="BonusPoints" ColumnName="BonusPoints" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="carcostregister">
+      <EntityTypeMapping TypeName="cmsdbModel.carcostregister">
+        <MappingFragment StoreEntitySet="carcostregister">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="AccessUser" ColumnName="AccessUser" />
+          <ScalarProperty Name="UseTime" ColumnName="UseTime" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Table" ColumnName="Table" />
+          <ScalarProperty Name="MaintenanceStartDate" ColumnName="MaintenanceStartDate" />
+          <ScalarProperty Name="MaintenanceEndDate" ColumnName="MaintenanceEndDate" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="carinfo">
+      <EntityTypeMapping TypeName="cmsdbModel.carinfo">
+        <MappingFragment StoreEntitySet="carinfo">
+          <ScalarProperty Name="CarBrand" ColumnName="CarBrand" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+          <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
+          <ScalarProperty Name="CarType" ColumnName="CarType" />
+          <ScalarProperty Name="CarPrice" ColumnName="CarPrice" />
+          <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+          <ScalarProperty Name="InsuranceStartDate" ColumnName="InsuranceStartDate" />
+          <ScalarProperty Name="InsuranceEndDate" ColumnName="InsuranceEndDate" />
+          <ScalarProperty Name="AnnualStartDate" ColumnName="AnnualStartDate" />
+          <ScalarProperty Name="AnnualEndDate" ColumnName="AnnualEndDate" />
+          <ScalarProperty Name="MaintenanceStartDate" ColumnName="MaintenanceStartDate" />
+          <ScalarProperty Name="MaintenanceEndDate" ColumnName="MaintenanceEndDate" />
+          <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+          <ScalarProperty Name="CarPhoto" ColumnName="CarPhoto" />
+          <ScalarProperty Name="NeedMaintain" ColumnName="NeedMaintain" />
+          <ScalarProperty Name="CarState" ColumnName="CarState" />
+          <ScalarProperty Name="CarStateDetial" ColumnName="CarStateDetial" />
+          <ScalarProperty Name="HolodayStart" ColumnName="HolodayStart" />
+          <ScalarProperty Name="HolodayEnd" ColumnName="HolodayEnd" />
+          <ScalarProperty Name="LoginAdmin" ColumnName="LoginAdmin" />
+          <ScalarProperty Name="MaintainUser" ColumnName="MaintainUser" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="IsOut" ColumnName="IsOut" />
+          <ScalarProperty Name="CarPassword" ColumnName="CarPassword" />
+          <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
+          <ScalarProperty Name="GasL" ColumnName="GasL" />
+          <ScalarProperty Name="islimit" ColumnName="islimit" />
+          <ScalarProperty Name="SimId" ColumnName="SimId" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="MtMile" ColumnName="MtMile" />
+          <ScalarProperty Name="MtMileOrDate" ColumnName="MtMileOrDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="carlist">
+      <EntityTypeMapping TypeName="cmsdbModel.carlist">
+        <MappingFragment StoreEntitySet="carlist">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="isillegal" ColumnName="isillegal" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="x" ColumnName="x" />
+          <ScalarProperty Name="y" ColumnName="y" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departmentmanage">
+      <EntityTypeMapping TypeName="cmsdbModel.departmentmanage">
+        <MappingFragment StoreEntitySet="departmentmanage">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Index" ColumnName="Index" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="holidaydata">
+      <EntityTypeMapping TypeName="cmsdbModel.holidaydata">
+        <MappingFragment StoreEntitySet="holidaydata">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="start" ColumnName="start" />
+          <ScalarProperty Name="end" ColumnName="end" />
+          <ScalarProperty Name="isAlreadySet" ColumnName="isAlreadySet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="illegalstatistic">
+      <EntityTypeMapping TypeName="cmsdbModel.illegalstatistic">
+        <MappingFragment StoreEntitySet="illegalstatistic">
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="IsPush" ColumnName="IsPush" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="money" ColumnName="money" />
+          <ScalarProperty Name="fen" ColumnName="fen" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+          <ScalarProperty Name="Handled" ColumnName="Handled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="illegalusecar">
+      <EntityTypeMapping TypeName="cmsdbModel.illegalusecar">
+        <MappingFragment StoreEntitySet="illegalusecar">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Cause" ColumnName="Cause" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+          <ScalarProperty Name="IsAdd" ColumnName="IsAdd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="limitcarnumber">
+      <EntityTypeMapping TypeName="cmsdbModel.limitcarnumber">
+        <MappingFragment StoreEntitySet="limitcarnumber">
+          <ScalarProperty Name="LimitDate" ColumnName="LimitDate" />
+          <ScalarProperty Name="LimitNumber" ColumnName="LimitNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mainfuelingcard">
+      <EntityTypeMapping TypeName="cmsdbModel.mainfuelingcard">
+        <MappingFragment StoreEntitySet="mainfuelingcard">
+          <ScalarProperty Name="MainCardId" ColumnName="MainCardId" />
+          <ScalarProperty Name="AssociateCardId" ColumnName="AssociateCardId" />
+          <ScalarProperty Name="Cardholder" ColumnName="Cardholder" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="msg_expire">
+      <EntityTypeMapping TypeName="cmsdbModel.msg_expire">
+        <MappingFragment StoreEntitySet="msg_expire">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="IsAudit" ColumnName="IsAudit" />
+          <ScalarProperty Name="Car" ColumnName="Car" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="AuditUser" ColumnName="AuditUser" />
+          <ScalarProperty Name="AuditTime" ColumnName="AuditTime" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="CarDepartment" ColumnName="CarDepartment" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+          <ScalarProperty Name="ApplyTime" ColumnName="ApplyTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="msg_maintain">
+      <EntityTypeMapping TypeName="cmsdbModel.msg_maintain">
+        <MappingFragment StoreEntitySet="msg_maintain">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="IsAudit" ColumnName="IsAudit" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Car" ColumnName="Car" />
+          <ScalarProperty Name="ApplyTime" ColumnName="ApplyTime" />
+          <ScalarProperty Name="AuditUser" ColumnName="AuditUser" />
+          <ScalarProperty Name="AuditTime" ColumnName="AuditTime" />
+          <ScalarProperty Name="UserDepartment" ColumnName="UserDepartment" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="CarDepartment" ColumnName="CarDepartment" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="msg_outreturncar">
+      <EntityTypeMapping TypeName="cmsdbModel.msg_outreturncar">
+        <MappingFragment StoreEntitySet="msg_outreturncar">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Car" ColumnName="Car" />
+          <ScalarProperty Name="Place" ColumnName="Place" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="CarDepartment" ColumnName="CarDepartment" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="returnregister">
+      <EntityTypeMapping TypeName="cmsdbModel.returnregister">
+        <MappingFragment StoreEntitySet="returnregister">
+          <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
+          <ScalarProperty Name="ReturnPlace" ColumnName="ReturnPlace" />
+          <ScalarProperty Name="ReturnDetail" ColumnName="ReturnDetail" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="TravelMileage" ColumnName="TravelMileage" />
+          <ScalarProperty Name="CarRepair" ColumnName="CarRepair" />
+          <ScalarProperty Name="RepairDetail" ColumnName="RepairDetail" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+          <ScalarProperty Name="ReturnState" ColumnName="ReturnState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="trajectorylog">
+      <EntityTypeMapping TypeName="cmsdbModel.trajectorylog">
+        <MappingFragment StoreEntitySet="trajectorylog">
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user">
+      <EntityTypeMapping TypeName="cmsdbModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="AllowModel" ColumnName="AllowModel" />
+          <ScalarProperty Name="DriverType" ColumnName="DriverType" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+          <ScalarProperty Name="DriverLicensePhoto" ColumnName="DriverLicensePhoto" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="EffecDateStart" ColumnName="EffecDateStart" />
+          <ScalarProperty Name="EffecDateEnd" ColumnName="EffecDateEnd" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="ApplyRole" ColumnName="ApplyRole" />
+          <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+          <ScalarProperty Name="ApplyLevel" ColumnName="ApplyLevel" />
+          <ScalarProperty Name="ApplyState" ColumnName="ApplyState" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="Enable" ColumnName="Enable" />
+          <ScalarProperty Name="NotifySet" ColumnName="NotifySet" />
+          <ScalarProperty Name="Regulation" ColumnName="Regulation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="appversion">
+      <EntityTypeMapping TypeName="cmsdbModel.appversion">
+        <MappingFragment StoreEntitySet="appversion">
+          <ScalarProperty Name="platform" ColumnName="platform" />
+          <ScalarProperty Name="version" ColumnName="version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="jijian">
+      <EntityTypeMapping TypeName="cmsdbModel.jijian">
+        <MappingFragment StoreEntitySet="jijian">
+          <ScalarProperty Name="level" ColumnName="level" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="department" ColumnName="department" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="borrowregister">
+      <EntityTypeMapping TypeName="cmsdbModel.borrowregister">
+        <MappingFragment StoreEntitySet="borrowregister">
+          <ScalarProperty Name="pushtype" ColumnName="pushtype" />
+          <ScalarProperty Name="nodeUser" ColumnName="nodeUser" />
+          <ScalarProperty Name="BorrowStateOD" ColumnName="BorrowStateOD" />
+          <ScalarProperty Name="BorrowTime" ColumnName="BorrowTime" />
+          <ScalarProperty Name="UniqueCode" ColumnName="UniqueCode" />
+          <ScalarProperty Name="BorrowState" ColumnName="BorrowState" />
+          <ScalarProperty Name="Destination" ColumnName="Destination" />
+          <ScalarProperty Name="Cause" ColumnName="Cause" />
+          <ScalarProperty Name="Purposes" ColumnName="Purposes" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="ExpectReturnTime" ColumnName="ExpectReturnTime" />
+          <ScalarProperty Name="UseCarTime" ColumnName="UseCarTime" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="msg_borrowcar">
+      <EntityTypeMapping TypeName="cmsdbModel.msg_borrowcar">
+        <MappingFragment StoreEntitySet="msg_borrowcar">
+          <ScalarProperty Name="nodeLevel" ColumnName="nodeLevel" />
+          <ScalarProperty Name="pushtype" ColumnName="pushtype" />
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="AuditTime" ColumnName="AuditTime" />
+          <ScalarProperty Name="AuditUser" ColumnName="AuditUser" />
+          <ScalarProperty Name="UserDepartment" ColumnName="UserDepartment" />
+          <ScalarProperty Name="AccessCar" ColumnName="AccessCar" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="AccessUser" ColumnName="AccessUser" />
+          <ScalarProperty Name="IsAudit" ColumnName="IsAudit" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="msg_userapply">
+      <EntityTypeMapping TypeName="cmsdbModel.msg_userapply">
+        <MappingFragment StoreEntitySet="msg_userapply">
+          <ScalarProperty Name="Dredpoint" ColumnName="Dredpoint" />
+          <ScalarProperty Name="redpoint" ColumnName="redpoint" />
+          <ScalarProperty Name="AuditUserRole" ColumnName="AuditUserRole" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="DIsLook" ColumnName="DIsLook" />
+          <ScalarProperty Name="AccessRole" ColumnName="AccessRole" />
+          <ScalarProperty Name="AuditTime" ColumnName="AuditTime" />
+          <ScalarProperty Name="AuditUser" ColumnName="AuditUser" />
+          <ScalarProperty Name="AccessTime" ColumnName="AccessTime" />
+          <ScalarProperty Name="UserDepartment" ColumnName="UserDepartment" />
+          <ScalarProperty Name="AccessUser" ColumnName="AccessUser" />
+          <ScalarProperty Name="IsAudit" ColumnName="IsAudit" />
+          <ScalarProperty Name="IsLook" ColumnName="IsLook" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,152 @@
+$(function () {
+	getDepartment();
+	function getDepartment(){
+		var option = $('.allBranch').html();
+		$.ajax({
+	  		type: "post",
+			dataType: "json",
+			url: "../handler/GetDepartment.ashx",
+			data:{from:0},
+			xhrFields:{withCredentials:true},
+			success: function (data) {
+	  			var obj = data;
+	  			for (var i = 0; i < obj.length; i++) {
+	      			option += '<option value="' + obj[i].Name + '">' + obj[i].Name + '</option>';
+	 			}
+				$('.allBranch').html(option);
+				var currentBranch = $(".branchName").text();
+				$(".allBranch").val(currentBranch);
+				if(userType==1){
+					$(".allBranch").attr("disabled","disabled");
+				}
+				getPersonName();
+			},
+			error: function () {
+	  			console.log("部门获取失败");
+	  		}
+		})
+		
+	}	
+	function getPersonName(){debugger
+		var option = $('.personnelName').html(); 
+		var currentBranch = $(".branchName").text();
+         $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "../handler/GetDrivers.ashx",
+            data:{"department":currentBranch,from:0},
+            xhrFields:{withCredentials:true},
+            success: function (data) {
+                var obj = data.users;
+                for (var i = 0; i < obj.length; i++) {
+                   option += '<option value="' + obj[i].Account + '">' + obj[i].RealName + '</option>';
+                }
+                $('.personnelName').html(option);
+//              $(".queryInf").click();
+            },
+            error: function () {
+                console.log("加载姓名失败");
+            }
+         })
+	}
+	
+	$(".allBranch").change(function(){
+		var option = "<option value=''>姓名</option>";		
+		var currentBranch = $(".allBranch").val();
+         $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "../handler/GetDrivers.ashx",
+            data:{"department":currentBranch,from:0},
+            xhrFields:{withCredentials:true},
+            success: function (data) {
+                var obj = data.users;
+                for (var i = 0; i < obj.length; i++) {
+                   option += '<option value="' + obj[i].Account + '">' + obj[i].RealName + '</option>';
+                }
+                $('.personnelName').html(option);
+            },
+            error: function () {
+                console.log("加载姓名失败");
+            }
+         })
+	})
+	$(".queryInf").click(function(){
+		detailInf();
+	})
+	$(".exportInf").click(function(){
+		exportInf();
+	})
+//查询	
+	function detailInf(){
+	var usedcarInf = '';
+	var department=$(".allBranch").val();
+	var personnelName=$(".personnelName").val();
+	var usedTime1=$("#usedTime1").val();
+	var usedTime2=$("#usedTime2").val();
+	debugger
+	$.ajax({
+		type:"get",
+		url:"../handler/Statistics/QueryDriverTrajectory.ashx",
+		async:false,
+		data:{"department":department,"personnelName":personnelName,"usedTime1":usedTime1,"usedTime2":usedTime2,from:0},
+		xhrFields:{withCredentials:true},
+		success:function(data){
+			var data=JSON.parse(data);
+			if(data.state=="success"){
+				var usedInfs=data.usedInfs;
+				for(var i=0;i<usedInfs.length;i++){
+					usedcarInf+='<ul class="usedInfs">'+
+					'<li class="list1">'+usedInfs[i].list1+'</li><li class="list2">'+usedInfs[i].list2+'</li>'+
+					'<li class="list3">'+usedInfs[i].list3+'</li><li class="list4">'+usedInfs[i].list4+'</li>'+
+					'<li class="list5">'+usedInfs[i].list5+'</li><li class="list6"><input type="text" name="" class="list6Input"  value="'+usedInfs[i].list6+'" /></li>'+
+					'<li class="list7">'+usedInfs[i].list7+'</li><li class="list8">'+usedInfs[i].list8+'</li>'+
+					'<li class="list9">'+usedInfs[i].list9+'</li></ul>'	
+				}					
+				$('.usedInfsB').html(usedcarInf);
+				list6Input();
+				$(".exportInf").attr("dataId",data.id);
+			}else if(data.state=="1"){
+				alert("请重新登录");
+				window.location.href="./login.html"
+			}else{
+				alert(data.state);
+			}
+		},error:function(e1,e2,e3){
+			console.log("请求失败");
+		}
+	});
+}
+//鼠标显示备注
+function list6Input(){
+$(".list6").hover(function(){
+	var othis=$(this).find(".list6Input");
+	othis.attr("title",othis.val())
+	$(this).click(function(){
+		othis.attr("disabled",true)
+	})
+},function(){
+	var othis=$(this).find(".list6Input");
+	othis.attr("disabled",false)
+});
+}
+//导出
+	function exportInf(){
+        var exportId = $(".exportInf").attr("dataId");
+        location.href = '../handler/Statistics/ExportExcelForDriverTrajectory.ashx?from=0&id=' + exportId;
+		//$.ajax({
+  //          type: "post",
+  //          dataType: "json",
+  //          url: "../handler/Statistics/ExportExcelForDriverTrajectory.ashx",
+  //          data:{"id":exportId,from:0},
+  //          xhrFields:{withCredentials:true},
+  //          success: function (data) {
+  //             alert("信息导出成功!")
+  //          },
+  //          error: function () {
+  //              console.log("信息导出失败!");
+  //          }
+  //       })
+	}
+})	
+

@@ -1,0 +1,119 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// AccessBorrow 的摘要说明
+    /// </summary>
+    public class AccessBorrow : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            var uniqueCode = context.Request["uniqueCode"].Trim();
+            var access = context.Request["access"].Trim();
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var borrow = cms.borrowregister.FirstOrDefault(s => s.UniqueCode == uniqueCode);
+                if(borrow.BorrowState!=0)
+                {
+                    json.state = "此车已通过审核，请刷新重试！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+
+                var tempCar = cms.carinfo.FirstOrDefault(c => c.CarNumber == borrow.CarNumber);
+                if(tempCar.CarState!=0)
+                {
+                    json.state = "此车不是空闲状态，不可通过审批！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+
+                
+                
+
+                if (Convert.ToInt16(access) == 1) //0拒绝  1 通过跨院借车  2 通过跨天借车
+                {
+                    if(borrow.BorrowStateOD == 3)
+                    {
+                        borrow.BorrowStateOD = 2;
+                    }
+                    else if(borrow.BorrowStateOD==2)
+                    {
+                        json.state = "此车已通过跨院借车";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                    else
+                    {
+                        borrow.BorrowStateOD = 0;
+                        borrow.BorrowState = 1;
+                        var car = cms.carinfo.FirstOrDefault(s => s.CarNumber == borrow.CarNumber);
+                        car.CarState = 1;
+                        car.CurrentUser = borrow.User;
+                    }
+                }
+                else if (Convert.ToInt32(access)==2)
+                {
+                    if (borrow.BorrowStateOD == 3)
+                    {
+                        borrow.BorrowStateOD = 1;
+                    }
+                    else if (borrow.BorrowStateOD == 1)
+                    {
+                        json.state = "此车已通过跨天借车";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                    else
+                    {
+                        borrow.BorrowStateOD = 0;
+                        borrow.BorrowState = 1;
+                        var car = cms.carinfo.FirstOrDefault(s => s.CarNumber == borrow.CarNumber);
+                        car.CarState = 1;
+                        car.CurrentUser = borrow.User;
+                    }
+                }
+                else if (Convert.ToInt32(access) == 0)
+                {
+                    borrow.BorrowState = 3;
+                }
+
+                //更改借车消息
+                var _msg = cms.msg_borrowcar
+                    .FirstOrDefault(s => s.Id == uniqueCode);
+                if(_msg!=null)
+                {
+                    _msg.type = borrow.BorrowStateOD;
+                    _msg.IsAudit = borrow.BorrowState;
+                }
+
+
+                cms.SaveChanges();
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

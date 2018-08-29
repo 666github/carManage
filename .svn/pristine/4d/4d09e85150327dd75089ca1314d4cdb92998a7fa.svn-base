@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>设置审批人员</title>
+    <style>
+        .md{
+            width:30vw;
+            margin:auto;
+        }
+
+        .mt{
+            width:100%;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div id="main" class="md"></div>
+    <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                type: "get",
+                url: "../handler/GetSP.ashx",
+                data: {from: 0},
+                xhrFields: { withCredentials: true },
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.state == "1") {
+                        alert("没有权限");
+                        return;
+                    }
+                    var html = '<table border="1" cellspacing="0" class="mt">';
+                    data.list.forEach(x => {
+                        html += '<tr><th colspan="4">' + x.Key + '</th></tr>';
+                        x.x.forEach(xx => {
+                            html += '<tr><td><label>' + xx.RealName + '</label></td><td><input class="mtc" type="radio" name="' + xx.Account + '" value="0" ' + (xx.shenpi == 0 ? 'checked' : '') + '>无</td><td><input class="mtc" type="radio" name="' + xx.Account + '" value="1" ' + (xx.shenpi == '1' ? 'checked' : '') + '>部门审批</td><td><input class="mtc" type="radio" name="' + xx.Account + '" value="2" ' + (xx.shenpi == '2' ? 'checked' : '') + ' ' + (xx.UserType == 2 ? '' : 'disabled') + '>院级审批</td></tr>'
+                        });
+                    });
+                    html += '</table>';
+                    $('#main').html(html);
+
+                    $('.mtc').change(function (e) {
+                        var obj = e.target;
+                        var account = obj.name;
+                        var value = obj.value;
+
+                        $.ajax({
+                            type: "get",
+                            url: "../handler/SetSP.ashx",
+                            data: { account: account, value: value,from:0 },
+                            xhrFields: { withCredentials: true },
+                            success: function (data) {
+                                data = JSON.parse(data);
+                                if (data.state != "success") {
+                                    alert(data.state);
+                                    return;
+                                }
+                            },
+                            error: function () {
+                                alert('请求失败，请重试!');
+                                return;
+                            }
+                        })
+                    });
+                },
+                error: function () {
+                    alert('请求失败，请重试!');
+                    return;
+                }
+            })
+
+            
+        });
+    </script>
+</body>
+</html>

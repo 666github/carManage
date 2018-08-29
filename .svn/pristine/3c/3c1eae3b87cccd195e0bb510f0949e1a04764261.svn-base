@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Web;
+
+namespace CarManageSystem.Model
+{
+    public class CarConnect
+    {
+        public string id { get; set; }
+        public string user { get; set; }
+        public Timer timer { get; set; }
+        public TCPClientState tcpClientState { get; set; }
+        public int carState { get; set; }
+        public string uniqueCode { get; set; }
+    }
+}

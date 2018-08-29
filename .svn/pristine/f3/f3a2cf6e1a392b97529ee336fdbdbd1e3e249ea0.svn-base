@@ -1,0 +1,376 @@
+﻿2018-02-03 10:46:32,260 [11] INFO  GPSServer-23861452 - The server instance GPSServer-23861452 has been started!
+2018-02-03 10:46:32,354 [11] INFO  WebSocketServer-48285290 - The server instance WebSocketServer-48285290 has been started!
+2018-02-03 10:46:55,849 [8] INFO  GPSServer-17036346 - The server instance GPSServer-17036346 has been started!
+2018-02-03 10:46:55,954 [8] INFO  WebSocketServer-51989385 - The server instance WebSocketServer-51989385 has been started!
+2018-02-03 10:47:05,160 [6] INFO  GPSServer-35320229 - The server instance GPSServer-35320229 has been started!
+2018-02-03 10:47:05,300 [6] INFO  WebSocketServer-16868352 - The server instance WebSocketServer-16868352 has been started!
+2018-02-03 11:13:31,209 [30] INFO  GPSServer-36101041 - The server instance GPSServer-36101041 has been started!
+2018-02-03 11:13:31,330 [30] INFO  WebSocketServer-14055417 - The server instance WebSocketServer-14055417 has been started!
+2018-02-03 11:21:32,340 [30] INFO  GPSServer-26754201 - The server instance GPSServer-26754201 has been started!
+2018-02-03 11:21:32,497 [30] INFO  WebSocketServer-30076054 - The server instance WebSocketServer-30076054 has been started!
+2018-02-03 11:22:12,628 [6] INFO  GPSServer-35320229 - The server instance GPSServer-35320229 has been started!
+2018-02-03 11:22:12,768 [6] INFO  WebSocketServer-16868352 - The server instance WebSocketServer-16868352 has been started!
+2018-02-03 11:26:10,859 [7] INFO  WebSocketServer-16868352 - Session: c7687b22-e2d4-44db-b2d0-d1dfb27c6c76/192.168.1.120:64895
+A new session connected!
+2018-02-03 11:39:52,040 [9] INFO  GPSServer-35320229 - Session: b7b97052-044e-4398-a57f-28c71797367a/127.0.0.1:65060
+A new session connected!
+2018-02-03 11:39:57,013 [22] INFO  GPSServer-35320229 - Session: b7b97052-044e-4398-a57f-28c71797367a/127.0.0.1:65060
+This session was closed for SocketError!
+2018-02-03 11:41:23,532 [9] INFO  GPSServer-35320229 - Session: 4b122533-e721-4e62-8990-1e7641acf834/127.0.0.1:65076
+A new session connected!
+2018-02-03 11:42:23,048 [17] INFO  GPSServer-35320229 - Session: 4b122533-e721-4e62-8990-1e7641acf834/127.0.0.1:65076
+This session was closed for SocketError!
+2018-02-03 11:43:55,761 [21] INFO  GPSServer-35320229 - Session: ed458637-a78d-4770-8783-d93b16968f6f/127.0.0.1:65123
+A new session connected!
+2018-02-03 11:43:58,082 [23] INFO  WebSocketServer-16868352 - Session: c7687b22-e2d4-44db-b2d0-d1dfb27c6c76/192.168.1.120:64895
+This session was closed for ClientClosing!
+2018-02-03 11:46:54,618 [8] INFO  GPSServer-35320229 - Session: 14e825b8-e929-4d2e-b34d-7b9d560e6e75/127.0.0.1:65156
+A new session connected!
+2018-02-03 11:48:06,576 [8] INFO  GPSServer-35320229 - Session: fb46b23a-c54e-4b1c-a4a6-55dea3eb93c1/127.0.0.1:65160
+A new session connected!
+2018-02-03 11:49:39,938 [8] INFO  GPSServer-35320229 - Session: 670febe3-83fb-428a-bf91-c2391a49b23a/127.0.0.1:65214
+A new session connected!
+2018-02-03 11:50:24,550 [7] INFO  WebSocketServer-16868352 - Session: 30e98da4-3e5d-4447-9dc7-7935450e6c4a/192.168.1.120:65259
+A new session connected!
+2018-02-03 11:50:41,498 [8] INFO  GPSServer-35320229 - Session: 387cb5b1-76e2-4dcc-a83d-f522801add34/127.0.0.1:65265
+A new session connected!
+2018-02-03 11:51:41,923 [8] INFO  GPSServer-35320229 - Session: 87738e41-c96b-4ef7-a09f-195d0103b8b7/127.0.0.1:65270
+A new session connected!
+2018-02-03 11:52:07,727 [12] INFO  GPSServer-35320229 - Session: 14e825b8-e929-4d2e-b34d-7b9d560e6e75/127.0.0.1:65156
+This session was closed for ClientClosing!
+2018-02-03 11:52:46,564 [8] INFO  GPSServer-35320229 - Session: 5fea6a4a-3b37-4e03-ad77-00573f19742e/127.0.0.1:65274
+A new session connected!
+2018-02-03 11:53:47,106 [8] INFO  GPSServer-35320229 - Session: b2fadf14-db9f-4758-818d-c988cd7ec8bb/127.0.0.1:65283
+A new session connected!
+2018-02-03 11:54:47,674 [8] INFO  GPSServer-35320229 - Session: f3e2dcc5-9d12-4a62-bf98-20e25e6cf702/127.0.0.1:65290
+A new session connected!
+2018-02-03 11:55:48,187 [8] INFO  GPSServer-35320229 - Session: 2297c3c2-526e-4ec0-84a9-8abe344ba937/127.0.0.1:65299
+A new session connected!
+2018-02-03 12:33:47,025 [7] INFO  GPSServer-35320229 - Session: f8990b3c-107c-4a0e-9ac2-0f3ee54c18bc/127.0.0.1:65319
+A new session connected!
+2018-02-03 12:33:47,070 [6] INFO  GPSServer-35320229 - Session: f3e2dcc5-9d12-4a62-bf98-20e25e6cf702/127.0.0.1:65290
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,070 [6] INFO  GPSServer-35320229 - Session: fb46b23a-c54e-4b1c-a4a6-55dea3eb93c1/127.0.0.1:65160
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,070 [6] INFO  GPSServer-35320229 - Session: 670febe3-83fb-428a-bf91-c2391a49b23a/127.0.0.1:65214
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,070 [6] INFO  GPSServer-35320229 - Session: 387cb5b1-76e2-4dcc-a83d-f522801add34/127.0.0.1:65265
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,071 [6] INFO  GPSServer-35320229 - Session: 87738e41-c96b-4ef7-a09f-195d0103b8b7/127.0.0.1:65270
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,071 [6] INFO  GPSServer-35320229 - Session: 5fea6a4a-3b37-4e03-ad77-00573f19742e/127.0.0.1:65274
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,071 [6] INFO  GPSServer-35320229 - Session: b2fadf14-db9f-4758-818d-c988cd7ec8bb/127.0.0.1:65283
+This session was closed for ClientClosing!
+2018-02-03 12:33:47,071 [6] INFO  GPSServer-35320229 - Session: 2297c3c2-526e-4ec0-84a9-8abe344ba937/127.0.0.1:65299
+This session was closed for ClientClosing!
+2018-02-03 12:33:49,911 [49] INFO  GPSServer-35320229 - Session: fda780f0-5e8c-4ccb-9a23-62d948a91eb8/127.0.0.1:65334
+A new session connected!
+2018-02-03 12:33:53,150 [50] INFO  GPSServer-35320229 - Session: 51d6d693-8442-43c3-9e6e-146b923043bb/127.0.0.1:65338
+A new session connected!
+2018-02-03 12:33:53,743 [7] INFO  GPSServer-35320229 - Session: bd9af59d-7532-4466-8192-5e927033efc0/127.0.0.1:65350
+A new session connected!
+2018-02-03 12:33:53,744 [8] INFO  GPSServer-35320229 - Session: 136ef4a6-b6f3-494a-8b29-7dd456c99796/127.0.0.1:65359
+A new session connected!
+2018-02-03 12:33:53,744 [20] INFO  GPSServer-35320229 - Session: 3254c539-a762-4880-8bce-cdb2c85d9af2/127.0.0.1:65362
+A new session connected!
+2018-02-03 12:33:53,744 [49] INFO  GPSServer-35320229 - Session: 20bfb1c1-053d-43a4-ab72-3b3a9048dd0e/127.0.0.1:65371
+A new session connected!
+2018-02-03 12:33:55,804 [46] INFO  GPSServer-35320229 - Session: 280c6ab9-aecd-4144-99f1-bc6485115fed/127.0.0.1:65397
+A new session connected!
+2018-02-03 12:33:55,804 [45] INFO  GPSServer-35320229 - Session: 3837e941-0c75-426a-b89a-d924ec188823/127.0.0.1:65381
+A new session connected!
+2018-02-03 12:33:56,413 [20] INFO  GPSServer-35320229 - Session: 868848a0-9987-441b-8612-e69e9df44e89/127.0.0.1:65388
+A new session connected!
+2018-02-03 12:33:59,900 [51] INFO  GPSServer-35320229 - Session: 86e39154-9635-492d-8f94-4137fc2789b8/127.0.0.1:65401
+A new session connected!
+2018-02-03 12:33:59,901 [50] INFO  GPSServer-35320229 - Session: 27bfec68-6a54-49c4-a912-53eb7d91b317/127.0.0.1:65412
+A new session connected!
+2018-02-03 12:33:59,901 [20] INFO  GPSServer-35320229 - Session: 426ce726-761d-4e51-a529-b7f0af1abff3/127.0.0.1:65432
+A new session connected!
+2018-02-03 12:33:59,901 [50] INFO  GPSServer-35320229 - Session: ce475a2f-9d25-488f-b2c9-bd184325e48b/127.0.0.1:65435
+A new session connected!
+2018-02-03 12:33:59,902 [20] INFO  GPSServer-35320229 - Session: b9481f16-28f2-4037-a0f8-bf74e2e4feb9/127.0.0.1:65438
+A new session connected!
+2018-02-03 12:33:59,902 [50] INFO  GPSServer-35320229 - Session: 2442c993-f7fe-47ca-9832-895278198e95/127.0.0.1:65463
+A new session connected!
+2018-02-03 12:33:59,902 [20] INFO  GPSServer-35320229 - Session: 93ea9bc1-c8cc-4124-9ae8-faf509337761/127.0.0.1:65469
+A new session connected!
+2018-02-03 12:33:59,902 [50] INFO  GPSServer-35320229 - Session: 0c231d36-3bf7-4284-be31-9a6ec5845cdf/127.0.0.1:65488
+A new session connected!
+2018-02-03 12:33:59,903 [49] INFO  GPSServer-35320229 - Session: c6e30d9a-0cda-4f06-8168-68e53a6ca1b8/127.0.0.1:65429
+A new session connected!
+2018-02-03 12:33:59,903 [51] INFO  GPSServer-35320229 - Session: 4133df0c-c4f3-451b-8e21-456e435fc953/127.0.0.1:65495
+A new session connected!
+2018-02-03 12:33:59,903 [46] INFO  GPSServer-35320229 - Session: bceb4d31-6a90-4557-a694-d43dac7da360/127.0.0.1:65499
+A new session connected!
+2018-02-03 12:34:02,536 [6] INFO  GPSServer-35320229 - Session: f8990b3c-107c-4a0e-9ac2-0f3ee54c18bc/127.0.0.1:65319
+This session was closed for ClientClosing!
+2018-02-03 12:34:02,541 [48] INFO  GPSServer-35320229 - Session: c5225ff1-89c5-4926-82e5-bf41ec5d8b96/127.0.0.1:65511
+A new session connected!
+2018-02-03 12:34:02,542 [6] INFO  GPSServer-35320229 - Session: ed458637-a78d-4770-8783-d93b16968f6f/127.0.0.1:65123
+This session was closed for SocketError!
+2018-02-03 12:34:10,207 [52] INFO  GPSServer-35320229 - Session: 360191e0-d2c5-4877-82b4-3aa1667499b9/127.0.0.1:65514
+A new session connected!
+2018-02-03 12:34:10,209 [50] INFO  GPSServer-35320229 - Session: c76e30af-7d7b-48ac-966c-7de50660ffa7/127.0.0.1:65524
+A new session connected!
+2018-02-03 12:34:13,456 [53] INFO  GPSServer-35320229 - Session: fa532a24-34a3-4a94-941a-9153c75a5547/127.0.0.1:49156
+A new session connected!
+2018-02-03 12:34:13,456 [45] INFO  GPSServer-35320229 - Session: 7d2c5336-477b-4ac0-8be7-d634cbdde96c/127.0.0.1:49164
+A new session connected!
+2018-02-03 12:34:13,456 [50] INFO  GPSServer-35320229 - Session: ccd79c7e-bcaa-46bb-b1a1-efb45108a93c/127.0.0.1:49168
+A new session connected!
+2018-02-03 12:34:16,640 [7] INFO  GPSServer-35320229 - Session: 3161b516-4bda-4417-86e2-62deaaaa0e4a/127.0.0.1:49192
+A new session connected!
+2018-02-03 12:34:16,640 [50] INFO  GPSServer-35320229 - Session: 0de8391a-5ca2-48db-84de-5dec73d473a3/127.0.0.1:49200
+A new session connected!
+2018-02-03 12:34:16,641 [48] INFO  GPSServer-35320229 - Session: 639a2c3e-48fe-4126-b53f-a5a598bf1245/127.0.0.1:49215
+A new session connected!
+2018-02-03 12:34:16,644 [46] INFO  GPSServer-35320229 - Session: 6515d748-3a4a-4c4b-b6b5-d4cdc22317db/127.0.0.1:49227
+A new session connected!
+2018-02-03 12:34:16,643 [49] INFO  GPSServer-35320229 - Session: 2f545630-38b4-4332-8c1a-444130a46b07/127.0.0.1:49241
+A new session connected!
+2018-02-03 12:34:16,641 [55] INFO  GPSServer-35320229 - Session: 8fec84b2-283e-475c-bcd9-f28076fbe109/127.0.0.1:49178
+A new session connected!
+2018-02-03 12:34:16,641 [8] INFO  GPSServer-35320229 - Session: 42e79e27-8a15-445d-9d44-a6190bede41e/127.0.0.1:49212
+A new session connected!
+2018-02-03 12:34:18,028 [54] INFO  GPSServer-35320229 - Session: 0fe6fbf7-0484-4867-b554-c86d0b683419/127.0.0.1:49243
+A new session connected!
+2018-02-03 12:34:19,790 [45] INFO  GPSServer-35320229 - Session: ace2ab7c-d0d3-4b7e-8c3a-d94d04ce2e28/127.0.0.1:49269
+A new session connected!
+2018-02-03 12:34:19,790 [50] INFO  GPSServer-35320229 - Session: 67f1e320-f3ea-442d-82cd-7a601efe9a81/127.0.0.1:49281
+A new session connected!
+2018-02-03 12:34:21,470 [8] INFO  GPSServer-35320229 - Session: 24eed480-65db-4d9a-aca4-e689d9ae2536/127.0.0.1:49251
+A new session connected!
+2018-02-03 12:34:34,187 [11] INFO  GPSServer-35320229 - Session: fda780f0-5e8c-4ccb-9a23-62d948a91eb8/127.0.0.1:65334
+This session was closed for ClientClosing!
+2018-02-03 12:34:34,188 [36] INFO  GPSServer-35320229 - Session: 51d6d693-8442-43c3-9e6e-146b923043bb/127.0.0.1:65338
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,405 [11] INFO  GPSServer-35320229 - Session: 136ef4a6-b6f3-494a-8b29-7dd456c99796/127.0.0.1:65359
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,405 [36] INFO  GPSServer-35320229 - Session: bd9af59d-7532-4466-8192-5e927033efc0/127.0.0.1:65350
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,405 [36] INFO  GPSServer-35320229 - Session: 3837e941-0c75-426a-b89a-d924ec188823/127.0.0.1:65381
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,405 [36] INFO  GPSServer-35320229 - Session: 20bfb1c1-053d-43a4-ab72-3b3a9048dd0e/127.0.0.1:65371
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,406 [36] INFO  GPSServer-35320229 - Session: 280c6ab9-aecd-4144-99f1-bc6485115fed/127.0.0.1:65397
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,406 [36] INFO  GPSServer-35320229 - Session: 868848a0-9987-441b-8612-e69e9df44e89/127.0.0.1:65388
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,406 [47] INFO  GPSServer-35320229 - Session: 27bfec68-6a54-49c4-a912-53eb7d91b317/127.0.0.1:65412
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,407 [36] INFO  GPSServer-35320229 - Session: 426ce726-761d-4e51-a529-b7f0af1abff3/127.0.0.1:65432
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,407 [47] INFO  GPSServer-35320229 - Session: 86e39154-9635-492d-8f94-4137fc2789b8/127.0.0.1:65401
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [36] INFO  GPSServer-35320229 - Session: 3254c539-a762-4880-8bce-cdb2c85d9af2/127.0.0.1:65362
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: ce475a2f-9d25-488f-b2c9-bd184325e48b/127.0.0.1:65435
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [36] INFO  GPSServer-35320229 - Session: b9481f16-28f2-4037-a0f8-bf74e2e4feb9/127.0.0.1:65438
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: 2442c993-f7fe-47ca-9832-895278198e95/127.0.0.1:65463
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [36] INFO  GPSServer-35320229 - Session: 93ea9bc1-c8cc-4124-9ae8-faf509337761/127.0.0.1:65469
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: 0c231d36-3bf7-4284-be31-9a6ec5845cdf/127.0.0.1:65488
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: 4133df0c-c4f3-451b-8e21-456e435fc953/127.0.0.1:65495
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [36] INFO  GPSServer-35320229 - Session: bceb4d31-6a90-4557-a694-d43dac7da360/127.0.0.1:65499
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: c6e30d9a-0cda-4f06-8168-68e53a6ca1b8/127.0.0.1:65429
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: 360191e0-d2c5-4877-82b4-3aa1667499b9/127.0.0.1:65514
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [36] INFO  GPSServer-35320229 - Session: c5225ff1-89c5-4926-82e5-bf41ec5d8b96/127.0.0.1:65511
+This session was closed for ClientClosing!
+2018-02-03 12:34:35,408 [47] INFO  GPSServer-35320229 - Session: fa532a24-34a3-4a94-941a-9153c75a5547/127.0.0.1:49156
+This session was closed for ClientClosing!
+2018-02-03 12:34:42,727 [42] INFO  GPSServer-35320229 - Session: c76e30af-7d7b-48ac-966c-7de50660ffa7/127.0.0.1:65524
+This session was closed for ClientClosing!
+2018-02-03 12:34:54,468 [50] INFO  GPSServer-35320229 - Session: 75f0e79e-722b-4d40-a8b5-f78f62e2e4fc/127.0.0.1:49297
+A new session connected!
+2018-02-03 12:35:59,726 [11] INFO  GPSServer-35320229 - Session: 0fe6fbf7-0484-4867-b554-c86d0b683419/127.0.0.1:49243
+This session was closed for ClientClosing!
+2018-02-03 12:36:43,727 [11] INFO  GPSServer-35320229 - Session: 7d2c5336-477b-4ac0-8be7-d634cbdde96c/127.0.0.1:49164
+This session was closed for ClientClosing!
+2018-02-03 12:48:45,401 [10] INFO  GPSServer-45653674 - The server instance GPSServer-45653674 has been started!
+2018-02-03 12:48:45,501 [10] INFO  WebSocketServer-54636159 - The server instance WebSocketServer-54636159 has been started!
+2018-02-03 12:49:05,839 [7] INFO  GPSServer-45653674 - Session: 86fafcbf-a1c2-4022-b3ed-d625d9b4fca8/127.0.0.1:50044
+A new session connected!
+2018-02-03 12:51:45,865 [7] INFO  GPSServer-45653674 - Session: 24f6d5c6-46d9-4827-9554-8c583c9ad1fe/127.0.0.1:50055
+A new session connected!
+2018-02-03 12:52:59,133 [7] INFO  GPSServer-45653674 - Session: b555f65a-a7f6-4442-bade-464ff8908015/127.0.0.1:50059
+A new session connected!
+2018-02-03 12:54:30,987 [7] INFO  GPSServer-45653674 - Session: fb089767-25b4-42d7-b33c-a8f5d28d3fdf/127.0.0.1:50066
+A new session connected!
+2018-02-03 12:55:31,428 [7] INFO  GPSServer-45653674 - Session: ad526c7a-cdf3-4d1a-ac54-25b38f3eb1a4/127.0.0.1:50069
+A new session connected!
+2018-02-03 12:56:31,869 [7] INFO  GPSServer-45653674 - Session: fd636ddb-04c8-4ba3-ad88-5523cbf833a1/127.0.0.1:50073
+A new session connected!
+2018-02-03 12:57:09,732 [8] INFO  GPSServer-45653674 - Session: 24f6d5c6-46d9-4827-9554-8c583c9ad1fe/127.0.0.1:50055
+This session was closed for ClientClosing!
+2018-02-03 12:57:32,497 [7] INFO  GPSServer-45653674 - Session: 41702a68-fe62-4985-83fa-4e02df2afea8/127.0.0.1:50076
+A new session connected!
+2018-02-03 12:58:32,850 [7] INFO  GPSServer-45653674 - Session: 4b4ff76e-e509-4944-9866-be3181d7db81/127.0.0.1:50089
+A new session connected!
+2018-02-03 12:59:33,371 [7] INFO  GPSServer-45653674 - Session: 9f64f380-6734-4fb0-aacd-bfc0eec65a56/127.0.0.1:50093
+A new session connected!
+2018-02-03 13:00:37,155 [7] INFO  GPSServer-45653674 - Session: b7e6af0f-4d01-4c6e-a1e9-894f786146f8/127.0.0.1:50097
+A new session connected!
+2018-02-03 13:01:07,492 [7] INFO  GPSServer-45653674 - Session: 552c831d-7962-4370-a325-0b9c50acea3b/127.0.0.1:50100
+A new session connected!
+2018-02-03 13:01:37,728 [23] INFO  GPSServer-45653674 - Session: 552c831d-7962-4370-a325-0b9c50acea3b/127.0.0.1:50100
+This session was closed for ClientClosing!
+2018-02-03 13:01:39,714 [7] INFO  GPSServer-45653674 - Session: a1a6a9c0-fa01-4386-9617-0905aaf85af8/127.0.0.1:50103
+A new session connected!
+2018-02-03 13:02:51,915 [7] INFO  GPSServer-45653674 - Session: cba19940-62d8-4abc-8dfe-788987b0e5bc/127.0.0.1:50108
+A new session connected!
+2018-02-03 13:04:25,099 [7] INFO  GPSServer-45653674 - Session: 07dc9c19-3136-40ff-addd-ee2121ce39d7/127.0.0.1:50115
+A new session connected!
+2018-02-03 13:05:25,647 [7] INFO  GPSServer-45653674 - Session: 4d6a9bd7-d4df-4406-a5ff-7f503ae7a6f7/127.0.0.1:50117
+A new session connected!
+2018-02-03 13:06:26,279 [7] INFO  GPSServer-45653674 - Session: 3ff906e1-6c93-42eb-b10b-0daa30cf7939/127.0.0.1:50119
+A new session connected!
+2018-02-03 13:07:26,734 [7] INFO  GPSServer-45653674 - Session: 8681cb0a-6ccb-4829-8759-476f8944c9b4/127.0.0.1:50124
+A new session connected!
+2018-02-03 13:07:59,727 [35] INFO  GPSServer-45653674 - Session: b555f65a-a7f6-4442-bade-464ff8908015/127.0.0.1:50059
+This session was closed for ClientClosing!
+2018-02-03 13:08:27,249 [7] INFO  GPSServer-45653674 - Session: 9d10aa8b-119c-46df-800a-93e5481c9032/127.0.0.1:50126
+A new session connected!
+2018-02-03 13:09:27,619 [7] INFO  GPSServer-45653674 - Session: 8b0f3c90-3e94-4c02-a452-f9d44afc412c/127.0.0.1:50129
+A new session connected!
+2018-02-03 13:09:31,728 [35] INFO  GPSServer-45653674 - Session: fb089767-25b4-42d7-b33c-a8f5d28d3fdf/127.0.0.1:50066
+This session was closed for ClientClosing!
+2018-02-03 13:10:28,352 [7] INFO  GPSServer-45653674 - Session: d70bc727-0eda-49d7-a9b3-15fb22aa01e3/127.0.0.1:50131
+A new session connected!
+2018-02-03 13:10:31,727 [35] INFO  GPSServer-45653674 - Session: ad526c7a-cdf3-4d1a-ac54-25b38f3eb1a4/127.0.0.1:50069
+This session was closed for ClientClosing!
+2018-02-03 13:11:28,734 [7] INFO  GPSServer-45653674 - Session: 16ac5381-3340-479b-902f-9fdaa74ba513/127.0.0.1:50139
+A new session connected!
+2018-02-03 13:11:32,727 [33] INFO  GPSServer-45653674 - Session: fd636ddb-04c8-4ba3-ad88-5523cbf833a1/127.0.0.1:50073
+This session was closed for ClientClosing!
+2018-02-03 13:11:38,728 [33] INFO  GPSServer-45653674 - Session: 3ff906e1-6c93-42eb-b10b-0daa30cf7939/127.0.0.1:50119
+This session was closed for ClientClosing!
+2018-02-03 13:12:29,087 [7] INFO  GPSServer-45653674 - Session: cc9127e8-085f-4799-8519-8a0a0c028668/127.0.0.1:50147
+A new session connected!
+2018-02-03 13:12:32,728 [42] INFO  GPSServer-45653674 - Session: 41702a68-fe62-4985-83fa-4e02df2afea8/127.0.0.1:50076
+This session was closed for ClientClosing!
+2018-02-03 13:13:29,772 [7] INFO  GPSServer-45653674 - Session: efeeb646-e38a-4fe6-a248-5ac18f955307/127.0.0.1:50149
+A new session connected!
+2018-02-03 13:13:33,727 [35] INFO  GPSServer-45653674 - Session: 4b4ff76e-e509-4944-9866-be3181d7db81/127.0.0.1:50089
+This session was closed for ClientClosing!
+2018-02-03 13:14:30,575 [7] INFO  GPSServer-45653674 - Session: 96a56c9c-04ca-47f6-8c97-8b6f2a439964/127.0.0.1:50154
+A new session connected!
+2018-02-03 13:14:33,727 [35] INFO  GPSServer-45653674 - Session: 9f64f380-6734-4fb0-aacd-bfc0eec65a56/127.0.0.1:50093
+This session was closed for ClientClosing!
+2018-02-03 13:15:31,210 [7] INFO  GPSServer-45653674 - Session: c0e6c9fa-607e-45a5-82fb-eb9da6c90087/127.0.0.1:50159
+A new session connected!
+2018-02-03 13:15:37,727 [46] INFO  GPSServer-45653674 - Session: b7e6af0f-4d01-4c6e-a1e9-894f786146f8/127.0.0.1:50097
+This session was closed for ClientClosing!
+2018-02-03 13:16:32,806 [7] INFO  GPSServer-45653674 - Session: 037541bb-a95a-4ed8-a76a-0962f544bbb2/127.0.0.1:50163
+A new session connected!
+2018-02-03 13:16:39,728 [35] INFO  GPSServer-45653674 - Session: a1a6a9c0-fa01-4386-9617-0905aaf85af8/127.0.0.1:50103
+This session was closed for ClientClosing!
+2018-02-03 13:17:34,326 [7] INFO  GPSServer-45653674 - Session: a7116be1-20cb-4ba0-9896-f95881859207/127.0.0.1:50167
+A new session connected!
+2018-02-03 13:17:52,728 [48] INFO  GPSServer-45653674 - Session: cba19940-62d8-4abc-8dfe-788987b0e5bc/127.0.0.1:50108
+This session was closed for ClientClosing!
+2018-02-03 13:18:35,114 [7] INFO  GPSServer-45653674 - Session: 5f97c38a-907c-4ba8-a25e-178cf74f788a/127.0.0.1:50169
+A new session connected!
+2018-02-03 13:19:25,728 [45] INFO  GPSServer-45653674 - Session: 07dc9c19-3136-40ff-addd-ee2121ce39d7/127.0.0.1:50115
+This session was closed for ClientClosing!
+2018-02-03 13:19:35,539 [7] INFO  GPSServer-45653674 - Session: 93e15bb7-78fa-4082-a3af-e95c32248f7e/127.0.0.1:50174
+A new session connected!
+2018-02-03 13:20:25,727 [45] INFO  GPSServer-45653674 - Session: 4d6a9bd7-d4df-4406-a5ff-7f503ae7a6f7/127.0.0.1:50117
+This session was closed for ClientClosing!
+2018-02-03 13:20:36,039 [7] INFO  GPSServer-45653674 - Session: 721d35e1-8002-48e8-99a4-6d61775b9605/127.0.0.1:50176
+A new session connected!
+2018-02-03 13:21:36,392 [7] INFO  GPSServer-45653674 - Session: c74bc19d-319b-4f82-97aa-0d87c088c35e/127.0.0.1:50180
+A new session connected!
+2018-02-03 13:22:27,727 [52] INFO  GPSServer-45653674 - Session: 8681cb0a-6ccb-4829-8759-476f8944c9b4/127.0.0.1:50124
+This session was closed for ClientClosing!
+2018-02-03 13:22:36,906 [7] INFO  GPSServer-45653674 - Session: 36d56ef2-9478-4d35-a381-9e0e5c08e199/127.0.0.1:50185
+A new session connected!
+2018-02-03 13:23:27,727 [54] INFO  GPSServer-45653674 - Session: 9d10aa8b-119c-46df-800a-93e5481c9032/127.0.0.1:50126
+This session was closed for ClientClosing!
+2018-02-03 13:23:39,362 [7] INFO  GPSServer-45653674 - Session: 8d79b670-53aa-4b63-9777-20b899eec47c/127.0.0.1:50187
+A new session connected!
+2018-02-03 13:24:27,727 [55] INFO  GPSServer-45653674 - Session: 8b0f3c90-3e94-4c02-a452-f9d44afc412c/127.0.0.1:50129
+This session was closed for ClientClosing!
+2018-02-03 13:24:39,778 [7] INFO  GPSServer-45653674 - Session: 364e1ac5-e185-45ef-b673-897f91161c11/127.0.0.1:50193
+A new session connected!
+2018-02-03 13:25:28,727 [59] INFO  GPSServer-45653674 - Session: d70bc727-0eda-49d7-a9b3-15fb22aa01e3/127.0.0.1:50131
+This session was closed for ClientClosing!
+2018-02-03 13:25:40,343 [7] INFO  GPSServer-45653674 - Session: 2454f28d-ea5c-4577-971f-12d822145415/127.0.0.1:50196
+A new session connected!
+2018-02-03 13:26:29,727 [49] INFO  GPSServer-45653674 - Session: 16ac5381-3340-479b-902f-9fdaa74ba513/127.0.0.1:50139
+This session was closed for ClientClosing!
+2018-02-03 13:26:40,705 [7] INFO  GPSServer-45653674 - Session: eb297b5c-ab3a-4946-9e1f-747381716f3a/127.0.0.1:50201
+A new session connected!
+2018-02-03 13:27:29,727 [52] INFO  GPSServer-45653674 - Session: cc9127e8-085f-4799-8519-8a0a0c028668/127.0.0.1:50147
+This session was closed for ClientClosing!
+2018-02-03 13:27:41,245 [7] INFO  GPSServer-45653674 - Session: 283a92c1-9f5c-40bf-97b0-56ef2d7f04e9/127.0.0.1:50204
+A new session connected!
+2018-02-03 13:28:30,727 [52] INFO  GPSServer-45653674 - Session: efeeb646-e38a-4fe6-a248-5ac18f955307/127.0.0.1:50149
+This session was closed for ClientClosing!
+2018-02-03 13:28:41,896 [7] INFO  GPSServer-45653674 - Session: 74eddb16-a3b9-4184-9d4a-3e9d393ca54b/127.0.0.1:50216
+A new session connected!
+2018-02-03 13:29:30,727 [52] INFO  GPSServer-45653674 - Session: 96a56c9c-04ca-47f6-8c97-8b6f2a439964/127.0.0.1:50154
+This session was closed for ClientClosing!
+2018-02-03 13:29:42,209 [7] INFO  GPSServer-45653674 - Session: ac476d9b-5175-4b9a-87d2-7b45e1eacd15/127.0.0.1:50218
+A new session connected!
+2018-02-03 13:29:50,726 [52] INFO  GPSServer-45653674 - Session: 364e1ac5-e185-45ef-b673-897f91161c11/127.0.0.1:50193
+This session was closed for ClientClosing!
+2018-02-03 13:30:31,727 [52] INFO  GPSServer-45653674 - Session: c0e6c9fa-607e-45a5-82fb-eb9da6c90087/127.0.0.1:50159
+This session was closed for ClientClosing!
+2018-02-03 13:30:42,788 [7] INFO  GPSServer-45653674 - Session: 6c4fdece-db2c-409c-b994-4a580b483203/127.0.0.1:50220
+A new session connected!
+2018-02-03 13:31:33,727 [61] INFO  GPSServer-45653674 - Session: 037541bb-a95a-4ed8-a76a-0962f544bbb2/127.0.0.1:50163
+This session was closed for ClientClosing!
+2018-02-03 13:31:43,131 [7] INFO  GPSServer-45653674 - Session: f2ca7197-a132-4fef-bc01-34ef9182fd8b/127.0.0.1:50228
+A new session connected!
+2018-02-03 13:32:34,727 [52] INFO  GPSServer-45653674 - Session: a7116be1-20cb-4ba0-9896-f95881859207/127.0.0.1:50167
+This session was closed for ClientClosing!
+2018-02-03 13:32:43,699 [7] INFO  GPSServer-45653674 - Session: ea2272b8-975f-4e2e-aee3-ff0eb513570b/127.0.0.1:50306
+A new session connected!
+2018-02-03 13:33:03,727 [61] INFO  GPSServer-45653674 - Session: 283a92c1-9f5c-40bf-97b0-56ef2d7f04e9/127.0.0.1:50204
+This session was closed for ClientClosing!
+2018-02-03 13:33:35,727 [52] INFO  GPSServer-45653674 - Session: 5f97c38a-907c-4ba8-a25e-178cf74f788a/127.0.0.1:50169
+This session was closed for ClientClosing!
+2018-02-03 13:33:44,070 [7] INFO  GPSServer-45653674 - Session: 4a28d06b-bdfb-4311-9696-d18ee19ee594/127.0.0.1:50321
+A new session connected!
+2018-02-03 13:34:35,726 [52] INFO  GPSServer-45653674 - Session: 93e15bb7-78fa-4082-a3af-e95c32248f7e/127.0.0.1:50174
+This session was closed for ClientClosing!
+2018-02-03 13:34:44,549 [7] INFO  GPSServer-45653674 - Session: a2cfebc7-546d-4c82-8611-2212074042f0/127.0.0.1:50335
+A new session connected!
+2018-02-03 13:35:36,727 [57] INFO  GPSServer-45653674 - Session: 721d35e1-8002-48e8-99a4-6d61775b9605/127.0.0.1:50176
+This session was closed for ClientClosing!
+2018-02-03 13:36:36,726 [61] INFO  GPSServer-45653674 - Session: c74bc19d-319b-4f82-97aa-0d87c088c35e/127.0.0.1:50180
+This session was closed for ClientClosing!
+2018-02-03 13:37:37,727 [57] INFO  GPSServer-45653674 - Session: 36d56ef2-9478-4d35-a381-9e0e5c08e199/127.0.0.1:50185
+This session was closed for ClientClosing!
+2018-02-03 13:38:39,727 [55] INFO  GPSServer-45653674 - Session: 8d79b670-53aa-4b63-9777-20b899eec47c/127.0.0.1:50187
+This session was closed for ClientClosing!
+2018-02-03 13:40:08,727 [64] INFO  GPSServer-45653674 - Session: a2cfebc7-546d-4c82-8611-2212074042f0/127.0.0.1:50335
+This session was closed for ClientClosing!
+2018-02-03 13:40:40,727 [57] INFO  GPSServer-45653674 - Session: 2454f28d-ea5c-4577-971f-12d822145415/127.0.0.1:50196
+This session was closed for ClientClosing!
+2018-02-03 13:41:40,727 [61] INFO  GPSServer-45653674 - Session: eb297b5c-ab3a-4946-9e1f-747381716f3a/127.0.0.1:50201
+This session was closed for ClientClosing!
+2018-02-03 13:43:42,727 [61] INFO  GPSServer-45653674 - Session: 74eddb16-a3b9-4184-9d4a-3e9d393ca54b/127.0.0.1:50216
+This session was closed for ClientClosing!
+2018-02-03 13:44:42,728 [61] INFO  GPSServer-45653674 - Session: ac476d9b-5175-4b9a-87d2-7b45e1eacd15/127.0.0.1:50218
+This session was closed for ClientClosing!
+2018-02-03 13:45:43,727 [59] INFO  GPSServer-45653674 - Session: 6c4fdece-db2c-409c-b994-4a580b483203/127.0.0.1:50220
+This session was closed for ClientClosing!
+2018-02-03 13:46:43,727 [63] INFO  GPSServer-45653674 - Session: f2ca7197-a132-4fef-bc01-34ef9182fd8b/127.0.0.1:50228
+This session was closed for ClientClosing!
+2018-02-03 13:47:43,728 [54] INFO  GPSServer-45653674 - Session: ea2272b8-975f-4e2e-aee3-ff0eb513570b/127.0.0.1:50306
+This session was closed for ClientClosing!
+2018-02-03 13:48:44,727 [48] INFO  GPSServer-45653674 - Session: 4a28d06b-bdfb-4311-9696-d18ee19ee594/127.0.0.1:50321
+This session was closed for ClientClosing!
+2018-02-03 13:54:07,728 [61] INFO  GPSServer-45653674 - Session: 86fafcbf-a1c2-4022-b3ed-d625d9b4fca8/127.0.0.1:50044
+This session was closed for ClientClosing!

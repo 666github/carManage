@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System.Web.SessionState;
+using System.Data.Objects.SqlClient;
+using System.Text.RegularExpressions;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ViewCars 的摘要说明
+    /// </summary>
+    public class ViewCars : IHttpHandler, IRequiresSessionState
+    {
+        static Regex r = new Regex("^[0-9]*$");
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            var currentUser = CheckHelper.RoleCheck(context, 0);
+            if (currentUser == null)
+                return;
+
+            //查询
+            var  department = context.Request["allBranch"].Trim();
+            
+
+            var state = context.Request["status"].Trim();
+            var account = currentUser.Account;
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                if (department != null)
+                {
+                    if (!(r.Match(department).Success))
+                    {
+                        department = cms.departmentmanage.FirstOrDefault(s => s.Name == department).Id.ToString();
+                    }
+                }
+
+                dynamic json = new JObject();
+                var now = DateTime.Now;
+                var carList = cms.carinfo
+                    .ToList()
+                    .Where(c=>(string.IsNullOrEmpty(department)?true:c.DepartmentId.ToString()==department)
+                    &&(string.IsNullOrEmpty(state)?true:c.CarState.ToString()==state))
+                    .Select(i => new
+                    {
+                        carImg=ImageHelper.GetImagePath(i.CarPhoto),
+                        brand1=i.CarBrand,
+                        licence=i.CarNumber,
+                        space=i.CarModel+"座",
+                        state= i.CarState==0&&(i.HolodayStart < now && i.HolodayEnd > now) ? 4:(i.CarState == 0&&i.NeedMaintain==1?5:(i.CurrentUser== account?6: i.CarState)),
+                    });
+                //转Json
+                json.sumNum = carList.Count();
+                json.used = carList.Count(s=>s.state == 1|| s.state == 2);
+                json.unUsed = carList.Count(s => s.state == 0);
+                var carJson = JArray.FromObject(carList);
+                json.car_inf = carJson;
+                json.state = "success";
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

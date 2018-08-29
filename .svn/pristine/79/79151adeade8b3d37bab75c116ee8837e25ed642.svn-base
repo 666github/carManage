@@ -1,0 +1,73 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ViewCarsMaintain 的摘要说明
+    /// </summary>
+    public class ViewCarsMaintain : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            //查询
+            var department = Convert.ToString(currentUser.Department);
+            var startDate = context.Request["startDate"].Trim();
+            var endDate = context.Request["endDate"].Trim();
+            var state = context.Request["status"].Trim();
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                dynamic json = new JObject();
+
+                var carList = cms.carinfo.ToList()
+                    .Where(s=> string.IsNullOrEmpty(department) ? true : department == s.DepartmentId.ToString())
+                    .Select(item => new
+                    {
+                        carImg = ImageHelper.GetImagePath(item.CarPhoto),
+                        firstBrand = item.CarBrand,
+                        carMode = item.CarType,
+                        licence = item.CarNumber,
+                        seat = item.CarModel+"座",
+                        price = cms.carcostregister.ToList()
+                               .Where(c => c.CarNumber == item.CarNumber
+                               && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < c.MaintenanceStartDate)
+                               && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > c.MaintenanceStartDate)
+                               &&(string.IsNullOrEmpty(state)?true:Convert.ToInt32(state)==c.Type))
+                               .Sum(x => x.Cost),
+                        count = cms.carcostregister.ToList()
+                               .Count(c => c.CarNumber == item.CarNumber
+                               && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < c.MaintenanceStartDate)
+                               && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > c.MaintenanceStartDate)
+                               && (string.IsNullOrEmpty(state) ? true : Convert.ToInt32(state) == c.Type))
+                    });
+
+                //转Json
+                json.maintenanceCosts = carList.Sum(s => Convert.ToDouble(s.price));
+                json.maintenanceCount = carList.Sum(s => Convert.ToInt16(s.count));
+                json.maintenanceInfo = JArray.FromObject(carList);
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

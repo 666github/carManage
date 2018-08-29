@@ -1,0 +1,69 @@
+﻿using CarManageSystem.helper;
+using CarManageSystem.Model;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.CarManage
+{
+    /// <summary>
+    /// DeleteCar 的摘要说明
+    /// </summary>
+    public class DeleteCar : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var inJson = context.Request["cars"];
+            var carsObj = JsonConvert.DeserializeObject<RemoveUseCar>(inJson);
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var cars = cms.carinfo.Where(s => carsObj.cars.Contains(s.CarNumber));
+                foreach (var car in cars)
+                {
+                    if(car.CarState!=0)
+                    {
+                        json.state = "包含不是空闲状态的车辆，删除失败";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                    cms.carinfo.Remove(car);
+                    //把跟车牌相关的表中的数据也一起删掉
+                    cms.borrowregister.Remove(cms.borrowregister.FirstOrDefault(s => s.CarNumber == car.CarNumber));
+                    cms.carcostregister.Remove(cms.carcostregister.FirstOrDefault(s => s.CarNumber == car.CarNumber));
+                    cms.illegalstatistic.Remove(cms.illegalstatistic.FirstOrDefault(s => s.CarNumber == car.CarNumber));
+                    cms.illegalusecar.Remove(cms.illegalusecar.FirstOrDefault(s => s.CarNumber == car.CarNumber));
+                    cms.returnregister.Remove(cms.returnregister.FirstOrDefault(s => s.CarNumber == car.CarNumber));
+                    cms.trajectorylog.Remove(cms.trajectorylog.FirstOrDefault(s => s.CarNumber == car.CarNumber));
+                    cms.msg_borrowcar.Remove(cms.msg_borrowcar.FirstOrDefault(s => s.AccessCar == car.CarNumber));
+                    cms.msg_expire.Remove(cms.msg_expire.FirstOrDefault(s => s.Car == car.CarNumber));
+                    cms.msg_maintain.Remove(cms.msg_maintain.FirstOrDefault(s => s.Car == car.CarNumber));
+                    cms.msg_outreturncar.Remove(cms.msg_outreturncar.FirstOrDefault(s => s.Car == car.CarNumber));
+                }
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

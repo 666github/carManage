@@ -1,0 +1,110 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// NeedMaintain 的摘要说明
+    /// </summary>
+    public class ViewNeedMaintain : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 1))
+                return;
+
+            var depart = Convert.ToInt16(context.Session["department"]);
+            dynamic json = new JObject();
+            //state 1 维修 2保养 3年检
+            //维修
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var date = DateTime.Now.AddDays(14);
+                var cars = cms.carinfo
+                    .ToList()
+                    .Where(s => s.NeedMaintain == 1&&s.CarState!=1&&s.DepartmentId== depart)
+                    .Select(i => new
+                    {
+                        carImg = ImageHelper.GetImagePath(i.CarPhoto),
+                        brand = i.CarBrand,
+                        carLicence = i.CarNumber,
+                        carSpace = i.CarType,
+                        safe = i.InsuranceEndDate.Value.ToShortDateString(),
+                        lastMaint = i.MaintenanceEndDate.Value.ToShortDateString(),
+                        endMaint = i.AnnualEndDate.Value.ToShortDateString(),
+                        stateInf = "1"
+                    }).ToList();
+                //保养
+                var byCars= cms.carinfo
+                    .ToList()
+                    .Where(s => date > s.MaintenanceEndDate && s.CarState != 2 && s.DepartmentId == depart)
+                    .Select(i => new
+                    {
+                        carImg = ImageHelper.GetImagePath(i.CarPhoto),
+                        brand = i.CarBrand,
+                        carLicence = i.CarNumber,
+                        carSpace = i.CarType,
+                        safe = i.InsuranceEndDate.Value.ToShortDateString(),
+                        lastMaint = i.MaintenanceEndDate.Value.ToShortDateString(),
+                        endMaint = i.AnnualEndDate.Value.ToShortDateString(),
+                        stateInf = "2"
+                    }).ToList();
+                //年检
+                var anCars =cms.carinfo
+                    .ToList()
+                    .Where(s=> date > s.AnnualEndDate && s.CarState != 3 && s.DepartmentId == depart)
+                    .Select(i => new
+                    {
+                        carImg = ImageHelper.GetImagePath(i.CarPhoto),
+                        brand = i.CarBrand,
+                        carLicence = i.CarNumber,
+                        carSpace = i.CarType,
+                        safe = i.InsuranceEndDate.Value.ToShortDateString(),
+                        lastMaint = i.MaintenanceEndDate.Value.ToShortDateString(),
+                        endMaint = i.AnnualEndDate.Value.ToShortDateString(),
+                        stateInf = "3"
+                    }).ToList();
+                //保险
+                var inCars = cms.carinfo
+                    .ToList()
+                    .Where(s => date > s.InsuranceEndDate && s.CarState != 4 && s.DepartmentId == depart)
+                    .Select(i => new
+                    {
+                        carImg = ImageHelper.GetImagePath(i.CarPhoto),
+                        brand = i.CarBrand,
+                        carLicence = i.CarNumber,
+                        carSpace = i.CarType,
+                        safe = i.InsuranceEndDate.Value.ToShortDateString(),
+                        lastMaint = i.MaintenanceEndDate.Value.ToShortDateString(),
+                        endMaint = i.AnnualEndDate.Value.ToShortDateString(),
+                        stateInf = "4"
+                    }).ToList();
+
+                
+                byCars.ForEach(i => cars.Add(i));
+                anCars.ForEach(i => cars.Add(i));
+                inCars.ForEach(i => cars.Add(i));
+                json.maintInf = JArray.FromObject(cars);
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

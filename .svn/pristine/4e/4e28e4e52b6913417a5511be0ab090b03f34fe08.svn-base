@@ -1,0 +1,127 @@
+﻿using CarManageSystem.helper;
+using CarManageSystem.Model;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ReturnCar 的摘要说明
+    /// </summary>
+    public class ReturnCar : IHttpHandler,IRequiresSessionState
+    {
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            var currentUser = CheckHelper.RoleCheck(context, 0);
+            if (currentUser == null)
+                return;
+
+            var travMileage = context.Request["travMileage"].Trim();
+            var carRepair=context.Request["carRepair"].Trim();
+            var carRepairDetail = context.Request["carRepairDetail"].Trim();
+            var returnAtOut = context.Request["returnAtOut"].Trim();
+            var returnDetail = context.Request["returnDetail"].Trim();
+            var uniqueCode = context.Request["uniqueCode"].Trim();
+            var gasL = context.Request["gasL"].Trim();
+            string uAccount = currentUser.Account;
+
+            dynamic json = new JObject();
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var br = cms.borrowregister.FirstOrDefault(s => s.UniqueCode == uniqueCode);
+                if (br == null)
+                {
+                    json.state = "用户没有此借车记录！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                if (uAccount != br.User)
+                {
+                    json.state = "用户没有此借车记录！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                var re = cms.returnregister.FirstOrDefault(s => s.UniqueCode == uniqueCode);
+                if (re != null)
+                {
+                    json.state = "此车已还！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                //更改车辆状态
+                var car = cms.carinfo.FirstOrDefault(s => s.CarNumber == br.CarNumber);
+
+                if (carRepair == "1")
+                {
+                    if (car.NeedMaintain == 1)
+                    {
+                        json.state = "此车已被他人报修，请不要再次报修！";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                    car.NeedMaintain = 1;
+                }
+
+                var returnState = 0;
+                if (returnAtOut == "院外")//如果院外还车
+                {
+                    returnState = 1;
+                    car.IsOut = 1;
+                }
+                else
+                {
+                    car.IsOut = 0;
+                }
+
+                var re1 = new returnregister()
+                {
+                    user = uAccount,
+                    ReturnTime = DateTime.Now,
+                    ReturnPlace = returnAtOut,
+                    TravelMileage = Convert.ToDouble(travMileage) - Convert.ToDouble(car.Mileage),
+                    CarRepair = Convert.ToInt16(carRepair),
+                    RepairDetail = carRepairDetail,
+                    ReturnDetail = returnDetail,
+                    CarNumber = br.CarNumber,
+                    UniqueCode = uniqueCode,
+                    ReturnState = returnState,
+                    
+                };
+                car.CarState = 0;
+                car.Mileage = travMileage;
+                car.CurrentUser = "";
+                car.GasL = gasL;
+                var usr = cms.user.FirstOrDefault(s => s.Account == uAccount);
+                usr.state = 0;
+                cms.returnregister.Add(re1);
+                
+                cms.SaveChanges();
+
+                //还车 改变 车数据表 中 车的发送状态
+                var temoCar=MyGlobal.carsList.FirstOrDefault(s => s.id == car.CarNumber);
+                if (temoCar != null)
+                {
+                    temoCar.state = -1;
+                }
+                json.state = "success";
+                context.Response.Write(json.ToString());
+
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

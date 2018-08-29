@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace testCode
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var timespan = TimeSpan.FromHours(1);
+            Console.WriteLine(timespan.TotalMinutes);
+            Console.ReadLine();
+        }
+    }
+}

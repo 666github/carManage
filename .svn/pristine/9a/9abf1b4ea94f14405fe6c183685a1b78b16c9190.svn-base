@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="baiduMapAK-Web.config Connection String" description="baiduMapAK 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="VeDSPIugmx05i3DHlfx1y27K2p19ag3T" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='baiduMapAK']/@connectionString" />
+  </parameter>
+  <parameter name="runService-Web.config Connection String" description="runService 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="1,1,0,0,0" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='runService']/@connectionString" />
+  </parameter>
+  <parameter name="gpsPort-Web.config Connection String" description="gpsPort 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="8000" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='gpsPort']/@connectionString" />
+  </parameter>
+  <parameter name="locationPort-Web.config Connection String" description="locationPort 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="8001" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='locationPort']/@connectionString" />
+  </parameter>
+  <parameter name="fence-Web.config Connection String" description="fence 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="116.323403,39.902666,116.342124,39.919698;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='fence']/@connectionString" />
+  </parameter>
+  <parameter name="emailServer-Web.config Connection String" description="emailServer 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="127.0.0.1:25" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='emailServer']/@connectionString" />
+  </parameter>
+  <parameter name="cmsdbEntities-Web.config Connection String" description="cmsdbEntities 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="metadata=res://*/cmsdb.csdl|res://*/cmsdb.ssdl|res://*/cmsdb.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=localhost;user id=jzht;password=jzht1688;persistsecurityinfo=True;database=cmsdb&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Project\\C\#\\车辆管理系统\\CarManageSystem\\CarManageSystem\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cmsdbEntities']/@connectionString" />
+  </parameter>
+</parameters>

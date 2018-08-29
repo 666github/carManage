@@ -1,0 +1,62 @@
+﻿using CarManageSystem.helper;
+using CarManageSystem.Model;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// HandleIllegalUseCar 的摘要说明
+    /// </summary>
+    public class HandleIllegalUseCar : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var id = context.Request["id"];
+            var user = context.Request["user"];
+            var cause = context.Request["cause"];
+            //var state = context.Request["state"];
+            var iuc = MyGlobal.illegalUseList.FirstOrDefault(s => s.id == id);
+            if(iuc==null)
+            {
+                json.state = "此违法用车已处理，请刷新重试！";
+                context.Response.Write(json.ToString());
+                return;
+            }
+            iuc.User = user;
+            iuc.Cause = cause;
+            //iuc.State = Convert.ToInt16(state);
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                cms.illegalusecar.Add(iuc);
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+                lock(MyGlobal.illegalUseList)
+                {
+                    MyGlobal.illegalUseList.Remove(iuc);
+                }
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

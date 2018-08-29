@@ -1,0 +1,69 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// ChangeBaseInfo 的摘要说明
+    /// </summary>
+    public class ChangeBaseInfo : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            var currentUser = CheckHelper.RoleCheck(context, 0);
+            if (currentUser == null)
+                return;
+
+            var account = currentUser.Account;
+            var path1 = ImageHelper.SaveImage(context.Request.Files["userPhoto"]);
+            var realName = context.Request["regmyName"].Trim();
+            var department = context.Request["regBranch"].Trim();
+            var driverType = context.Request["driverType"].Trim();
+            var allowModel = context.Request["regCarType"].Trim();
+            var effecDateStart = context.Request["effecDateStart"].Trim();
+            var effecDateEnd = context.Request["effecDateEnd"].Trim();
+
+            dynamic json = new JObject();
+
+            //空检查
+            if (CheckHelper.HasNull(account, realName, allowModel, effecDateStart, effecDateEnd, department, driverType, path1))
+            { 
+                json.state = "有空值，请检查！";
+                context.Response.Write(json.ToString());
+                return;
+            }
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var usr = cms.user.FirstOrDefault(s => s.Account == account);
+                usr.UserPhoto = path1;
+                usr.RealName = realName;
+                usr.Department = Convert.ToInt16(department);
+                usr.DriverType = Convert.ToInt16(driverType);
+                usr.AllowModel = allowModel;
+                usr.EffecDateStart = Convert.ToDateTime(effecDateStart);
+                usr.EffecDateEnd = Convert.ToDateTime(effecDateEnd);
+                cms.SaveChanges();
+                json.state = "success";
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

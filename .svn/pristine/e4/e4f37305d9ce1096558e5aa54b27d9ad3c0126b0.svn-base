@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C6DFD85D-3DFE-48B7-8E31-BF06843AF28A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CarManageSystem</RootNamespace>
+    <AssemblyName>CarManageSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Fleck">
+      <HintPath>..\..\..\..\..\360极速浏览器下载\Fleck-master\src\Fleck\bin\Debug\Fleck.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\AppData\Roaming\feiq\Recv Files\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cmsdb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>cmsdb.edmx</DependentUpon>
+      <LastGenOutput>cmsdb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="cmsdb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>cmsdb.edmx</DependentUpon>
+      <LastGenOutput>cmsdb.cs</LastGenOutput>
+    </Content>
+    <Content Include="css\branchManage\branchManage.css" />
+    <Content Include="css\carManage\loggingIn.css" />
+    <Content Include="css\carManage\query.css" />
+    <Content Include="css\homePage\messTip.css" />
+    <Content Include="css\homePage\oHome.css" />
+    <Content Include="css\ifra.css" />
+    <Content Include="css\index.css" />
+    <Content Include="css\index_dri.css" />
+    <Content Include="css\login.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\peopleManage\driManage.css" />
+    <Content Include="css\personCenter\personCenter.css" />
+    <Content Include="css\register.css" />
+    <Content Include="css\track\track.css" />
+    <Content Include="css\trafficStatistics\carsAssets.css" />
+    <Content Include="css\trafficStatistics\drivers.css" />
+    <Content Include="css\trafficStatistics\maintenance.css" />
+    <Content Include="css\trafficStatistics\mileage.css" />
+    <Content Include="driverManagement\carsManage\apply.html" />
+    <Content Include="driverManagement\carsManage\carsManagement.html" />
+    <Content Include="driverManagement\carsManage\css\carsManagement.css" />
+    <Content Include="driverManagement\carsManage\css\query.css" />
+    <Content Include="driverManagement\carsManage\js\carApply.js" />
+    <Content Include="driverManagement\carsManage\js\carsManagement.js" />
+    <Content Include="driverManagement\driverPersonCenter\css\driverPersonCenter.css" />
+    <Content Include="driverManagement\driverPersonCenter\driverPersonCenter.html" />
+    <Content Include="driverManagement\driverPersonCenter\js\driverPersonCenter.js" />
+    <Content Include="driverManagement\driverTask\css\driverTask.css" />
+    <Content Include="driverManagement\driverTask\driverTask.html" />
+    <Content Include="driverManagement\driverTask\js\driverTask.js" />
+    <Content Include="driverManagement\homePage\css\driverHome.css" />
+    <Content Include="driverManagement\homePage\driverHome.html" />
+    <Content Include="driverManagement\homePage\driverMessTip.html" />
+    <Content Include="driverManagement\homePage\js\driverHome.js" />
+    <Content Include="driverManagement\homePage\js\driverMessTip.js" />
+    <Content Include="driverManagement\js\index_dri.js" />
+    <Content Include="Global.asax" />
+    <Content Include="html\branchManage\branchManage.html" />
+    <Content Include="html\carManage\apply.html" />
+    <Content Include="html\carManage\holidayDetails.html" />
+    <Content Include="html\carManage\holidays.html" />
+    <Content Include="html\carManage\loggingIn.html" />
+    <Content Include="html\carManage\loggingIn0.html" />
+    <Content Include="html\carManage\maintain.html" />
+    <Content Include="html\carManage\query.html" />
+    <Content Include="html\carManage\queryDetails.html" />
+    <Content Include="html\carManage\queryDriCars.html" />
+    <Content Include="html\carManage\query_details.html" />
+    <Content Include="html\homePage\messTip.html" />
+    <Content Include="html\homePage\oHome.html" />
+    <Content Include="html\ifraLists.html" />
+    <Content Include="html\ifraTitle.html" />
+    <Content Include="html\peopleManage\branchManage.html" />
+    <Content Include="html\peopleManage\driManage.html" />
+    <Content Include="html\peopleManage\driManageDetail.html" />
+    <Content Include="html\peopleManage\instituteManage.html" />
+    <Content Include="html\personCenter\personCenter.html" />
+    <Content Include="html\railManage\railManage.html" />
+    <Content Include="html\registerAdm.html" />
+    <Content Include="html\registerDri.html" />
+    <Content Include="html\registType.html" />
+    <Content Include="html\resetPsw.html" />
+    <Content Include="html\track\current.html" />
+    <Content Include="html\track\history.html" />
+    <Content Include="html\trafficStatistics\drivers.html" />
+    <Content Include="html\trafficStatistics\maintenance.html" />
+    <Content Include="html\trafficStatistics\mileage.html" />
+    <Content Include="html\trajectlog\history.html" />
+    <Content Include="html\trajectlog\realtime.html" />
+    <Content Include="img\bm\删除.png" />
+    <Content Include="img\bm\删除hover.png" />
+    <Content Include="img\bm\司机.png" />
+    <Content Include="img\bm\按钮删除.png" />
+    <Content Include="img\bm\按钮添加.png" />
+    <Content Include="img\bm\编辑.png" />
+    <Content Include="img\bm\编辑hover.png" />
+    <Content Include="img\bm\车辆.png" />
+    <Content Include="img\car.png" />
+    <Content Include="img\car02.png" />
+    <Content Include="img\car03.jpg" />
+    <Content Include="img\car2.png" />
+    <Content Include="img\driver.png" />
+    <Content Include="img\easyicon.ico" />
+    <Content Include="img\favicon.ico" />
+    <Content Include="img\index\biaozhi.png" />
+    <Content Include="img\index\branch.png" />
+    <Content Include="img\index\car.png" />
+    <Content Include="img\index\GRAPH.png" />
+    <Content Include="img\index\Home.png" />
+    <Content Include="img\index\infor.png" />
+    <Content Include="img\index\MAP.png" />
+    <Content Include="img\index\out.png" />
+    <Content Include="img\index\set.png" />
+    <Content Include="img\index\USERS.png" />
+    <Content Include="img\index\warning.png" />
+    <Content Include="img\index\关闭 - 焦点.png" />
+    <Content Include="img\index\关闭.png" />
+    <Content Include="img\index\到期提醒.png" />
+    <Content Include="img\index\更多.png" />
+    <Content Include="img\index\维修申请.png" />
+    <Content Include="img\index\警告信息.png" />
+    <Content Include="img\index\车图标.png" />
+    <Content Include="img\index\非法用车.png" />
+    <Content Include="img\login\car.png" />
+    <Content Include="img\login\password.png" />
+    <Content Include="img\login\pleaselogin.png" />
+    <Content Include="img\login\price-bg.png" />
+    <Content Include="img\login\tiantan.png" />
+    <Content Include="img\login\user.png" />
+    <Content Include="img\login\说明.txt" />
+    <Content Include="img\logo.jpg" />
+    <Content Include="img\mybg.jpg" />
+    <Content Include="img\pagebg.jpg" />
+    <Content Include="img\sc.jpg" />
+    <Content Include="img\sc1024.jpg" />
+    <Content Include="img\title.jpg" />
+    <Content Include="index.html" />
+    <Content Include="index_dri.html" />
+    <Content Include="js\animateCss\animate.min.css" />
+    <Content Include="js\branchManage\branchManage.js" />
+    <Content Include="js\carManage.js" />
+    <Content Include="js\carManage\carApply.js" />
+    <Content Include="js\carManage\carHoliday.js" />
+    <Content Include="js\carManage\carLoggingIn.js" />
+    <Content Include="js\carManage\carMaintain.js" />
+    <Content Include="js\carManage\carQuery.js" />
+    <Content Include="js\carManage\carQueryDetail.js" />
+    <Content Include="js\carManage\page.js" />
+    <Content Include="js\date-new\css\jquery-ui-1.9.2.custom.css" />
+    <Content Include="js\date-new\css\overcast\images\ui-icons_3383bb_256x240.png" />
+    <Content Include="js\date-new\css\overcast\images\ui-icons_454545_256x240.png" />
+    <Content Include="js\date-new\css\overcast\images\ui-icons_70b2e1_256x240.png" />
+    <Content Include="js\date-new\css\overcast\images\ui-icons_999999_256x240.png" />
+    <Content Include="js\date-new\css\overcast\images\ui-icons_fbc856_256x240.png" />
+    <Content Include="js\date-new\css\overcast\images\xiala_jt01.png" />
+    <Content Include="js\date-new\index.html" />
+    <Content Include="js\date-new\js\custom.js" />
+    <Content Include="js\date-new\js\jquery-ui-1.9.2.custom.js" />
+    <Content Include="js\date-new\js\jquery.min.js" />
+    <Content Include="js\date-new\js\jquery.min1.11.1.js" />
+    <Content Include="js\date-new\js\share.js" />
+    <Content Include="js\homePage\messTip.js" />
+    <Content Include="js\homePage\oHome.js" />
+    <Content Include="js\index.js" />
+    <Content Include="js\jedate\jedate.js" />
+    <Content Include="js\jedate\jquery-1.7.2.js" />
+    <Content Include="js\jedate\jquery.jedate.js" />
+    <Content Include="js\jedate\jquery.jedate.min.js" />
+    <Content Include="js\jedate\skin\jedate.css" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\login.js" />
+    <Content Include="js\My97DatePicker\calendar.js" />
+    <Content Include="js\My97DatePicker\index.html" />
+    <Content Include="js\My97DatePicker\lang\en.js" />
+    <Content Include="js\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="js\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="js\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="js\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="js\My97DatePicker\skin\default\img.gif" />
+    <Content Include="js\My97DatePicker\skin\twoer\datepicker-dev.css" />
+    <Content Include="js\My97DatePicker\skin\twoer\datepicker.css" />
+    <Content Include="js\My97DatePicker\skin\twoer\img.gif" />
+    <Content Include="js\My97DatePicker\skin\twoer\img.png" />
+    <Content Include="js\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="js\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="js\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="js\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="js\My97DatePicker\WdatePicker.js" />
+    <Content Include="js\peopleManage\driManage.js" />
+    <Content Include="js\personCenter.js" />
+    <Content Include="js\register.js" />
+    <Content Include="js\track\track.js" />
+    <Content Include="js\trafficStatistics\carsAssets.js" />
+    <Content Include="js\trafficStatistics\drivers.js" />
+    <Content Include="js\trafficStatistics\maintenance.js" />
+    <Content Include="js\trafficStatistics\mileage.js" />
+    <Content Include="js\trafficStatistics\statistics.js" />
+    <Content Include="js\_carManage.js" />
+    <Content Include="lib\backbone.js" />
+    <Content Include="lib\require.js" />
+    <Content Include="lib\text.js" />
+    <Content Include="lib\underscore.js" />
+    <Content Include="login.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="borrowregister.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="carcostregister.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="carinfo.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cmsdb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cmsdb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cmsdb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cmsdb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>cmsdb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="departmentmanage.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\AccessBorrow.ashx.cs">
+      <DependentUpon>AccessBorrow.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarQuery\ChangeCarInfo.ashx.cs">
+      <DependentUpon>ChangeCarInfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Trajectory\GetDriverInfo.ashx.cs">
+      <DependentUpon>GetDriverInfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Trajectory\GetTrajectory.ashx.cs">
+      <DependentUpon>GetTrajectory.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\ApplyToUser.ashx.cs">
+      <DependentUpon>ApplyToUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarMaintain\AccessMaintain.ashx.cs">
+      <DependentUpon>AccessMaintain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarQuery\BorrowCar.ashx.cs">
+      <DependentUpon>BorrowCar.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarLogin.ashx.cs">
+      <DependentUpon>CarLogin.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarQuery\DirectMaintain.ashx.cs">
+      <DependentUpon>DirectMaintain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarMaintain\FinishMaintain.ashx.cs">
+      <DependentUpon>FinishMaintain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\HolidayUse\RemoveHolidayUse.ashx.cs">
+      <DependentUpon>RemoveHolidayUse.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\HolidayUse\ViewHolidayCars.ashx.cs">
+      <DependentUpon>ViewHolidayCars.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\DepartmentManage\Add.ashx.cs">
+      <DependentUpon>Add.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\DepartmentManage\ChangeName.ashx.cs">
+      <DependentUpon>ChangeName.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\DepartmentManage\Delete.ashx.cs">
+      <DependentUpon>Delete.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\DepartmentManage\View.ashx.cs">
+      <DependentUpon>View.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\HandleIllegalUseCar.ashx.cs">
+      <DependentUpon>HandleIllegalUseCar.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Index\IndexMessage.ashx.cs">
+      <DependentUpon>IndexMessage.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Index\MessageRemind.ashx.cs">
+      <DependentUpon>MessageRemind.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\PersonalCenter\ChangeInfo\ChangeBaseInfo.ashx.cs">
+      <DependentUpon>ChangeBaseInfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\PersonalCenter\ChangeInfo\ChangeSecurityInfo.ashx.cs">
+      <DependentUpon>ChangeSecurityInfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarMaintain\ViewFinishMaintain.ashx.cs">
+      <DependentUpon>ViewFinishMaintain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarQuery\GetCarDetails.ashx.cs">
+      <DependentUpon>GetCarDetails.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\GetCurrentUser.ashx.cs">
+      <DependentUpon>GetCurrentUser.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\GetDepartment.ashx.cs">
+      <DependentUpon>GetDepartment.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\GetDrivers.ashx.cs">
+      <DependentUpon>GetDrivers.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Login.ashx.cs">
+      <DependentUpon>Login.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarMaintain\ViewMaintaining.ashx.cs">
+      <DependentUpon>ViewMaintaining.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarMaintain\ViewNeedMaintain.ashx.cs">
+      <DependentUpon>ViewNeedMaintain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\PersonalCenter\Reservation\CancelBorrow.ashx.cs">
+      <DependentUpon>CancelBorrow.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\PersonalCenter\Reservation\ViewBorrowCar.ashx.cs">
+      <DependentUpon>ViewBorrowCar.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Register.ashx.cs">
+      <DependentUpon>Register.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\PersonalCenter\Reservation\ReturnCar.ashx.cs">
+      <DependentUpon>ReturnCar.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\HolidayUse\AddHolidayUse.ashx.cs">
+      <DependentUpon>AddHolidayUse.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\CarQuery\ViewCars.ashx.cs">
+      <DependentUpon>ViewCars.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Statistics\ViewCarsMaintain.ashx.cs">
+      <DependentUpon>ViewCarsMaintain.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Statistics\ViewCarsMileage.ashx.cs">
+      <DependentUpon>ViewCarsMileage.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\Statistics\ViewDriverStatistics.ashx.cs">
+      <DependentUpon>ViewDriverStatistics.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\Driver\AccessDriver.ashx.cs">
+      <DependentUpon>AccessDriver.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\Driver\DeleteDriver.ashx.cs">
+      <DependentUpon>DeleteDriver.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\Driver\GetDetail.ashx.cs">
+      <DependentUpon>GetDetail.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\Driver\ViewApplyDriver.ashx.cs">
+      <DependentUpon>ViewApplyDriver.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\Driver\ViewDriver.ashx.cs">
+      <DependentUpon>ViewDriver.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\UserManage\Driver\ViewNoAccessDriver.ashx.cs">
+      <DependentUpon>ViewNoAccessDriver.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\ViewBorrowApply.ashx.cs">
+      <DependentUpon>ViewBorrowApply.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="handler\CarManage\ViewOutReturn.ashx.cs">
+      <DependentUpon>ViewOutReturn.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="illegalstatistic.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="illegalusecar.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Car.cs" />
+    <Compile Include="Model\MyGlobal.cs" />
+    <Compile Include="Model\Position.cs" />
+    <Compile Include="Model\StateObject.cs" />
+    <Compile Include="returnregister.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service\GPSService.cs" />
+    <Compile Include="Model\AsyncEventArgs.cs" />
+    <Compile Include="Model\AsyncTCPServer.cs" />
+    <Compile Include="Model\CarConnect.cs" />
+    <Compile Include="Model\TCPClientState.cs" />
+    <Compile Include="helper\ConvertHelper.cs" />
+    <Compile Include="helper\CheckHelper.cs" />
+    <Compile Include="helper\ImageHelper.cs" />
+    <Compile Include="helper\NullCheckHelper.cs" />
+    <Compile Include="helper\PathHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\LocationService.cs" />
+    <Compile Include="trajectorylog.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user.cs">
+      <DependentUpon>cmsdb.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="handler\Register.ashx" />
+    <Content Include="handler\Login.ashx" />
+    <Content Include="handler\GetDepartment.ashx" />
+    <Content Include="handler\CarManage\CarLogin.ashx" />
+    <Content Include="handler\CarManage\CarQuery\ViewCars.ashx" />
+    <Content Include="handler\CarManage\CarQuery\GetCarDetails.ashx" />
+    <Content Include="handler\CarManage\CarQuery\BorrowCar.ashx" />
+    <Content Include="handler\PersonalCenter\ChangeInfo\ChangeBaseInfo.ashx" />
+    <Content Include="handler\PersonalCenter\ChangeInfo\ChangeSecurityInfo.ashx" />
+    <Content Include="handler\PersonalCenter\Reservation\ReturnCar.ashx" />
+    <Content Include="handler\CarManage\HolidayUse\AddHolidayUse.ashx" />
+    <Content Include="handler\Statistics\ViewCarsMaintain.ashx" />
+    <Content Include="handler\Statistics\ViewCarsMileage.ashx" />
+    <Content Include="handler\CarManage\CarMaintain\ViewNeedMaintain.ashx" />
+    <Content Include="handler\CarManage\CarMaintain\ViewMaintaining.ashx" />
+    <Content Include="handler\CarManage\CarMaintain\ViewFinishMaintain.ashx" />
+    <Content Include="handler\CarManage\CarMaintain\AccessMaintain.ashx" />
+    <Content Include="handler\CarManage\CarMaintain\FinishMaintain.ashx" />
+    <Content Include="handler\CarManage\CarQuery\DirectMaintain.ashx" />
+    <Content Include="handler\CarManage\HolidayUse\ViewHolidayCars.ashx" />
+    <Content Include="handler\CarManage\HolidayUse\RemoveHolidayUse.ashx" />
+    <Content Include="handler\Statistics\ViewDriverStatistics.ashx" />
+    <Content Include="handler\GetDrivers.ashx" />
+    <Content Include="handler\GetCurrentUser.ashx" />
+    <Content Include="handler\PersonalCenter\Reservation\ViewBorrowCar.ashx" />
+    <Content Include="handler\PersonalCenter\Reservation\CancelBorrow.ashx" />
+    <Content Include="handler\CarManage\AccessBorrow.ashx" />
+    <Content Include="handler\CarManage\HandleIllegalUseCar.ashx" />
+    <Content Include="handler\Index\IndexMessage.ashx" />
+    <Content Include="handler\Index\MessageRemind.ashx" />
+    <Content Include="handler\CarManage\ViewBorrowApply.ashx" />
+    <Content Include="handler\CarManage\ViewOutReturn.ashx" />
+    <Content Include="handler\DepartmentManage\View.ashx" />
+    <Content Include="handler\DepartmentManage\ChangeName.ashx" />
+    <Content Include="handler\DepartmentManage\Delete.ashx" />
+    <Content Include="handler\DepartmentManage\Add.ashx" />
+    <Content Include="handler\UserManage\Driver\ViewDriver.ashx" />
+    <Content Include="handler\UserManage\Driver\DeleteDriver.ashx" />
+    <Content Include="handler\UserManage\Driver\ViewNoAccessDriver.ashx" />
+    <Content Include="handler\UserManage\Driver\ViewApplyDriver.ashx" />
+    <Content Include="handler\UserManage\Driver\AccessDriver.ashx" />
+    <Content Include="handler\UserManage\ApplyToUser.ashx" />
+    <Content Include="handler\UserManage\Driver\GetDetail.ashx" />
+    <Content Include="handler\Trajectory\GetTrajectory.ashx" />
+    <Content Include="handler\Trajectory\GetDriverInfo.ashx" />
+    <Content Include="handler\CarManage\CarQuery\ChangeCarInfo.ashx" />
+    <EntityDeploy Include="cmsdb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>cmsdb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="cmsdb.edmx.diagram">
+      <DependentUpon>cmsdb.edmx</DependentUpon>
+    </Content>
+    <None Include="img\人员管理-部门级管理员.psd" />
+    <None Include="img\人员管理.psd" />
+    <None Include="img\注册1.psd" />
+    <None Include="img\注册2.psd" />
+    <None Include="img\注册3.psd" />
+    <None Include="img\登录x.psd" />
+    <None Include="img\部门管理.psd" />
+    <None Include="img\首页.psd" />
+    <None Include="js\My97DatePicker\.project" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="driverManagement\historyLocus\css\" />
+    <Folder Include="driverManagement\historyLocus\js\" />
+    <Folder Include="driverManagement\img\" />
+    <Folder Include="handler\PersonalCenter\WaitAudit\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2238</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

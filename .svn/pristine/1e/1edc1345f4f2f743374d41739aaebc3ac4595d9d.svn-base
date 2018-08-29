@@ -1,0 +1,112 @@
+$(document).ready(function() {
+//	checkInfo();
+	
+	odelSearch();
+});
+var nameDetail;
+var departmentDetail;
+var option = $('.driBranch').html().trim();
+$.ajax({
+    type: "post",
+    dataType: "json",
+    url: "../handler/GetDepartment.ashx",
+    data:{from:0},
+    xhrFields:{withCredentials:true},
+    success: function (data) {
+        var obj = data;
+        for (var i = 0; i < obj.length; i++) {
+            option += '<option value="' + obj[i].Name + '">' + obj[i].Name + '</option>';
+        }
+        $('.driBranch').html(option);
+      	var currentBranch = $(".branchName").text();
+		$(".driBranch").val(currentBranch);
+		if(userType==1){
+			$(".driBranch").attr("disabled","disabled");
+		}
+		checkInfo();
+    },
+      error: function () {
+          console.log("部门获取失败");
+    }
+})
+
+//获取
+function checkInfo(){debugger;
+	var content = this;
+	var department = $('.allBranch option:selected').val();
+	var driTime1=$("#driTime1").val();
+	var driTime2=$("#driTime2").val();
+	$.ajax({
+		type:"get",
+		url:"../handler/Statistics/ViewDriverStatistics.ashx",
+		data:{"department":department,"startDate":driTime1,"endDate":driTime2,from:0},
+		xhrFields:{withCredentials:true},
+		dataType:"json",
+		success:function(data){
+			if(data.state=="success"){
+				$(".partTimeDriCount").text(data.partTimeDriCount);
+				$(".fullTimeDriCount").text(data.fullTimeDriCount);
+				$(".illegalDriCount").text(data.c1Count);
+				$(".ffycDriCount").text(data.c2Count);
+				content.getDrivers(data.driversInfo);
+			}else if(data.state=="1"){
+				alert("请重新登录");
+				location.href="./login.html"
+			}else{
+				alert(data.state);
+			}
+		},error:function(e1,e2,e3){
+			console.log("加载失败")
+		}
+	});
+	
+	this.getDrivers = function(_data){
+		var driversNode = "";
+		for (var i = 0; i<_data.length;i++) {
+			driversNode += '<ul class="driverInfo">'+
+				'<li class="driverIcon"><div class="icon"><img class="" src="'+_data[i].driverImg+'"/></div><div class="iconInfo"><p>'+_data[i].driverName+'</p><p>'+_data[i].driverBranch+'</p></div></li>'+
+				'<li class="driveingInfo"><span class="driverType">司机类型 : <span class="driverTypeInfo">'+_data[i].driverType+'</span></span>'+
+				'<span class="driverLicense">驾驶类型 : <span class="driverLicenseInfo">'+_data[i].driverLicenseInfo+'</span></span>'+
+				'<span class="driverNum">驾驶次数 : <span class="driverNumInfo">'+_data[i].driverNumInfo+'</span></span><span class="illegalNum">违章次数 : <span class="illegalNumInfo">'+_data[i].illegalNumInfo+'</span></span>'+
+                '<span class="ffycCount">非法用车次数 : <span class="ffycCountInfo">' + _data[i].illeaglUCNumInfo +'</span></span></li>'+
+				'<li class="driverMileage">行驶里程(km) ：<span class="milesNum">'+_data[i].milesNum+'</span></li>'+
+			'</ul>';
+		}
+//		document.getElementById("driverInfo").innerHTML = driversNode;
+		$(".driversInfo").html(driversNode);
+	}
+		
+}
+//信息导出
+	$(".exportInf").click(function(){
+		var department=$(".driBranch").val();
+		var driTime1=$("#driTime1").val();
+		var driTime2=$("#driTime2").val();
+		location.href="http://192.168.1.120:2238/handler/Statistics/ViewDriverStatistics.ashx?from=0&department="+department+"&driTime1"+driTime1+"&driTime2"+driTime2+"&export=1";
+	})
+function odelSearch(){
+	$(".driBranch").change(function(){
+		checkInfo();
+	})
+//	$(".olength").blur(function(){
+//		if($("body>div:last-child").css("display")=="none"){//时间框隐藏了触发事件
+//			checkInfo();debugger
+//		}
+//	})
+	$("#driTime1").click(function(){
+		$("#driTime1").focus(function(){
+			checkInfo();
+		});
+	})
+	$("#driTime2").click(function(){
+		$("#driTime2").focus(function(){
+			checkInfo();
+			$("#driTime2").blur();
+		});
+	})
+}
+					
+							
+							
+							
+				

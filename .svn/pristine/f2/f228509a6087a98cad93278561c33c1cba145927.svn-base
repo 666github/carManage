@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarManageSystem.helper
+{
+    public class ImageHelper
+    {
+        /// <summary>
+        /// 保存图片
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        static public string SaveImage(HttpPostedFile  file)
+        {
+            var path = "";
+            if (file != null)
+            {
+                path = @"\image\" + Guid.NewGuid().ToString() + file.FileName;
+                file.SaveAs(PathHelper.GetRootPath()+path);
+                return path;
+            }
+            else
+                return path;
+        }
+
+        /// <summary>
+        /// 获取图片链接
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        static public string GetImagePath(string path)
+        {
+            path = PathHelper.GetRootURI() + path;
+            return path;
+        }
+    }
+}

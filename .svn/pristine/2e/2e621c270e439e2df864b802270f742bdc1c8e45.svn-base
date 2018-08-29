@@ -1,0 +1,717 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using CarManageSystem.Model;
+using JT808;
+using JT808.Messages;
+using Newtonsoft.Json;
+using ServiceStack.Redis;
+using SuperSocket.SocketBase;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web;
+using static CarManageSystem.Model.MyGlobal;
+
+namespace CarManageSystem.Service
+{
+    public class GPSServiceNew
+    {
+        static List<GPSSession> monitorList = new List<GPSSession>();
+
+        static string fence = System.Configuration.ConfigurationManager.ConnectionStrings["fence"].ConnectionString;
+        static string ak = System.Configuration.ConfigurationManager.ConnectionStrings["baiduMapAK"].ConnectionString;
+
+        public static void GPSStart(int port)
+        {
+            var gpsServer = new GPSServer();
+            gpsServer.NewSessionConnected += new SessionHandler<GPSSession>(gpsServer_NewSessionConnected);
+            gpsServer.NewRequestReceived += new RequestHandler<GPSSession, GPSRequestInfo>(gpsServer_NewRequestReceived);
+            gpsServer.SessionClosed += new SessionHandler<GPSSession, CloseReason>(gpsServer_SessionClosed);
+            if (!gpsServer.Setup(port))
+            {
+                return;
+            }
+
+            if (!gpsServer.Start())
+            {
+                return;
+            }
+            Debug.WriteLine("GPS服务已启动");
+
+        }
+
+
+        static void gpsServer_NewSessionConnected(GPSSession session)
+        {
+            try
+            {
+                //给监视器返回数据
+                monitorList.ForEach(x => x.Send("new Connect ,sessionId:" + session.SessionID));
+                Debug.WriteLine("new Connect ,sessionId:" + session.SessionID);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("新连接，返回给监视器出错"+ex.Message);
+            }
+        }
+
+        static void gpsServer_SessionClosed(GPSSession session, CloseReason reason)
+        {
+            try
+            {
+                //移除监视器
+                var monitor = monitorList.FirstOrDefault(s => s.SessionID == session.SessionID);
+                if (monitor != null)
+                {
+                    lock (monitorList)
+                    {
+                        monitorList.Remove(monitor);
+                    }
+                }
+
+                //给监视器返回数据
+                monitorList.ForEach(x => x.Send("Connect Close:" + session.SessionID + "  reason:" + reason));
+                Debug.WriteLine("Connect Close:" + session.SessionID + "  reason:" + reason);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("关闭连接，返回给监视器出错"+ex.Message);
+            }
+            
+            try
+            {
+                //如果空闲车辆在围栏内移动，则改state 状态为 -1 等待移除
+                using (IRedisClient redisClient = MyGlobal.prcm.GetClient())
+                {
+                    lock (MyGlobal.locker)
+                    {
+                        var carList = redisClient.Get<CarList>("carList");
+                        var deleteCar = carList.carList.FirstOrDefault(s => s.socketid == session.SessionID && s.isillegal == 0);
+                        if (deleteCar != null)
+                        {
+                            deleteCar.state = -1;
+                            redisClient.Set<CarList>("carList", carList);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("从列表中去除已断开连接的车辆出错" + ex.Message);
+            }
+            
+        }
+
+        static void gpsServer_NewRequestReceived(GPSSession session, GPSRequestInfo requestInfo)
+        {
+            //添加监视器
+            if (requestInfo.Key == "MZTKNMZTKN123321")
+            {
+                lock (monitorList)
+                {
+                    monitorList.Add(session);
+                }
+            }
+            else
+            {
+                if(requestInfo.Key.Contains("GPS"))
+                {
+                    HandleMessage(requestInfo.Key, session);
+                }
+                else
+                {
+                    HandleJT808Message(requestInfo,session);
+                }
+            }
+            
+            //给监视器返回数据
+            monitorList.ForEach(x => x.Send("sessionId:" + session.SessionID + "  content:" + requestInfo.Key));
+        }
+
+        static void HandleJT808Message(GPSRequestInfo requestInfo, GPSSession session)
+        {
+            
+            IProtocolBuffer protocolBuffer = ProtocolBufferPool.Default.Pop();
+            int offset = protocolBuffer.Import(requestInfo.GpsData, 0, requestInfo.GpsData.Length);
+            Message message = MessageFactory.DecodeMessage(protocolBuffer);
+            Debug.WriteLine(message.ID);
+
+            if (message.ID == 0x0100)  //终端注册
+            {
+                try
+                {
+                    Debug.WriteLine("终端注册");
+                    var mb = message.Body as RegisterMessage;
+                    IProtocolBuffer result = MessageFactory.CreateMessage<RegisterResponseMessage>(
+                               message.No, message.SIM, (m, b) =>
+                               {
+                                   b.No = message.No;
+                                   b.Signature = "123456";
+                                   b.Result = RegisterResult.成功;
+                               });
+                    session.Send(result.Array, 0, result.Length);
+                }
+                catch(Exception ex)
+                {
+                    Debug.WriteLine("终端注册出错" + ex.Message);
+                }
+                
+            }
+            else if (message.ID == 0x0102)  //终端鉴权
+            {
+                try
+                {
+                    Debug.WriteLine("终端鉴权");
+
+                    var mb = message.Body as SignatureMessage;
+
+                    IProtocolBuffer result = MessageFactory.CreateMessage<CenterResponseMessage>(
+                           message.No, message.SIM, (m, b) =>
+                           {
+                               b.No = message.No;
+                               b.ResultID = message.ID;
+                               b.Result = ResultType.Success;
+                           });
+                    session.Send(result.Array, 0, result.Length);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("终端鉴权出错"+ex.Message);
+                }
+                
+            }
+            else if (message.ID == 0x0200) //位置信息汇报
+            {
+                var body = message.Body as PostionMessage;
+                try
+                {
+                    Debug.WriteLine("位置信息汇报");
+
+                    
+                    Debug.WriteLine(body.Longitude + " " + body.Latitude);
+                    IProtocolBuffer result = MessageFactory.CreateMessage<CenterResponseMessage>(
+                           message.No, message.SIM, (m, b) =>
+                           {
+                               b.No = message.No;
+                               b.ResultID = message.ID;
+                               b.Result = ResultType.Success;
+                           });
+                    session.Send(result.Array, 0, result.Length);
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("位置信息汇报出错"+ex.Message);
+                }
+                
+                //处理gps数据
+                try
+                {
+                    using (cmsdbEntities cms = new cmsdbEntities())
+                    {
+                        var simid = message.SIM;
+                        if (simid == null)
+                        {
+                            session.Close();
+                            return;
+                        }
+                        var car = cms.carinfo.FirstOrDefault(s => s.SimId == simid);
+                        if (car == null)
+                        {
+                            session.Close();
+                            return;
+                        }
+
+                        //如果此车是系统内的
+
+                        var y = (((double)body.Latitude)/ 1000000);
+                        var x = (((double)body.Longitude)/ 1000000);
+
+                        if (x == 0 || y == 0)
+                        {
+                            return;
+                        }
+                        //根据百度接口 处理数据为百度地图坐标
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("http://api.map.baidu.com/geoconv/v1/?coords={0},{1}&from=1&to=5&ak={2}", x, y, ak));
+                        request.Method = "GET";
+                        StateObject stateObj = new StateObject();
+                        stateObj.socketid = session.SessionID;
+                        stateObj.car = car;
+                        stateObj.request = request;
+                        stateObj.datetime = Convert.ToDateTime(body.Time);
+                        request.BeginGetResponse(new AsyncCallback(RequestStreamCallBack), stateObj);
+                        cms.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("处理GPS出错"+ex.Message);
+                    return;
+                }
+                
+            }
+            else if (message.ID == 0x0002)  //终端心跳
+            {
+                try
+                {
+                    Debug.WriteLine("终端心跳");
+                    var a = 1;
+                    IProtocolBuffer result = MessageFactory.CreateMessage<CenterResponseMessage>(
+                           message.No, message.SIM, (m, b) =>
+                           {
+                               b.No = message.No;
+                               b.ResultID = message.ID;
+                               b.Result = ResultType.Success;
+                           });
+                    session.Send(result.Array, 0, result.Length);
+                }
+                catch(Exception ex)
+                {
+                    Debug.WriteLine("终端心跳出错" + ex.Message);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 处理信息
+        /// </summary>
+        /// <param name="message"></param>
+        static void HandleMessage(string message,GPSSession session)
+        {
+            try
+            {
+                //判断是不是有效的GPS信息
+                var strs = message.Split('|');
+                if (strs.Count() <= 0)
+                {
+                    session.Close();
+                    return;
+                }
+
+                if (strs[0] != "GPS" && strs[0]!= "GPSGROUP")
+                {
+                    session.Close();
+                    return;
+                }
+
+                using (cmsdbEntities cms = new cmsdbEntities())
+                {
+                    var simid = Convert.ToString(strs[1]);
+                    if (simid == null)
+                    {
+                        session.Close();
+                        return;
+                    }
+                    var car = cms.carinfo.FirstOrDefault(s => s.SimId == simid);
+                    if (car == null)
+                    {
+                        session.Close();
+                        return;
+                    }
+
+                    //如果此车是系统内的
+                    if(strs[0] == "GPS")
+                    {
+                        var y = Convert.ToDouble(strs[2]);
+                        var x = Convert.ToDouble(strs[3]);
+                        if (x == 0 || y == 0)
+                        {
+                            return;
+                        }
+                        var shi = Convert.ToInt32(strs[4].Substring(0, 2)) + 8;
+                        if (shi >= 24)
+                            shi -= 24;
+                        var fen = strs[4].Substring(2, 2);
+                        var miao = strs[4].Substring(4, 2);
+
+                        //根据百度接口 处理数据为百度地图坐标
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("http://api.map.baidu.com/geoconv/v1/?coords={0},{1}&from=1&to=5&ak={2}", x, y, ak));
+                        request.Method = "GET";
+                        StateObject stateObj = new StateObject();
+                        stateObj.socketid = session.SessionID;
+                        stateObj.car = car;
+                        stateObj.request = request;
+                        stateObj.datetime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + ' ' + shi.ToString() + ':' + fen + ':' + miao);
+                        request.BeginGetResponse(new AsyncCallback(RequestStreamCallBack), stateObj);
+                    }
+                    else if(strs[0] == "GPSGROUP")
+                    {
+                        for(var i =2;i<strs.Length;i++)
+                        {
+                            var datas = strs[i].Split('-');
+                            var y = Convert.ToDouble(datas[1]);
+                            var x = Convert.ToDouble(datas[0]);
+                            if (x == 0 || y == 0)
+                            {
+                                return;
+                            }
+                            var shi = Convert.ToInt32(datas[2].Substring(0, 2)) + 8;
+                            if (shi >= 24)
+                                shi -= 24;
+                            var fen = datas[2].Substring(2, 2);
+                            var miao = datas[2].Substring(4, 2);
+
+                            //根据百度接口 处理数据为百度地图坐标
+                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("http://api.map.baidu.com/geoconv/v1/?coords={0},{1}&from=1&to=5&ak={2}", x, y, ak));
+                            request.Method = "GET";
+                            StateObject stateObj = new StateObject();
+                            stateObj.socketid = session.SessionID;
+                            stateObj.car = car;
+                            stateObj.request = request;
+                            stateObj.datetime = Convert.ToDateTime(DateTime.Now.ToShortDateString() + ' ' + shi.ToString() + ':' + fen + ':' + miao);
+                            request.BeginGetResponse(new AsyncCallback(RequestStreamCallBack), stateObj);
+                        }
+                    }
+                    cms.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 百度地图地址转换 回调
+        /// </summary>
+        /// <param name="asynchronousResult"></param>
+        public static void RequestStreamCallBack(IAsyncResult asynchronousResult)
+        {
+            try
+            {
+                var stateObj = (StateObject)asynchronousResult.AsyncState;
+                var request = stateObj.request;
+                var gpsDatetime = stateObj.datetime;
+                var response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
+
+                using (var streamReader = new StreamReader(response.GetResponseStream()))
+                {
+                    var resultString = streamReader.ReadToEnd();
+                    var obj = JsonConvert.DeserializeObject<dynamic>(resultString);
+                    if (obj.status != 0)
+                    {
+                        return;
+                    }
+                    double x = obj.result[0].x;
+                    double y = obj.result[0].y;
+                    var car = stateObj.car;
+                    var socketid = stateObj.socketid;
+
+
+                    using (cmsdbEntities cms = new cmsdbEntities())
+                    {
+                        var userName = "";
+                        var uniqueCode = "";
+                        DateTime lasttime=DateTime.Now;
+                        double lastX=0;
+                        double lastY=0;
+                        int isfirstReceive = 0;
+
+                        using (IRedisClient redisClient = MyGlobal.prcm.GetClient())
+                        {
+                            //判断推送
+                            //夜间用车
+                            try
+                            {
+                                if (lasttime.Hour > 19)
+                                {
+                                    lock (MyGlobal.nightUCLocker)
+                                    {
+                                        var nightList = redisClient.Get<List<UseCarPush>>("nightList");
+                                        var tempnight = nightList.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                                        if (tempnight == null)
+                                        {
+                                            //推送
+                                            var msg = car.CarNumber + "正在夜间用车";
+                                            PushHelper.PushToDepartCtrlByCarNumber(car.CarNumber, "夜间用车", msg);
+                                            PushHelper.PushToYuanCtrl("夜间用车", msg);
+                                            nightList.Add(new UseCarPush { CarNumber = car.CarNumber, State = 0 });
+                                            redisClient.Set<List<UseCarPush>>("nightList", nightList);
+                                        }
+                                    }
+                                }
+                                //节假日用车
+                                if (car.HolodayStart != null && car.HolodayEnd != null)
+                                {
+                                    if (car.HolodayStart <= lasttime && car.HolodayEnd > lasttime)
+                                    {
+                                        lock (MyGlobal.holidayUCLocker)
+                                        {
+                                            var holidayList = redisClient.Get<List<UseCarPush>>("holidayList");
+                                            var tempholiday = holidayList.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                                            if (tempholiday == null)
+                                            {
+                                                //推送
+                                                var msg = car.CarNumber + "正在节假日用车";
+                                                PushHelper.PushToDepartCtrlByCarNumber(car.CarNumber, "节假日用车", msg);
+                                                PushHelper.PushToYuanCtrl("节假日用车", msg);
+                                                holidayList.Add(new UseCarPush { CarNumber = car.CarNumber, State = 0 });
+                                                redisClient.Set<List<UseCarPush>>("holidayList", holidayList);
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    //周末用车
+                                    var limitList = LimitHelper.GetLimitList(lasttime);
+                                    if (limitList == null && limitList.Count < 2)
+                                    {
+                                        lock (MyGlobal.weekendUCLocker)
+                                        {
+                                            var weekendList = redisClient.Get<List<UseCarPush>>("weekendList");
+                                            var tempweekend = weekendList.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                                            if (tempweekend == null)
+                                            {
+                                                //推送
+                                                var msg = car.CarNumber + "正在周末用车";
+                                                PushHelper.PushToDepartCtrlByCarNumber(car.CarNumber, "周末用车", msg);
+                                                PushHelper.PushToYuanCtrl("周末用车", msg);
+                                                weekendList.Add(new UseCarPush { CarNumber = car.CarNumber, State = 0 });
+                                                redisClient.Set<List<UseCarPush>>("weekendList", weekendList);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch(Exception ex)
+                            {
+
+                            }
+
+                            lock (MyGlobal.locker)
+                            {
+                                var carList = redisClient.Get<CarList>("carList");
+                                var temp = carList.carList.FirstOrDefault(s => s.id == car.CarNumber);
+                                //carList 里没有就创建一个新的
+                                if (temp == null)
+                                {
+                                    isfirstReceive = 1;
+                                    var tempCar = new Car()
+                                    {
+                                        socketid= socketid,
+                                        id = car.CarNumber,
+                                        state = 1,
+                                        position = new Position()
+                                        {
+                                            x = x,
+                                            y = y
+                                        },
+                                        isillegal = (int)car.CarState,
+                                        userName = string.IsNullOrEmpty(car.CurrentUser) ? "" : cms.user.FirstOrDefault(s=>s.Account==car.CurrentUser).RealName,
+                                        datetime = gpsDatetime
+                                    };
+                                    var tempUC = cms.borrowregister.Where(s => s.CarNumber == car.CarNumber && s.BorrowState == 1)
+                                                .LeftJoin(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b, r })
+                                                .FirstOrDefault(r => string.IsNullOrEmpty(r.r.UniqueCode));
+                                    tempCar.uniqueCode = tempUC == null ? "" : tempUC.b.UniqueCode;
+                                    carList.carList.Add(tempCar);
+                                }
+                                //有的话就改坐标值
+                                else
+                                {
+                                    //如果是补齐的记录点，则只记录，不更新车的位置状态，但是需要保存。
+                                    if (gpsDatetime > temp.datetime)
+                                    {
+                                        //如果围栏内先开电，后借车，就会发生这种情况。需要把缺失的信息补上。
+                                        if (temp.isillegal == 0)
+                                        {
+                                            if ((int)car.CarState != 0)
+                                            {
+                                                temp.isillegal = (int)car.CarState;
+                                                temp.userName = string.IsNullOrEmpty(car.CurrentUser) ? "" : cms.user.FirstOrDefault(s => s.Account == car.CurrentUser).RealName;
+                                                var tempUC = cms.borrowregister.Where(s => s.CarNumber == car.CarNumber && s.BorrowState == 1)
+                                                     .LeftJoin(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b, r })
+                                                     .FirstOrDefault(r => string.IsNullOrEmpty(r.r.UniqueCode));
+                                                temp.uniqueCode = tempUC == null ? "" : tempUC.b.UniqueCode;
+                                            }
+                                        }
+                                        lasttime = temp.datetime;
+                                        lastX = temp.position.x;
+                                        lastY = temp.position.y;
+
+                                        temp.datetime = gpsDatetime;
+                                        temp.socketid = socketid;
+                                        temp.position.x = x;
+                                        temp.position.y = y;
+                                    }
+                                }
+
+                                //重新查找一次，下边都用这个，这里也都是当前时间的位置信息。
+                                var temp1 = carList.carList.FirstOrDefault(s => s.id == car.CarNumber);
+                                
+                                if (temp1.isillegal == 0)//空闲状态,涉嫌非法用车
+                                {
+                                    //判断是否在围栏中,
+                                    if (!IsInFence(x, y, fence))//出了围栏
+                                    {
+                                        //开始报警,发送手机短信之类的
+                                        Debug.WriteLine("报警");
+
+                                        //更改车辆状态 为不可用
+                                        var tempCar_ill = cms.carinfo.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                                        if (tempCar_ill != null)
+                                        {
+                                            tempCar_ill.CarState = 8;
+                                            cms.SaveChanges();
+                                        }
+
+                                        //车辆列表里车状态改为违法用车
+                                        temp1.isillegal = 8;
+
+                                        //记录警告
+                                        illegalusecar iuc = new illegalusecar()
+                                        {
+                                            id = Guid.NewGuid().ToString(),
+                                            Time = gpsDatetime,
+                                            CarNumber = car.CarNumber,
+                                            State = 1,
+                                            IsLook = 0,
+                                            DIsLook = 0,
+                                            redpoint = 0,
+                                            Dredpoint = 0,
+                                            IsAdd=0
+                                        };
+                                        temp1.uniqueCode = iuc.id;
+                                        cms.illegalusecar.Add(iuc);
+                                        cms.SaveChanges();
+
+                                        //非法用车推送
+                                        //Task.Factory.StartNew(() =>
+                                        //{
+                                            try
+                                            {
+                                                var msg = iuc.CarNumber + "正在非法用车";
+                                                PushHelper.PushToDepartCtrlByCarNumber(iuc.CarNumber, "非法用车提醒", msg);
+                                                PushHelper.PushToYuanCtrl("非法用车提醒", msg);
+                                            }
+                                            catch (Exception ex)
+                                            {
+
+                                            }
+                                            
+                                        //});
+                                    }
+                                }
+                                else if (temp1.isillegal == 1) //已预约 改为外出
+                                {
+                                    temp1.isillegal = 2; //改为外出
+                                    //数据库中车辆状态修改
+                                    var thisCar = cms.carinfo.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                                    if (thisCar.CarState == 1)
+                                    {
+                                        thisCar.CarState = 2;
+                                        //修改用户状态
+                                        var tempUser = cms.user.FirstOrDefault(s => s.Account == thisCar.CurrentUser);
+                                        tempUser.state = 1;
+                                        cms.SaveChanges();
+                                    }
+                                }
+                                else if(temp1.isillegal == 8|| temp1.isillegal == 9) //如果已经非法，进了围栏后 ，就改为空闲状态
+                                {
+                                    //判断是否在围栏中,
+                                    if (IsInFence(x, y, fence))//进了围栏
+                                    {
+                                        //更改车辆状态 为空闲
+                                        var tempCar_ill = cms.carinfo.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                                        if (tempCar_ill != null)
+                                        {
+                                            tempCar_ill.CarState = 0;
+                                            cms.SaveChanges();
+                                        }
+
+                                        //车辆列表里车状态改为空闲
+                                        temp1.isillegal = 0;
+                                        temp1.userName = "";
+                                        temp1.uniqueCode = "";
+                                        cms.SaveChanges();
+                                    }
+                                }
+                               
+                                //保存一下
+                                userName = temp1.userName;
+                                uniqueCode = temp1.uniqueCode;
+
+                                //存回数据库
+                                redisClient.Set<CarList>("carList", carList);
+                            }
+                        }
+
+                        //如果是接收到的第一个点
+                        if(isfirstReceive==1)
+                        {
+                            //存储 gps 数据到数据库
+                            var traject = new trajectorylog()
+                            {
+                                CarNumber = car.CarNumber,
+                                User = string.IsNullOrEmpty(userName) ? null : userName,
+                                Time = gpsDatetime,
+                                Longitude = x,
+                                Latitude = y,
+                                UniqueCode = uniqueCode,
+                                guid = Guid.NewGuid().ToString()
+                            };
+                            cms.trajectorylog.Add(traject);
+                        }
+                        else  //如果不是第一个点 就开始判断
+                        {
+                            //过滤偏移的点
+                            if (CheckHelper.CheckPoint(lastX, lastY, x, y, lasttime, gpsDatetime)|| lastX ==0)
+                            {
+                                //存储 gps 数据到数据库
+                                var traject = new trajectorylog()
+                                {
+                                    CarNumber = car.CarNumber,
+                                    User = string.IsNullOrEmpty(userName) ? null : userName,
+                                    Time = gpsDatetime,
+                                    Longitude = x,
+                                    Latitude = y,
+                                    UniqueCode = uniqueCode,
+                                    guid = Guid.NewGuid().ToString()
+                                };
+                                cms.trajectorylog.Add(traject);
+                            }
+                        }
+
+                        cms.SaveChanges();
+                        cms.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return;
+            }
+        }
+
+        //是否在围栏内
+        public static bool IsInFence(double x, double y, string fence)
+        {
+            string[] fences = fence.Split(';');
+            foreach (var temp_fence in fences)
+            {
+                if (!string.IsNullOrEmpty(temp_fence))
+                {
+                    string[] xy = temp_fence.Split(',');
+                    var x1 = Convert.ToDouble(xy[0]);
+                    var y1 = Convert.ToDouble(xy[1]);
+                    var x2 = Convert.ToDouble(xy[2]);
+                    var y2 = Convert.ToDouble(xy[3]);
+
+                    //计算
+                    if (x >= x1 && x <= x2 && y >= y1 && y <= y2)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="gb2312">
+	<meta charset="UTF-8"/>
+    <title>date</title>
+<link rel="stylesheet" href="css/jquery-ui-1.9.2.custom.css" type="text/css">
+<script src="js/jquery.min1.11.1.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<script src="js/jquery-ui-1.9.2.custom.js" type = "text/javascript" language="javascript"></script>
+<script src="js/share.js" type = "text/javascript"></script>
+<script type="text/javascript">
+  
+</script>
+</head>
+<body>
+
+<input type="text" class="ui-datepicker-time" readonly value="" />
+<div class="ui-datepicker-css">
+    <div class="ui-datepicker-choose">
+        <p>自选日期</p>
+        <div class="ui-datepicker-date">
+            <input name="startDate" id="startDate" class="startDate" readonly value="2014/12/20" type="text">
+           -
+            <input name="endDate" id="endDate" class="endDate" readonly  value="2014/12/20" type="text" disabled onchange="datePickers()">
+        
+        </div>
+    </div>
+</div>
+</body>
+</html>

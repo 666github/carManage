@@ -1,0 +1,41 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+html,body{width:100%;;height:100%;}
+.wrap{width: 100%;height: 100%;padding-left: 2%;}
+.bmTitle{height: 45px;line-height: 45px;position: relative;}
+.bmName{display:inline-block;height: 100%;border-bottom: solid lightgray 3px;font-size: 18px;font-weight: bold;margin-right: 10px;}
+.bmNum{padding: 0 8px;border-radius: 10px;background: #FF0060;color: #FFFFFF;}
+/*.bmTitle>div{float: right;}*/
+.bmAdd{height: 30px;line-height: 30px;padding: 0 15px 0 30px;border-radius:5px;position: absolute;bottom: 0;color: #FFFFFF;cursor: pointer;}
+.bmAdd{background-color: #4275F8;right: 15px;background-image: url(../../img/bm/按钮添加.png);background-size:13px 15px;background-position:10px 8px;background-repeat:no-repeat;}
+/*.bmDel{background-color: #FF0060;right: 15px;background-image: url(../../img/bm/按钮删除.png);background-size:13px 15px;background-position:10px 8px;background-repeat:no-repeat;}*/
+.bmInfs{width: 100%;height:calc(100% - 60px);margin: 10px 0 0 0;overflow-y: auto;}
+.bmInf{width: calc(33.33% - 15px);height:25.5%;margin:0 15px 15px 0;border:solid 1px lightgray;font-size:14px ;background: #FFFFFF;float: left;}
+.bmInf:hover{box-shadow: 0px 0px 5px #4275F8;border: solid 1px #4275F8;}
+.bmInf>li{/*height: 40px;line-height: 40px;*/}
+.bmInf1{height: 30%;position: relative;}
+.bmInf2{height: 24%;padding-left: 5px;}
+.bmInf3{height: 46%;}
+.bmInf2{color: gray;}
+.bmInf1>p:first-child{font-size: 16px;position: absolute;left: 5px;top:50%;margin-top: -10px;}
+.bmInf1>P:last-child{position: absolute;right: 5px;top:50%;margin-top: -7px;}
+.bmInf1amend,.bmInf1del{float:left;width: 15px;height: 15px;margin: 0px 5px;}
+.bmInf1amend{background: url(../../img/bm/编辑.png) no-repeat;}
+.bmInf1amend:hover{background: url(../../img/bm/编辑hover.png) no-repeat;cursor: pointer;}
+.bmInf1del{background: url(../../img/bm/删除.png) no-repeat;}
+.bmInf1del:hover{background: url(../../img/bm/删除hover.png) no-repeat;cursor: pointer;}
+.bmInf3{border-top:solid 1px lightgray ;}
+.bmInf31,.bmInf32{float: left;width: 50%;height: 100%;position: relative;}
+.bmInf31{background: url(../../img/bm/司机.png) 16px center no-repeat;background-size:115px auto;}
+.bmInf32{background: url(../../img/bm/车辆.png) 16px center no-repeat;background-size:115px auto;}
+.bmInf31>p,.bmInf32>p{height: 20px;}
+.bmInf31>p:first-child,.bmInf32>p:first-child{position: absolute;top: 50%;margin-top: -25px;}
+.bmInf31>p:last-child,.bmInf32>p:last-child{position: absolute;top: 50%;margin-top: 5px;}
+.bmInf31>p:first-child,.bmInf31>p:last-child{left: 55%;}
+.bmInf32>p:first-child,.bmInf32>p:last-child{left: 60%;}
+@media only screen and (min-width: 1280px) {
+.bmInf31>p:first-child,.bmInf31>p:last-child{left: 40%;}
+.bmInf32>p:first-child,.bmInf32>p:last-child{left: 47%;}
+}

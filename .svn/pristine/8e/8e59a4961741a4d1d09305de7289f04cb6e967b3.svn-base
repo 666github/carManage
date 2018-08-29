@@ -1,0 +1,103 @@
+@charset "utf-8";
+.wrap{
+	padding-left: 20px;
+}
+.currLook {
+    height: 45px;
+    line-height: 45px;
+}
+.looktitle {
+    display: inline-block;
+    height: 100%;
+    border-bottom: solid darkgray 3px;
+    font-size: 18px;
+    font-weight: bold;
+}
+#infOrdercar {
+    margin: 20px 20px 0 0;
+    border: solid 1px lightgray;
+    border-radius: 5px;
+    font-size: 14px;
+    overflow-y: auto;
+    
+}
+.stateCarInfo {
+    width: 100%;
+    border-bottom: solid 1px lightgray;
+    padding: 10px 0;
+}
+.stateCarInfo:last-of-type{
+	border-bottom: none;
+}
+.stateCarInfo>li {
+    float: left;
+    width: 19%;
+    height:70px;
+}
+#inftitle, #infState {
+    line-height: 70px;
+    text-align: center;
+}
+#inftitle {
+    width: 14%;
+}
+#infState {
+    width: 10%;
+}
+.firBrand {
+    color: #4375F8;
+}
+/*.infstate1{padding: 5px 10px;background: #4375F8;border-radius: 5px;color: #FFFFFF;}*/
+ .infstate1, .infstate3, .infstate4 {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background: #4275F8;
+}
+.infstate3 {
+    background:lightgray;
+}
+.stateBack {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background: #ff0060;
+}
+.statecolor {
+    color: #ff0060;
+}
+.infstate3, .infstate4 {
+    background: lightgray;
+}
+.stateCarInfo>li>p {
+    height: 35px;
+    line-height: 35px;
+}
+.infOne, .infTwo, .infThree, .infFour, .infState {
+    color: gray;
+}
+@media only screen and (max-width: 1024px) {
+    .stateCarInfo {
+        padding: 0;
+    }
+    .stateCarInfo>li {
+        float: left;
+        width: 25%;
+        height:50px;
+    }
+    #inftitle, #infState {
+        width: 25%;
+        line-height: 50px;
+    }
+    .infFour {
+        margin-left: 25%;
+    }
+    #infState {
+        text-align: left;
+    }
+    .stateCarInfo>li>p {
+        height: 25px;
+        line-height: 25px;
+    }
+}

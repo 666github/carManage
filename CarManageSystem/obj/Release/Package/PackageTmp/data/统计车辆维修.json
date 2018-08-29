@@ -1,0 +1,15 @@
+{
+  "maintenanceCosts":46325,
+  "maintenanceCount":35,
+  "maintenanceInfo": [
+		    {		    
+				"carImg":"img/car2.png",
+		      "firstBrand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "seat": "5座",
+		      "price":"72",
+		      "count":"1"
+		    }
+  ],
+  "state": "success"
+}

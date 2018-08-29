@@ -1,0 +1,41 @@
+{
+    "state": "success",
+    "car_inf": [
+        {
+            "uniqueCode": "01d18429-97c3-470b-a11d-a5c4856173f1",
+            "state": 3,
+            "brand1": "55555",
+            "licence": "555A11113",
+            "model": "S",
+            "usetime": "2018/9/4",
+            "returntime": "2017/9/4",
+            "destination": "555",
+            "effect": "55",
+            "ordertime": "2017/9/4"
+        },
+        {
+            "uniqueCode": "268e5ff1-19d8-471d-aa1e-78fc2cf65693",
+            "state": -1,
+            "brand1": "5551",
+            "licence": "5A11113",
+            "model": "S",
+            "usetime": "2018/9/4",
+            "returntime": "2018/9/4",
+            "destination": "5",
+            "effect": "5555",
+            "ordertime": "2017/9/4"
+        },
+        {
+            "uniqueCode": "268e5ff1-19d8-471d-aa1e-78fc2cf65693",
+            "state": 2,
+            "brand1": "fffff",
+            "licence": "5A11113",
+            "model": "S",
+            "usetime": "2018/9/4",
+            "returntime": "2018/9/4",
+            "destination": "5",
+            "effect": "ffff",
+            "ordertime": "2017/9/4"
+        }
+    ]
+}

@@ -1,0 +1,510 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"microsoft yahei", "微软雅黑";
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content:"";
+    visibility: hidden;
+    height: 0;
+}
+html, body {
+    width:100%;
+    ;
+    height:100%;
+}
+.wrap {
+    width: 100%;
+    height: 100%;
+    padding-left: 2%;
+}
+.wrap_top, .online_top {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    /*border: solid red 1px;*/
+    /*padding-left:2% ;*/
+}
+.wrap_top>li {
+    width: 33.33%;
+    float: left;
+}
+.cartitle {
+    width: 75px;
+    height:45px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: solid 3px darkgray;
+    text-align: center;
+}
+.carNum {
+    width: 100%;
+    height:40px;
+}
+.carNum>li {
+    width: 33.33%;
+    float: left;
+}
+.sumNum, .used, .unUsed {
+    border-radius: 10px;
+    padding: 0 8px;
+    color: #FFFFFF;
+}
+.sumNum {
+    background: #4275f8;
+}
+.used {
+    background:#ff0060;
+}
+.unUsed {
+    background:#38c8ec;
+}
+.odel, .amend {
+    color: #FFFFFF;
+    background: #ff0060;
+    ;
+    width:60px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 3px;
+    margin: 10px 15px 10px 0;
+    float: right;
+}
+.amend {
+    background: #4275f8;
+}
+.allBran {
+    width: 65%;
+    /*height: 25px;*/
+    margin: 15px 0 10px 0;
+}
+.allBranch, .status {
+    width: 30%;
+    height: 25px;
+    margin-right: 2.5%;
+}
+.cars_Inf {
+    width: 100%;
+    height: calc(100% - 110px);
+    height: -webkit-calc(100% -110px);
+    height: -moz-calc(100% -110px);
+    /*border: solid 1px black;*/
+    overflow: auto;
+}
+#cars_inf {
+    width: 100%;
+}
+.carInf {
+    width: 24%;
+    /*height: 48%;*/
+    margin:0 1% 1% 0;
+    background: #FFFFFF;
+    float: left;
+    position: relative;
+    /*padding: 1% 1% 0;*/
+    border: solid 1px lightgray;
+    border-radius: 5px;
+}
+.carInf:hover{
+ 	border: 1px solid #4275f8;
+    box-shadow: rgba(66, 117, 248, 0.5) 0 1px 5px;
+}
+.carInf>li:last-child {
+    height: 38px;
+    line-height: 38px;
+    border-top: solid 1px lightgray;
+}
+.choice {
+    position: absolute;
+    left: 3px;
+}
+/*.carImg{height: 56%;}*/
+ .carImg>img {
+    width: 100%;
+    height: 180px;
+}
+.brand, .licence {
+    /*height: 12%;*/
+    height: 30px;
+}
+.choice, .carImg, .brand, .licence {
+    padding: 0 10px;
+}
+.carImg{
+	padding-top:10px ;
+}
+.firBrand, .details {
+    color: #4275f8;
+}
+.licence {
+    color: gray;
+}
+.carSpace {
+    float: right;
+}
+.carState, .details {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+.carState {
+    color: #ff2275;
+    border-right: solid 1px lightgray;
+}
+@media only screen and (max-width: 1280px) {
+    .carImg>img {
+        width: 100%;
+        height: 125px;
+    }
+    .wrap_top>li {
+        width: 25%;
+        float: left;
+    }
+    .wrap_top>li:nth-child(2) {
+        width: 50%;
+    }
+}
+@media only screen and (max-height: 600px) {
+    .carImg>img {
+        width: 100%;
+        height: 105px;
+    }
+}
+/*详情*/
+ .wrap_back {
+    height: 50px;
+    line-height: 50px;
+}
+.back_title {
+    height:45px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: solid 3px darkgray;
+    text-align: center;
+}
+.wrap_back {
+    margin-bottom: 10px;
+}
+.wrap_back>li {
+    float: left;
+    width: auto;
+}
+/*.wrap_back>li:last-child{float: right;}*/
+ .detailsInf {
+    border: solid 1px lightgray;
+    border-radius: 2px;
+    width: calc(100% - 15px);
+    width: -webkit-calc(100% -15px);
+    width: -moz-calc(100% -15px);
+    height: calc(100% - 100px);
+    height: -webkit-calc(100% -100px);
+    height: -moz-calc(100% -100px);
+}
+#detailsInf {
+    height: 70%;
+    border-bottom: solid 1px lightgray;
+    padding: 20px 0 0 10px;
+}
+.top_branch {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.top_img {
+    background: red;
+    width: 25%;
+}
+.carInf_det {
+    width: 100%;
+}
+.carInf_det>li {
+    width: 33.33%;
+    float: left;
+    padding: 0.7% 0;
+}
+.firBrandDet {
+    color:#4275f8;
+}
+.mtMoneyDet {
+    color: #ff2275;
+}
+.mtNumDet {
+    color: #45cced;
+}
+.state_det {
+    padding:10px 0 0 10px;
+}
+.currentState {
+    color: #ff2275;
+}
+.currentInf {
+    width: 100%;
+}
+.currentInf>li {
+    width:20%;
+    float: left;
+    padding: 10px 0 0 0;
+}
+.currentInf>li:last-child {
+    width: 100%;
+}
+@media only screen and (max-width: 1280px) {
+    .carInf_det>li {
+        width: 30%;
+    }
+    .buyday_det, .safe_det, .annual_det, .maintan_det {
+        width: 40%!important;
+    }
+    .currentInf>li {
+        width:33.33%;
+    }
+    /*.currentInf>li:last-child{width: 100%;}*/
+}
+@media only screen and (max-height: 720px) {
+    .carInf_det>li {
+        float: left;
+        padding: 0.4% 0;
+    }
+}
+/*司机用车申请*/
+ .online_top>li:first-child, .online_top>li:nth-child(2) {
+    float: left;
+    width: 90px;
+}
+.online_top>li:nth-child(2) {
+    line-height: 52px;
+}
+.online_top>li:last-child {
+    float: right;
+}
+.olook {
+    color: #FFFFFF;
+    background: gray;
+    ;
+    width:90px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 3px;
+    margin: 10px 15px 10px 0;
+    float: right;
+}
+.nowOrder {
+    color:#4275f8;
+    text-align: center;
+    cursor: pointer;
+}
+.details {
+    cursor: pointer;
+}
+/*假日用车*/
+ .holidayTitle {
+    height: 45px;
+    line-height: 45px;
+}
+.holidayAppoint {
+    display:inline-block;
+    height: 100%;
+    border-bottom: solid lightgray 3px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.nowAppoint {
+    cursor: pointer;
+    float: right;
+    padding:0px 15px;
+    color: #FFFFFF;
+    background: #4275F8;
+    border-radius: 5px;
+    height: 30px;
+    line-height: 30px;
+    margin:15px 15px 0 0;
+}
+.nowAppoint:hover {
+    background: #FF0060;
+}
+.allBran {
+    width: 65%;
+    margin: 20px 0;
+    height: 25px;
+}
+.allBranch, #holidayDate {
+    float:left;
+    height: 25px;
+    margin-right: 2.5%;
+    color: #4275f8;
+    border-radius: 2px;
+}
+#holidayDate {
+    border: solid 1px rgb(169, 169, 169);
+    background: #FFFFFF;
+    position: relative;
+}
+#holidayDate>input, #holidayDate>span {
+    float: left;
+    border: none;
+    height: 100%;
+    padding-left: 2px;
+}
+#holidayDet {
+    text-align: center;
+    width: 100%;
+}
+.boderNone {
+    border: none!important;
+}
+.hideDate {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.ohide {
+    display: none;
+}
+/*维修车辆*/
+ .maintNav {
+    margin:10px 0 20px 0;
+}
+.maintNav>a {
+    font-weight: 16px;
+    padding: 5px 0;
+    margin-right: 20px;
+}
+.a1 {
+    border-bottom: solid 2px #4275f8;
+}
+#box {
+    width: 100%;
+    height: calc(100% - 95px);
+    height: -webkit-calc(100% -95px);
+    height: -moz-calc(100% -95px);
+    position: relative;
+}
+#maintainNeed {
+    z-index: 1;
+    overflow-y: auto;
+}
+#maintainNeed, #maintainIng, #maintainEnd {
+    width:100%;
+    height:100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #FFFFFF;
+}
+#maintainNeed:target, #maintainIng:target, #maintainEnd:target {
+    z-index: 2;
+}
+.maintInf {
+    width: 24%;
+    margin:0 1% 1% 0;
+    background: #FFFFFF;
+    float: left;
+    position: relative;
+    border: solid 1px lightgray;
+    border-radius: 2px;
+}
+#brandM, #licenceM, .safe, .lastMaint, .endMaint {
+    height: 22px;
+    padding: 0 2% 0;
+    color:gray;
+}
+.maintInf>li:last-child {
+    height: 30px;
+    border-top: solid 1px lightgray;
+    line-height: 30px;
+}
+@media only screen and (max-width: 1024px) {
+    .maintInf {
+        width: 32%;
+        margin:0 1% 1% 0;
+        background: #FFFFFF;
+        float: left;
+        position: relative;
+        border: solid 1px lightgray;
+        border-radius: 2px;
+    }
+    .maintInf>li:last-child {
+        height: 22px;
+        border-top: solid 1px lightgray;
+        line-height: 22px;
+    }
+}
+/*维修中*/
+ .a1 {
+    color: #4275F8;
+}
+.Mneed, .Mend {
+    cursor: pointer;
+    float: right;
+    padding:0px 15px;
+    color: #FFFFFF;
+    background: #4275F8;
+    border-radius: 5px;
+    height: 30px;
+    line-height: 30px;
+    margin:15px 15px 0 0;
+}
+.Mnone {
+    display: none;
+}
+.stateInfM {
+    text-align: center;
+    color: #FF0060;
+}
+#maintainIng {
+    padding: 0 15px 0 0;
+}
+#maintainIng>.maintIngul:last-child {
+    border-bottom: solid 1px lightgray;
+}
+.maintIngul {
+    border: solid 1px lightgray;
+    border-bottom:none;
+    border-right:none;
+    width: 100%;
+    height:30px;
+}
+.maintIngul>li {
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    border-right: solid 1px lightgray;
+}
+.Mlist1, .list1 {
+    width:5%;
+}
+.Mlist2, .list2 {
+    width:5%;
+}
+.Mlist3, .list3 {
+    width:12%;
+}
+.Mlist4, .list4 {
+    width:10%;
+}
+.Mlist5, .list5 {
+    width:8%;
+}
+.Mlist6, .list6 {
+    width:20%;
+}
+.Mlist7, .list7 {
+    width:20%;
+}
+.Mlist8, .list8 {
+    width:20%;
+}

@@ -1,0 +1,31 @@
+{
+	"infOrdercar":[
+		{
+			"firBrand":"斯巴鲁-森林人",
+			"licence":"京A.00001",
+			"model":"S型",
+			"usetime":"2017-07-06 19:30",
+			"returntime":"2017-07-06 19:30",
+			"destination":"国家会议中心",
+			"effect":"外业",
+			"ordertime":"2017-01-04",
+			"states1":"审批",
+			"states2":"通过",
+			"infState":0
+		},
+		{
+			"firBrand":"斯巴鲁-森林人",
+			"licence":"京A.00001",
+			"model":"S型",
+			"usetime":"2017-07-06 19:30",
+			"returntime":"2017-07-06 19:30",
+			"destination":"国家会议中心",
+			"effect":"外业",
+			"ordertime":"2017-01-04",
+			"states1":"状态",
+			"states2":"外出",
+			"infState":2
+		}
+
+	]
+}

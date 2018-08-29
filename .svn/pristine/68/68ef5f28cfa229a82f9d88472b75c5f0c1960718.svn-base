@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">
+	<title>注册页面</title>	
+	</head>
+	<!--<link rel="stylesheet" type="text/css" href="../css/main.css"/>-->
+	<link rel="stylesheet" type="text/css" href="../css/register.css"/>
+	<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/register.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="container">
+			<div class="head">
+				<p class="titleCh">北京市测绘设计研究院车辆管理系统</p>
+				<p class="titleEn">Beijing Institute of Surveing and Mapping vehicle management system</p>
+				<!--<img src="../img/title.jpg" class="titleChE"/>-->
+			</div>
+			<div class="wrap">
+				<div class="driverTitle">账号注册<img src="../img/login/pleaselogin.png" alt="" class="pleaseLogin"/></div>
+				<form action="../handler/Register.ashx" method="post" enctype="multipart/form-data" target="picIframe" id="myform">
+					<ul class="driverInf">
+						<li><input type="text" name="regUserName" id="regUserName" value="" placeholder="请输入账户" autocomplete="off"/></li>
+						<li><input type="text" name="regmyName" id="regmyName" value="" placeholder="真实姓名" autocomplete="off"/></li>
+						<!--<li><input type="text" name="regCarType" id="regCarType" value="" placeholder="准驾车型"/></li>-->
+						<li class="zjcx">
+							<span id="regCarType">准驾车型</span>
+							<!--<select name="regCarType" id="regCarType" value=""> 
+								<option value="">准驾车型</option>
+								<option value="C1">C1</option>
+								<option value="C2">C2</option>
+								<option value="B1">B1</option>
+								<option value="B2">B2</option>
+								<option value="A1">A1</option>
+								<option value="A2">A2</option>
+								<option value="A3">A3</option>
+								<option value="A1A2">A1 A2</option>
+								<option value="A1A2D">A1 A2 D</option>
+								<option value="A2E">A2 E</option>
+							</select>-->
+							<div style="" class="zjcxInput">
+								<input type="checkbox" name="zjcx" id="zjcx" value="A1" />A1<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="A2" />A2<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="A3" />A3<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="B1" />B1<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="B2" />B2<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="C1" />C1<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="C2" />C2<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="D" />D<br/>
+								<input type="checkbox" name="zjcx" id="zjcx" value="E" />E<br/>
+							</div>
+						</li>
+						<li><input type="password" name="regPwd" id="regPwd" value="" placeholder="请输入密码"/></li>
+						<li><input type="password" name="rpassword" id="rPwd" value="" placeholder="请再次输入密码"/></li>
+						<li><input type="text" name="regEmail" id="regEmail" value="" placeholder="邮箱" autocomplete="off"/></li>
+						<li class="effDate">
+							<!--<input type="text" name="effDate" id="effDate" class="Wdate" value="" placeholder="有效日期" onfocus="WdatePicker()"/>-->
+							<input type="text" name="effDateStart" id="effDateStart" class="Wdate olength" value="" placeholder="驾照(起始)" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'effDateEnd\')}'})"/>
+							<span class="effDateMid" style="width: 4%;">-</span>
+							<input type="text" name="effDateEnd" id="effDateEnd" class="Wdate olength" value="" placeholder="驾照(结束)" onclick="WdatePicker({minDate:'#F{$dp.$D(\'effDateStart\')}'})"/>
+						</li>
+						
+						<li><input type="text" name="regPhone" id="regPhone" value="" placeholder="手机号" autocomplete="off"/></li>
+						<li>
+							<select name="regBranch" class="branch" id="regBranch">
+								<option value="gray">所属部门</option>	
+							</select>
+						</li>
+						<li>
+							<select  name="driverType" class="driverType">
+								<option value="gray">司机类型</option>
+								<option value="0">兼职司机</option>
+								<option value="1">专职司机</option>
+							</select>
+						</li>
+						<li></li>
+						<li></li>
+						<li class="photos" id="photos1">							
+							<input type="file" onchange="PreviewImage(this,'userPhoto')" class="userPhoto" name="userPhoto"/>
+							<div id='userPhoto'>
+            					<img class='img1' src='../img/sc.jpg' width='100%' height='100%' style="border: solid 1px lightgray;"/>			
+            				</div>
+            				<p>(上传本人照片)</p>
+						</li>
+						<li class="photos" id="photos2">							
+							<input type="file" onchange="PreviewImage(this,'driveLicence')" class="driveLicence" name="drivePhoto"/>
+							<div id='driveLicence'>
+            					<img class='img2' src='../img/sc.jpg' width='100%' height='100%' style="border: solid 1px lightgray;"/>			
+            				</div>
+            				<p>(上传驾照照片)</p>
+						</li>
+					</ul>
+					<iframe width="0" height="0" name="picIframe" style="visibility: hidden;" onload="ifmload(this)"></iframe>
+					<input type="button" value="注册账号" id="mysubmit"/>
+				</form>				
+			</div>
+			<div id="" style="width: 80%;margin:0 auto;position: relative;">				
+				<div class="goLogin">已有账号，去<a href="../login.html">登录</a></div>
+			</div>
+			<p class="foot">
+				Copyright©北京市测绘设计研究院
+			</p>
+		</div>
+        <script>
+            var option = $('#regBranch').html().trim();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "http://192.168.1.120:2238/handler/GetDepartment.ashx",
+                data:{from:0},
+                xhrFields:{withCredentials:true},
+                success: function (data) {
+                    var obj = data;
+                    for (var i = 0; i < obj.length; i++) {
+                        option += '<option value="' + obj[i].Id + '">' + obj[i].Name + '</option>';
+                    }
+                    $('#regBranch').html(option);   
+                },
+                error: function () {
+                    console.log("部门获取失败");
+                }
+            })
+        </script>
+	</body>
+</html>

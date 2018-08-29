@@ -1,0 +1,77 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.UserManage.Driver
+{
+    /// <summary>
+    /// GetDetail 的摘要说明
+    /// </summary>
+    public class GetDetail : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var viewAccount = context.Request["viewAccount"];
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var users = cms.user
+                    .Where(u => u.Account == viewAccount)
+                    .ToList()
+                    .Select(item=>new
+                    {
+                        image=ImageHelper.GetImagePath(item.UserPhoto),
+                        item.DriverLicensePhoto,
+                        item.RealName,
+                        item.Phone,
+                        item.Email,
+                        UserType = item.DriverType==0?"兼职司机":"专职司机",
+                        item.AllowModel,
+                        EffecDateStart=item.EffecDateStart.Value.ToShortDateString(),
+                        EffecDateEnd=item.EffecDateEnd.Value.ToShortDateString(),
+                        item.state,
+                        driveCount=cms.returnregister.Count(d=>d.user==item.Account),
+                        illeCount=cms.illegalstatistic.Count(d=>d.User==item.Account),
+                        driveMile= cms.returnregister.Where(s=>s.user==item.Account).Sum(d=>d.TravelMileage)==null?0: cms.returnregister.Where(s => s.user == item.Account).Sum(d => d.TravelMileage)
+                    }).FirstOrDefault();
+                json.user = JObject.FromObject(users);
+                json.isOut = "";
+                if(users.state==1)
+                {
+                    var isOut = cms.borrowregister.Where(b => b.User == viewAccount).OrderByDescending(o => o.BorrowTime).Select(item=>new
+                    {
+                        carBrand=cms.carinfo.FirstOrDefault(c=>c.CarNumber==item.CarNumber).CarBrand,
+                        item.CarNumber,
+                        item.UseCarTime,
+                        item.ExpectReturnTime,
+                        item.Destination,
+                        item.Purposes
+                    }).FirstOrDefault();
+                    json.isOut = JObject.FromObject(isOut);
+                }
+                cms.Dispose();
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+﻿2018-02-07 18:12:32,442 [57] INFO  GPSServer-66423049 - The server instance GPSServer-66423049 has been started!
+2018-02-07 18:12:32,522 [57] INFO  WebSocketServer-57633500 - The server instance WebSocketServer-57633500 has been started!
+2018-02-07 18:14:14,524 [33] INFO  GPSServer-25552979 - The server instance GPSServer-25552979 has been started!
+2018-02-07 18:14:14,619 [33] INFO  WebSocketServer-42358134 - The server instance WebSocketServer-42358134 has been started!
+2018-02-07 20:29:52,074 [8] INFO  GPSServer-12036987 - The server instance GPSServer-12036987 has been started!
+2018-02-07 20:29:52,163 [8] INFO  WebSocketServer-60052224 - The server instance WebSocketServer-60052224 has been started!
+2018-02-07 20:30:31,257 [4] INFO  WebSocketServer-60052224 - Session: cfb469c4-9c8c-4e5d-afef-cefcbc52761e/192.168.1.120:53982
+A new session connected!
+2018-02-07 20:30:44,380 [4] INFO  WebSocketServer-60052224 - Session: 5933d617-8776-4ec9-bfbb-e13f34b4bd7e/192.168.1.120:54062
+A new session connected!
+2018-02-07 20:30:53,597 [11] INFO  WebSocketServer-60052224 - Session: cfb469c4-9c8c-4e5d-afef-cefcbc52761e/192.168.1.120:53982
+This session was closed for ClientClosing!
+2018-02-07 20:30:54,024 [15] INFO  WebSocketServer-60052224 - Session: 5933d617-8776-4ec9-bfbb-e13f34b4bd7e/192.168.1.120:54062
+This session was closed for ClientClosing!
+2018-02-07 20:31:07,208 [4] INFO  WebSocketServer-60052224 - Session: 69e0e916-b738-47ed-9f88-03414423a6fa/192.168.1.120:54173
+A new session connected!
+2018-02-07 20:31:10,703 [4] INFO  WebSocketServer-60052224 - Session: 69e0e916-b738-47ed-9f88-03414423a6fa/192.168.1.120:54173
+This session was closed for ClientClosing!
+2018-02-07 20:31:31,220 [4] INFO  WebSocketServer-60052224 - Session: 1ac2fe0e-e7ec-4ed3-85de-6c8d8bcebd39/192.168.1.120:54288
+A new session connected!
+2018-02-07 20:32:00,488 [4] INFO  WebSocketServer-60052224 - Session: 0a705635-f124-4def-8b9e-aba704ba59fc/192.168.1.120:54362
+A new session connected!
+2018-02-07 20:32:33,788 [4] INFO  WebSocketServer-60052224 - Session: ab4dce03-d650-4994-9dea-bce0a46b38e4/192.168.1.120:54458
+A new session connected!
+2018-02-07 20:34:36,935 [8] INFO  GPSServer-63110655 - The server instance GPSServer-63110655 has been started!
+2018-02-07 20:34:37,034 [8] INFO  WebSocketServer-36597234 - The server instance WebSocketServer-36597234 has been started!
+2018-02-07 20:34:43,154 [31] INFO  WebSocketServer-36597234 - Session: 0012d6fc-d3cb-4077-82b6-ac72157e1e85/192.168.1.120:54768
+A new session connected!
+2018-02-07 20:34:57,216 [31] INFO  WebSocketServer-36597234 - Session: ee75da97-7832-4081-943a-287f36ca4be4/192.168.1.120:54834
+A new session connected!

@@ -1,0 +1,17 @@
+{	
+	"car_inf":[
+		{
+			"carImg":"../../img/pagebg.jpg",
+			"brand":"斯巴鲁-斯巴鲁",
+			"licence":"京A.00001",
+			"space":"5座"
+		},
+		{
+			"carImg":"../../img/pagebg.jpg",
+			"brand":"斯巴鲁-斯巴鲁",
+			"licence":"京A.00001",
+			"space":"5座"
+		}
+
+	]
+}

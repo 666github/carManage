@@ -1,0 +1,175 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "microsoft yahei","微软雅黑";
+	}
+li{
+	list-style: none;
+	}
+a{
+	text-decoration: none;
+	color: black;
+	}
+.clearfloat:after{
+	display: block;
+	clear: both;content: "";
+	visibility: hidden;
+	height: 0;
+	}
+html,body{
+	width:100%;;
+	height:100%;
+	}
+.wrap{
+	width: 100%;
+	height: 100%;
+	padding-left: 2%;
+	}
+.wrap_top>li{
+	height: 45px;
+	/*margin-bottom: 20px;*/
+	float: left;
+}
+.wrap_top>li:first-child{width: 40%;}
+.wrap_top>li:last-child{width: 60%;}
+.driTitle{height: 45px;line-height: 45px;position: relative;}
+.driName{display:inline-block;height: 100%;border-bottom: solid lightgray 3px;font-size: 18px;font-weight: bold;margin-right: 10px;}
+.driNum{padding: 0 8px;border-radius: 10px;background: #FF0060;color: #FFFFFF;}
+.driApprove,.driLook{line-height:45px;padding: 5px 30px;background: #FFFFFF;color: gray;border: solid 1px lightgray;}
+.driLook{background: lightgray;}
+.driLook{border-left:none ;}
+.driApprove:hover,.driLook:hover{background:lightgray;color: #000000;}
+.allBran{width: 100%;margin: 20px 0;height: 25px;position: relative;}
+.allBranch,.status{float:left;width: 20%;height: 30px;margin-right: 5%;border-radius: 2px;}
+.driQuery{padding: 0 15px;background: #4275F8;cursor: pointer;float: left;color: #FFFFFF;line-height: 30px;border-radius: 5px;}
+.driDel{cursor:pointer;line-height: 30px;padding: 0 15px 0 30px;background:url(../../img/bm/按钮删除.png) 10px 7px no-repeat;background-color: #FF0060;color: #FFFFFF;border-radius: 5px;position: absolute;right: 15px; top:0;}
+.ocheck{width: 18px;height: 18px;}
+.driversInfo{
+	width: 100%;
+	padding-top: 20px;
+	height: calc(100% - 120px);
+	height: -webkit-calc(100% -120px);
+	height: -moz-calc(100% -120px);
+	/*border: solid 1px black;*/
+	overflow: auto;
+	position:relative;
+	}
+#driInflook,#driInfapprove{
+	background:#f0f4fa;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+#driInflook:target,#driInfapprove:target{z-index: 1;}
+.driverInfo{
+	width: 24%;
+	height: 166px;
+	margin:0 1% 33px 0;
+	/*background: #FFFFFF;*/
+	float: left;
+	border: solid 1px #e3e3e3;
+	border-radius: 5px;
+	position: relative;
+	background: azure;
+	box-shadow: 1px 0px 2px gray;
+	}
+.driverInfo:hover{
+	border: 1px solid #4275f8;
+    /*box-shadow: 0 0 6px #4275f8;*/
+   box-shadow: rgba(66,117,248,0.5) 0 1px 5px;
+}
+.choice{position: absolute;right: 5px;top: 5px;}
+.ocheckY{width: 18px;height: 18px;}
+.driverInfos{padding-top: 30px;overflow-y: auto;   height: calc(100% - 65px);background: #f0f4fa;}
+.driverIcon{
+	padding: 0px 10px 0;
+	margin: 30px 0 0 0;
+    height: 65px;
+    position: relative;
+}
+.icon{
+	position: absolute;
+	top: -50px;
+	left: calc(50% - 25px);
+    /*float: left;*/
+    width: 58px;
+    height: 58px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    /*background: url(../../img/driver.png) center no-repeat;*/
+}
+.icon>img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 3px;
+}
+.iconInfo{
+	text-align: center;
+	margin: 22px 0 0 0;
+	padding:16px 10px 0 10px;
+}
+.iconInfo>p:first-of-type{
+	font-size: 16px;
+}
+.iconInfo>p:last-of-type{
+	font-size: 14px;
+	color: #939393;
+}
+.driveingInfo{font-size: 16px;
+	height: 70px;
+	border-bottom: 1px solid #e3e3e3;
+	border-top: 1px solid #e3e3e3;
+	padding: 5px 10px;
+	/*font-size: 14px;*/
+}
+.driveingInfo>p{
+	line-height: 28px;
+}
+/*.driveingInfo>p:first-of-type>span{
+	float: left;
+	width: 50%;
+}*/
+.driverType,.driverLicense,.driverTel,.mailNum{
+	color: #939393;
+}
+.driverTypeInfo,.driverLicenseInfo,.driverTelInfo,.mailNumInfo{
+	color: #000;
+}
+.driverState{
+	/*padding: 0 10px;*/
+	/*line-height: 39px;*/
+}
+.driverState>span{float: left;line-height: 39px;text-align: center;width: 50%;}
+.free{
+	border-right: 1px solid lightgray;
+	color: #38c8ec;
+}
+.details{color: #4275F8;cursor: pointer;}
+.details:hover{background: #FF0060;}
+@media only screen and (max-width: 1279px){
+.driverInfo{width: 32%;}
+}
+@media only screen and (max-width: 1365px){
+.driveingInfo{padding: 5px 0 5px 5px;}
+}
+@media only screen and (min-width: 1601px){
+.driverInfo{width: 19%;}
+}
+/*审批司机*/
+.driInfapprove{margin-top: 20px;height: 45px;}
+#driapprove{height: calc(100% - 65px);background:#f0f4fa;}
+.driApprove1,.driApprove2{height:100%; padding: 20px 0 0 0;}
+.driInfapprove>p{width:50%;float: left;height: 50px;padding-right: 15px;}
+.approve1,.approve2{cursor:pointer;color: gray;padding: 0 0 5px 0;border-bottom: solid 2px gray;margin-right: 20px;font-weight: bold;}
+.approveP2>span{float: right;padding: 5px 10px;margin-left: 10px;border-radius: 5px;}
+.approveP2>span:first-child{background: #FF0060;color: #FFFFFF;cursor: pointer;}
+.approveP2>span:last-child{background: #13777E;color: #FFFFFF;cursor: pointer;}
+.driDate{line-height: 39px;padding-left: 10px;}
+.effectDate{font-size: 14px;}
+.noPass{color: #FF0060!important;}
+.ohide{display: none;}
+.approveCss{border-bottom: solid 2px #4275f8;color: #4275f8;}

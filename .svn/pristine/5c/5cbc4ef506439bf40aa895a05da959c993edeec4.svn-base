@@ -1,0 +1,190 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// BorrowCar 的摘要说明
+    /// </summary>
+    public class BorrowCar : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            var currentUser = CheckHelper.RoleCheck(context,0);
+            if (currentUser == null)
+                return;
+
+            string carNumber = context.Request["carNumber"].Trim();
+            string uAccount = Convert.ToString(currentUser.Account);
+
+            string useCarTime = context.Request["useCarTime"].Trim();
+            string expectReturnTime = context.Request["expectReturnTime"].Trim();
+            string purpose = context.Request["purpose"].Trim();
+            string destination = context.Request["destination"].Trim();
+            string cause = context.Request["cause"].Trim();
+
+            dynamic json = new JObject();
+
+            if (Convert.ToDateTime(useCarTime)> Convert.ToDateTime(expectReturnTime))
+            {
+                json.state = "请选择正确的时间";
+                context.Response.Write(json.ToString());
+                return;
+            }
+
+
+            var now = DateTime.Now;
+            if(Convert.ToDateTime(useCarTime)>now.AddHours(2))
+            {
+                json.state = "错误:预约时间超出两小时范围";
+                context.Response.Write(json.ToString());
+                return;
+            }
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var currentUser1 = cms.user.FirstOrDefault(s => s.Account == uAccount);
+                var tempCar = cms.carinfo.FirstOrDefault(s => s.CarNumber == carNumber);
+                var other = 0;
+                var over = 0;
+
+                
+                if(tempCar==null)
+                {
+                    json.state = "错误:没有此车辆信息，请刷新重试";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                //限号不可用
+                if(tempCar.islimit==1)
+                {
+                    json.state = "错误:此车今日限号";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                //验证假日用车
+                if (tempCar.HolodayStart != null && tempCar.HolodayEnd != null)
+                {
+                    if (tempCar.HolodayStart < now && tempCar.HolodayEnd > now)
+                    {
+                        json.state = "错误:此车假期期间不可用";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                }
+                //只能借一个 
+                var currentCar = cms.carinfo.FirstOrDefault(s => s.CurrentUser == uAccount);
+                if (currentCar != null)
+                {
+                    //限号的时候,专职司机可以借两个
+                    if(currentCar.islimit==0||currentUser.DriverType==0)
+                    {
+                        json.state = "错误:您已经预约过车辆，请换车后再预约";
+                        context.Response.Write(json.ToString());
+                        return;
+                    }
+                }
+
+                if (tempCar.CarState != 0)
+                {
+                    json.state = "错误:此车不是空闲状态，请刷新页面重试";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                else
+                {
+                    if (currentUser1.Department==tempCar.DepartmentId)
+                    {
+                        if ((Convert.ToDateTime(useCarTime).ToShortDateString() != Convert.ToDateTime(expectReturnTime).ToShortDateString())&&(currentUser.DriverType==0))
+                        {
+                            over = 1;
+                        }
+                        else
+                        {
+                            tempCar.CurrentUser = uAccount;
+                            tempCar.CarState = 1;
+                            currentUser1.state = 1;
+                            //tempCar.CarState = 2; //临时改的，方便演示
+                        }
+                    }
+                    else
+                    {
+                        other = 1;
+                        if((Convert.ToDateTime(useCarTime).ToShortDateString() != Convert.ToDateTime(expectReturnTime).ToShortDateString()) && (currentUser.DriverType == 0))
+                        {
+                            over = 1;
+                        }
+                    }
+                }
+                
+
+               //借车单
+                var brinfo = new borrowregister()
+                {
+                    CarNumber = carNumber,
+                    UseCarTime = Convert.ToDateTime(useCarTime),
+                    ExpectReturnTime = Convert.ToDateTime(expectReturnTime),
+                    User = uAccount,
+                    Department = cms.carinfo.FirstOrDefault(ss => ss.CarNumber == tempCar.CarNumber).DepartmentId,
+                    Purposes = purpose,
+                    Cause = cause,
+                    Destination = destination,
+                    UniqueCode = Guid.NewGuid().ToString(),
+                    BorrowState=(over==0&&other == 0)?1:0,
+                    BorrowTime=DateTime.Now,
+                    //0 无状态  1 跨院借车  2 跨天借车  3 跨院+跨天借车  审批的时候更改BorrowState  
+                    BorrowStateOD= (over == 1 && other == 1)?3:((over == 0 && other == 1)?1:((over == 1 && other == 0)?2:0))
+                };
+                cms.borrowregister.Add(brinfo);
+
+                //借车消息单
+                var _msg_borrowcar = new msg_borrowcar()
+                {
+                    Id = brinfo.UniqueCode,
+                    IsLook=0,
+                    DIsLook=0,
+                    //IsAudit=brinfo.BorrowState==1?1:0,
+                    AccessCar=brinfo.CarNumber,
+                    AccessUser=currentUser.Account,
+                    AccessTime=DateTime.Now,
+                    UserDepartment=currentUser.Department.ToString(),
+                    RealName=currentUser.RealName,
+                    type=brinfo.BorrowStateOD
+                };
+                if(brinfo.BorrowState == 1)
+                {
+                    _msg_borrowcar.AuditTime = DateTime.Now;
+                    _msg_borrowcar.IsAudit = 1;
+                }
+                else
+                {
+                    _msg_borrowcar.IsAudit = 0;
+                }
+                cms.msg_borrowcar.Add(_msg_borrowcar);
+
+                cms.SaveChanges();
+                
+                json.state = "success";
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

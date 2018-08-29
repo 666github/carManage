@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/trafficStatistics/carsAssets.css"/>
+		<script src="js/trafficStatistics/carsAssets.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul class="wrap_top">
+				<li><p class="cartitle">财产统计</p></li>
+				<li>
+					<ul class="carNum">
+						<li><span class="carsum">车辆总数:</span> <span class="sumNum">68</span></li>
+						<li><span class="carsum">价值:</span> <span class="carAmount">152</span>万元</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="allBran">
+				<select name="" class="propertyBranch">
+					<option value="">所有部门</option>
+					<!--<option value="九州">九州</option>-->
+				</select>
+			</div>
+			<div class="cars_Inf">
+				<!--<div id="#car_inf">
+					<ul class="carInf">
+						<li class="choice"><input type="checkbox" name=""  value="" class="ocheck" /></li>
+						<li class="carImg"><img src="img/car03.jpg"/></li>
+						<li class="brand"><span class="firBrand">马自达</span><span>&nbsp;-&nbsp;</span><span class="secBrand">阿特兹</span></li>
+						<li class="licence">车牌：<span class="carLicence">京V 00001</span><span class="carSpace">5座</span></li>
+						<li class="stateInf">价值：<span class="carMoney">23万元</span></li>
+					</ul>			
+				</div>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var option = $('.propertyBranch').html().trim();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/handler/GetDepartment.ashx",
+                success: function (data) {
+                    var obj = data;
+                    for (var i = 0; i < obj.length; i++) {
+                        option += '<option value="' + obj[i].Id + '">' + obj[i].Name + '</option>';
+                    }
+                    $('.propertyBranch').html(option);   
+                },
+                error: function () {
+                    console.log("部门获取失败");
+                }
+            })
+	</script>
+</html>

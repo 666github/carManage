@@ -1,0 +1,18 @@
+{
+  "branchNum": "13",
+  "bmInf": [
+		    {		    
+			  "bmInf11":"九州公司",
+		      "bmInf2": "2017-08-09 08:05",
+		      "driNum": "4",
+		      "carNum": "13"
+		    },
+		    {
+		      "bmInf11":"九州公司",
+		      "bmInf2": "2017-08-09 08:05",
+		      "driNum": "4",
+		      "carNum": "13"
+		    }
+  ],
+  "state": "success"
+}

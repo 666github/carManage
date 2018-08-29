@@ -1,0 +1,293 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"microsoft yahei", "微软雅黑";
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content:"";
+    visibility: hidden;
+    height: 0;
+}
+html, body {
+    width:100%;
+    ;
+    height:100%;
+}
+.wrap {
+    width: 100%;
+    height: 100%;
+    background: #f0f1f5;
+    padding-left:2%;
+}
+.wrap_top, .online_top {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    /*border: solid red 1px;*/
+    /*padding-left:2% ;*/
+}
+.wrap_top>li{
+	width: 25%;
+	float: left;
+	padding-left: 10px;
+}
+.cartitle{
+	width: 75px;
+	height:45px;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: solid 3px darkgray;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+/*消息提醒*/
+#news {
+    width: 100%;
+    height: calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    height: -moz-calc(100% - 50px);
+    padding-left: 5px;
+    padding-top: 5px;
+    /*border: solid 1px black;*/
+}
+.illegal, .maturity, .maintenance, .warning {
+    width: 50%;
+    float: left;
+    /*border: solid 1px red;*/
+    padding: 5px 10px 5px 5px;
+}
+.illegal, .maturity {
+    height: 50%;
+}
+.maintenance, .warning {
+    height: 50%;
+}
+.titleP {
+    font-size: 14px;
+    font-weight: bold;
+    border-left:solid #4275F8 2px;
+    padding-left: 5px;
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+.illegal1, .maturity1, .maintenance1, .warning1 {
+    height:calc(100% - 30px);
+    height: -webkit-calc(100% - 30px);
+    height: -moz-calc(100% - 30px);
+    width: 100%;
+    overflow: auto;
+    border: solid 1px lightgray;
+    box-shadow: 0 0 2px lightgray;
+}
+.illegalInf, .maturityInf, .maintenanceInf, .warningInf {
+    color: gray;
+    padding-left: 5px;
+}
+.illegalInf:hover, .maturityInf:hover, .maintenanceInf:hover, .warningInf:hover {
+    background: #e3e7f1;
+}
+.illegalInf>li, .maturityInf>li, .maintenanceInf>li, .warningInf>li {
+    height: 100%;
+}
+.illegalInf, .maturityInf {
+    height: 33.33%;
+}
+.maintenanceInf, .warningInf {
+    height: 50%;
+}
+.illegal_infUl {
+    height: 100%;
+    padding: 10px 0;
+}
+.illegal_infUl>li {
+    float: left;
+    height: 33.33%;
+}
+.illegalInf>li, .maturityInf>li, .maintenanceInf>li, .warningInf>li {
+    float: left;
+}
+.illegal_num, .maturity_num, .maintenance_num, .warning_num {
+    width: 2%;
+    color: #000000;
+    font-size: 14px;
+}
+.illegal_img {
+    width: 12%;
+}
+.illegal_inf {
+    width: 86%;
+    padding-left: 5px;
+}
+.illegal_num, .illegal_img, .maturity_num {
+    position: relative;
+    display: table;
+}
+.illegal_num>span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.illegal_img>img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: solid 1px lightgray;
+}
+.illegal_img>img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -27px 0 0 -27px;
+}
+.illegal_infUl1 {
+    width: 100%;
+}
+.illegal_infUl2, .illegal_infUl4 {
+    width: 30%;
+}
+.illegal_infUl3, .illegal_infUl5 {
+    width: 70%;
+    padding-left: 5px;
+}
+.illegal_name {
+    font-size: 18px;
+    margin-right: 5px;
+    color: #000000;
+}
+/**/
+ .maturityInf, .maintenanceInf {
+    padding: 0 0 0 5px;
+}
+.maturity_inf1, .maintenance_inf1 {
+    color: #000000;
+}
+.brand1 {
+    color: #4275F8;
+}
+.maturity_inf1>span:first-child, .maintenance_inf1>span:first-child {
+    color: #4275F8;
+}
+.maturity_type {
+    color: #ff0060
+}
+/*.maturity_inf1,.maturity_inf3,.maintenance_inf1,.maintenance_inf3{width: 32%;}*/
+ .maturity_inf1, .maintenance_inf1 {
+    width: 28%;
+}
+.maturity_inf3, .maintenance_inf3 {
+    width: 34%;
+}
+.maturity_inf2, .maintenance_inf2 {
+    width: 34%;
+}
+.warning_inf1 {
+    width: 98%;
+    padding-left: 5px;
+}
+.maturity_num, .maturity_inf1, .maintenance_num, .maintenance_inf1, .warning_num {
+    display: table;
+}
+.maturity_inf1>p, .maintenance_inf1>p {
+    height: 100%;
+    padding-left: 5px;
+}
+.maturity_inf2>p, .maturity_inf3>p, .maintenance_inf2>p, .maintenance_inf3>p, .warning_inf1>p {
+    height: 50%;
+    display: table;
+    padding: 5px 0;
+}
+.maturity_num>span, .maturity_inf1>p, .maintenance_num>span, .maintenance_inf1>p, .warning_num>span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+.maturity_num>span, .maintenance_num>span, .warning_num>span {
+    text-align: center;
+}
+.maturity_inf21>span, .maturity_inf31>span, .maintenance_inf21>span, .maintenance_inf31>span, .warning_inf11>span {
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+}
+.maturity_inf22>span, .maturity_inf32>span, .maintenance_inf22>span, .maintenance_inf32>span, .warning_inf12>span {
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
+}
+.warning_reson, .warning_times {
+    color: #FF0060;
+}
+.warning_reson, .warning_times {
+    color: #FF0060;
+}
+.warning_reson, .warning_times {
+    color: #FF0060;
+}
+.warning_inf12, .warning_time {
+    float: left;
+}
+.warning_time {
+    float: right;
+    padding: 10px;
+}
+@media only screen and (max-width: 1024px) {
+    #news {
+        overflow: auto;
+    }
+    .illegal, .maturity, .maintenance, .warning {
+        width: 80%;
+        float: left;
+        /*border: solid 1px red;*/
+        padding: 5px 10px 5px 5px;
+    }
+    .illegal_num, .maturity_num, .maintenance_num, .warning_num {
+        width: 4%;
+        color: #000000;
+        font-size: 14px;
+    }
+    .illegal_img {
+        width: 12%;
+    }
+    .illegal_inf {
+        width: 84%;
+        padding-left: 5px;
+    }
+    .illegal_img>img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: solid 1px lightgray;
+    }
+    .illegal_img>img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -30px 0 0 -30px;
+    }
+    .maturity_inf1, .maintenance_inf1 {
+        width: 28%;
+    }
+    .maturity_inf3, .maintenance_inf3 {
+        width: 34%;
+    }
+    .maturity_inf2, .maintenance_inf2 {
+        width: 34%;
+    }
+    .warning_inf1 {
+        width: 96%;
+        padding-left: 5px;
+    }
+}

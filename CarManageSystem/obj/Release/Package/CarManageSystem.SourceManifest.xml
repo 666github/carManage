@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <IisApp path="D:\Project\C#\车辆管理系统\CarManageSystem\CarManageSystem\obj\Release\Package\PackageTmp" />
+  <setAcl path="D:\Project\C#\车辆管理系统\CarManageSystem\CarManageSystem\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="D:\Project\C#\车辆管理系统\CarManageSystem\CarManageSystem\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>

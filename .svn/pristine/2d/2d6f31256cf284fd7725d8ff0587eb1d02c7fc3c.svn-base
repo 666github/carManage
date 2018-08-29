@@ -1,0 +1,63 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.FuelingCard
+{
+    /// <summary>
+    /// AddNewCard 的摘要说明
+    /// </summary>
+    public class AddNewCard : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            if(currentUser.UserType==2)
+            {
+                json.state = "院级管理员不可添加油卡信息";
+                context.Response.Write(json.ToString());
+                return;
+            }
+
+            var department = Convert.ToInt32(currentUser.Department);
+            var mainCardId = context.Request["mainCardId"];
+            var associateCardId = context.Request["associateCardId"];
+            var CarNumber = context.Request["CarNumber"];
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var card = new mainfuelingcard()
+                {
+                    MainCardId=mainCardId,
+                    AssociateCardId=associateCardId,
+                    CarNumber=CarNumber,
+                    DepartmentId=department
+                };
+                cms.mainfuelingcard.Add(card);
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

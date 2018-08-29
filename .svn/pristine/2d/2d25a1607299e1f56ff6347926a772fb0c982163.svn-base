@@ -1,0 +1,35 @@
+{	"state":"success",
+	"carInf_det":
+		{
+			"topBranch":"基础测绘部",
+			"imgSrc":"img/pagebg.jpg",
+			"firBrandDet":"斯巴鲁9999999",
+			"licenceDet":"京A.00001",
+			"buydayDet":"2010-05-04",
+			"modelDet":"S型",
+			"typeDet":"5座",
+			"safeStartDet":"2017-05-04",//保险起止日
+			"safeEndDet":"2017-05-04",
+			"enginDet":"ADSD256",
+			"priceDet":"25万",
+			"annualStartDet":"2017-05-04",//年检起止日
+			"annuaEndDet":"2017-05-04",
+			"mileDet":"里程",
+			"outnumDet":"8次",
+			"mtStartDet":"2017-05-04",//保养起止日
+			"mtEndDet":"2017-05-04",
+			"mtMoneyDet":"3456元",
+			"mtNumDet":"14次"
+		},
+	"state_det":
+		{
+			"currentState":"被预约",
+			"currName":"张阿阳",
+			"currBranch":"测绘部",
+			"currUsed":"2017-05-04",
+			"currBack":"2017-05-04",
+			"currDestination":"目的地",
+			"currEffect":"用途"	
+		}
+
+}

@@ -1,0 +1,184 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+using CarManageSystem.Extension;
+
+namespace CarManageSystem.handler.Trajectory
+{
+    /// <summary>
+    /// GetTrajectory 的摘要说明
+    /// </summary>
+    public class GetTrajectory : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+
+            //是否登录
+            var currentUser = CheckHelper.RoleCheck(context, 0);
+            if (currentUser == null)
+                return;
+
+
+            dynamic json = new JObject();
+            json.state = "success";
+            //0 司机 1 管理员
+            if (currentUser.UserType ==0)
+            {
+                var date = Convert.ToDateTime(context.Request["historyDate"]);
+                var tomorrow = date.AddDays(1);
+                using (cmsdbEntities cms = new cmsdbEntities())
+                {
+                    var departList = cms.departmentmanage.ToList();
+
+                    var info = cms.borrowregister
+                        .Where(s => s.User == currentUser.Account && s.BorrowState == 1 && s.UseCarTime < tomorrow)
+                        .LeftJoin(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b, r })
+                        .Where(s => s.r.ReturnTime >= date || s.r.ReturnTime == null)
+                        .LeftJoin(cms.user, b => b.b.User, u => u.Account, (b, u) => new { b, u })
+                        .ToList()
+                        .Select(item
+                        => new
+                        {
+                            carNumber = item.b.b.CarNumber,
+                            driImg = ImageHelper.GetImagePath(item.u.UserPhoto),
+                            driName = item.u.RealName,
+                            detInf2 = departList.FirstOrDefault(s => s.Id == item.u.Department).Name,
+                            branchName = item.u.UserType == 0 ? "司机" : (item.u.UserType == 1 ? "部门管理员" : "院级管理员"),
+                            destination = item.b.b.Destination,
+                            effect = item.b.b.Purposes,
+                            usedTime = item.b.b.UseCarTime.Value.ToShortDateString() + " " + item.b.b.UseCarTime.Value.ToShortTimeString(),
+                            position = cms.trajectorylog.Where(s => s.UniqueCode == item.b.b.UniqueCode).OrderBy(x => x.Time).Select(i => new { i.Longitude, i.Latitude }).ToList()
+                        }).ToList();
+
+                    var illeInfo = cms.illegalusecar.Where(s => s.User == currentUser.Account && s.Time >= date && s.Time < tomorrow)
+                        .LeftJoin(cms.user, i => i.User, u => u.Account, (i, u) => new { i, u })
+                        .ToList()
+                        .Select(item => new 
+                        {
+                            carNumber = item.i.CarNumber,
+                            driImg = ImageHelper.GetImagePath(item.u.UserPhoto),
+                            driName = item.u.RealName,
+                            detInf2 = departList.FirstOrDefault(s => s.Id == item.u.Department).Name,
+                            branchName = item.u.UserType == 0 ? "司机" : (item.u.UserType == 1 ? "部门管理员" : "院级管理员"),
+                            destination = "非法用车",
+                            effect = item.i.Cause,
+                            usedTime = item.i.Time.Value.ToShortDateString()+" "+item.i.Time.Value.ToShortTimeString(),
+                            position = cms.trajectorylog.Where(s=>s.UniqueCode == item.i.id).OrderBy(x => x.Time).Select(i => new { i.Longitude, i.Latitude }).ToList()
+                        }).ToList();
+
+                    illeInfo.ForEach(x => info.Add(x));
+
+                    //所有有记录的时间
+                    var usedate = cms.trajectorylog.Where(x => x.User == currentUser.Account).ToList()
+                         .Select(x => x.Time.Value.ToString("yyyy-MM-dd")).Distinct();
+                    json.useDate = JArray.FromObject(usedate);
+
+                    json.driInf = JArray.FromObject(info);
+                    context.Response.Write(json.ToString());
+                    cms.Dispose();
+                }
+            }
+            else
+            {
+                var carNumber = context.Request["allLicence"];
+                var date = Convert.ToDateTime(context.Request["historyDate"]);
+                var tomorrow = date.AddDays(1);
+                using(cmsdbEntities cms=new cmsdbEntities())
+                {
+                    var departList = cms.departmentmanage.ToList();
+
+
+                    var info = cms.borrowregister
+                        .Where(s => s.CarNumber == carNumber && s.BorrowState == 1 && s.UseCarTime < tomorrow)
+                        .LeftJoin(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b, r })
+                        .Where(s => s.r.ReturnTime >= date || s.r.ReturnTime == null)
+                        .LeftJoin(cms.user, b => b.b.User, u => u.Account, (b, u) => new { b, u })
+                        .ToList()
+                        .Select(item
+                        => new
+                        {
+                            carNumber = item.b.b.CarNumber,
+                            driImg = ImageHelper.GetImagePath(item.u.UserPhoto),
+                            driName = item.u.RealName,
+                            detInf2 = departList.FirstOrDefault(s => s.Id == item.u.Department).Name,
+                            branchName = item.u.UserType == 0 ? "司机" : (item.u.UserType == 1 ? "部门管理员" : "院级管理员"),
+                            destination = item.b.b.Destination,
+                            effect = item.b.b.Purposes,
+                            usedTime = item.b.b.UseCarTime.Value.ToShortDateString() + " "+ item.b.b.UseCarTime.Value.ToShortTimeString(),
+                            position =cms.trajectorylog.Where(s=>s.UniqueCode==item.b.b.UniqueCode).Select(i => new { i.Longitude, i.Latitude,i.Time }).OrderBy(x=>x.Time).ToList()
+                        }).ToList();
+
+                    //未处理的违法用车
+                    var illegalUseInfo0 = cms.illegalusecar
+                        .Where(s => s.CarNumber == carNumber && s.Time >= date && s.Time < tomorrow&&s.User==null)
+                        .ToList()
+                        .Select(item => new
+                        {
+                            carNumber = item.CarNumber,
+                            driImg = "",
+                            driName = "非法用车-未处理",
+                            detInf2 = "",
+                            branchName = "",
+                            destination = "",
+                            effect = "",
+                            usedTime = "",
+                            position = cms.trajectorylog
+                            .Where(s => s.UniqueCode==item.id)
+                            .Select(i => new { i.Longitude, i.Latitude,i.Time })
+                            .OrderBy(x => x.Time)
+                            .ToList()
+                        }).ToList();
+
+                    //已处理的非法用车
+                    var illegalUseInfo1 = cms.illegalusecar
+                       .Where(s => s.CarNumber == carNumber && s.Time >= date && s.Time <= tomorrow&& s.User != null)
+                       .LeftJoin(cms.user,i=>i.User,u=>u.Account,(i,u)=>new { i,u})
+                       .ToList()
+                       .Select(item => new
+                       {
+                           carNumber = item.i.CarNumber,
+                           driImg = ImageHelper.GetImagePath(item.u.UserPhoto),
+                           driName =  item.u.RealName,
+                           detInf2 = departList.FirstOrDefault(s => s.Id == item.u.Department).Name,
+                           branchName = item.u.UserType == 0 ? "司机" : (item.u.UserType == 1 ? "部门管理员" : "院级管理员"),
+                           destination = "非法用车",
+                           effect = item.i.Cause,
+                           usedTime = item.i.Time.Value.ToShortDateString()+" "+item.i.Time.Value.ToShortTimeString(),
+                           position = cms.trajectorylog
+                            .Where(s => s.UniqueCode==item.i.id)
+                            .Select(i => new { i.Longitude, i.Latitude,i.Time })
+                            .OrderBy(x => x.Time)
+                            .ToList()
+                       }).ToList();
+
+                    //所有有记录的时间 // 影响性能 应该初始加载一次就再也不加载了
+                    var usedate = cms.trajectorylog.Where(x => x.CarNumber == carNumber).ToList()
+                        .Select(x => x.Time.Value.ToString("yyyy-MM-dd")).Distinct();
+                   
+                    json.useDate = JArray.FromObject(usedate);
+
+                    illegalUseInfo0.ForEach(x => info.Add(x));
+                    illegalUseInfo1.ForEach(x => info.Add(x));
+                    json.info = JArray.FromObject(info);
+                    context.Response.Write(json.ToString());
+                    cms.Dispose();
+                }
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

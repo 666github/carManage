@@ -1,0 +1,22 @@
+{	"sumNum":"68",
+	"used":"55",
+	"unUsed":"23",
+	"car_inf":[
+		{
+			"carImg":"img/pagebg.jpg",
+			"brand1":"斯巴鲁-斯巴鲁",
+			"licence":"京A.54451",
+			"space":"5座",
+			"state":"0"
+		},
+		{
+			"carImg":"../../img/pagebg.jpg",
+			"brand1":"斯巴鲁-斯巴鲁",
+			"licence":"京A.00001",
+			"space":"5座",
+			"state":"1"
+		}
+
+	],
+	"state":"success"
+}

@@ -1,0 +1,114 @@
+<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/carManage/query.css"/>
+	<script src="js/carManage/ajaxfileupload.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/carManage/page.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/carManage/carMaintain.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="wrap">			
+			<div class="holidayTitle"><span class="holidayAppoint">维修车辆</span><span class="Mend Mnone">结束</span></div>	
+			<p class="maintNav"><a href="#maintainNeed" class="a1 aaa">需要维修保养</a><a href="#maintainIng" class="a2 aaa">维修保养中</a><a href="#maintainEnd" class="a3 aaa">维修保养结束</a></p>
+			<div id="box">
+				
+				<div id="maintainIng">															
+				</div>
+				<div id="maintainEnd" class="pageBox">
+					<div class="maintainEnd1" style="width: 100%;height: 100%;">
+						<select name="" class="mtBranch" style="width: 15%;height: 30px;margin: 0 10px 20px 0;">
+						<option value="">所属部门</option>
+						</select>
+						<select name="" class="licences" style="width: 15%;height: 30px;margin: 0 0 20px 0;">
+							<option value="">按车牌号查询</option>
+						</select>
+						<span class="mtTimes" style="border: solid 1px rgb(169,169,169);background: #FFFFFF;display: inline-block;height: 30px;">
+							<input type="text" name="mtTimes1" id="mtTimes1" class="Wdate" value="" placeholder="起始时间" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'mtTimes2\')}'})"/>
+							-
+							<input type="text" name="mtTimes2" id="mtTimes2" class="Wdate" value="" placeholder="结束时间" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'mtTimes1\')}'})"/>				        
+			       		 </span>
+						<span style="float: right;height: 30px;line-height: 30px;position: relative;">
+							<span class="mtendImportLook">导入信息查看</span>
+							<span class="mtendImport" style="margin: 0 0 0 20px;">导入</span>
+							<input type="file" name="mtendimport" id="mtendimport" value="" style="position: absolute;top: 0;right: 0;width: 62px;height: 30px;opacity: 0;">
+						</span>
+						<div class="top_Page">
+							<ul class="maintEndultop">
+								<li class="MElist1">#</li>
+								<!--<li class="Mlist2">#</li>-->
+								<li class="MElist3">品牌</li>
+								<li class="MElist4">车牌</li>
+								<li class="MElist5">车载人数</li>
+								<li class="MElist6">保险到期日</li>
+								<li class="MElist7">上次保养日期</li>
+								<li class="MElist8">年检到期日</li>
+								<li class="MElist9">维修金额/元</li>
+								<li class="MElist10">维修单号</li>
+							</ul>
+							<div class="pageDiv clearfix" >		
+						</div>
+						</div>
+					</div>
+					<div class="notContent hide">
+						无数据
+					</div>
+					<!--<div class="page">
+						<ul class="pageMenu clearfix">
+							<li class="firstPage">首页</li>
+							<li class="prevPage"> < 上一页 </li>
+							<div class="pageObj ">
+								
+							</div>
+							<li class="nextPage"> 下一页 > </li>
+							<li class="lastPage">尾页</li>
+							<li class="last" style="font-size: 14px;">
+								共<span class="totalPage"></span>页，跳转至 <input type="number" class="keuInput" value="1">
+								<button type="button" class="btnSure">确定</button>
+							</li>
+						</ul>
+					</div>-->
+					<div class="mtImportLook hide" style="width:100%;height:90%;position: absolute;left: 0;top: 0;padding: 0 10px 0 0;">
+						<select name="" class="mtBranch2" style="width: 15%;height: 30px;margin: 0 10px 20px 0;">
+						<option value="">所属部门</option>
+						</select>
+						<select name="" class="licences2" style="width: 15%;height: 30px;margin: 0 0 20px 0;">
+							<option value="">按车牌号查询</option>
+						</select>
+						<span class="mtTimes2" style="border: solid 1px rgb(169,169,169);background: #FFFFFF;display: inline-block;height: 30px;">
+							<input type="text" name="mtTimes21" id="mtTimes21" class="Wdate" value="" placeholder="起始时间" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'mtTimes22\')}'})"/>
+							-
+							<input type="text" name="mtTimes22" id="mtTimes22" class="Wdate" value="" placeholder="结束时间" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'mtTimes21\')}'})"/>				        
+			       		 </span>
+						<span class="mtformLook" style="float: right;height: 30px;line-height: 30px;">维修保养单查看</span>
+						<!--<span class="mtendImport"><span>导入</span><input type="file" name="mtendimport" id="mtendimport" value=""></span>-->
+						<div class="top_Pageimport">
+							<ul class="maintEndultopimport">
+								<li class="MElist1import">序号</li>
+								<li class="MElist2import">日期</li>
+								<li class="MElist3import">车牌号</li>
+								<li class="MElist4import">车型品牌</li>
+								<li class="MElist5import">总费用(元)</li>
+							</ul>
+							<div class="pageDiv2 clearfix" >		
+						</div>
+						</div>
+					</div>
+				</div>
+				<div class="" id="maintainNeed">
+																		
+					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

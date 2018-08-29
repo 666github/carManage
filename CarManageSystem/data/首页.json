@@ -1,0 +1,146 @@
+{	
+	"remindNum1":5,
+	"remindNum2":5,
+	"remindNum3":5,
+	"remindNum4":5,
+	"redpoint2":1,
+	"redpoint3":0,
+	"redpoint4":1,
+	"audit":[
+				{
+					"applybody":"李工",					
+					"applyfor":"向您申请成为部门级管理员",
+					"applyid":"dongliangrui",
+					"fast":"[紧急]",
+					"sendtime":"2017-07-06 19:30",
+					"id":"juese"
+				},
+				{
+					"applybody":"李工",					
+					"applyfor":"向您申请成为院级管理员",
+					"applyid":"dongliangrui",
+					"fast":"[紧急]",
+					"sendtime":"2017-07-06 19:30",
+					"id":"juese"
+				}	
+			],
+	"auditCar":[
+				{
+					"applybody":"李工",					
+					"applyfor":"跨院申请使用",
+					"brand":"奥虎",
+					"carLicence":"京Ek7036",
+					"applyid":"dongliangrui",
+					"sendtime":"2017-07-06 19:30",
+					"id":"kuayuan"
+				},
+				{
+					"applybody":"李工",					
+					"applyfor":"跨天申请使用",
+					"brand":"奥虎",
+					"carLicence":"京Ek7036",
+					"applyid":"dongliangrui",
+					"sendtime":"2017-07-06 19:30",
+					"id":"kuatian"
+				}	
+			],
+	"myaudit":[
+				{
+					"auditState":"审核通过",					
+					"auditSummary":"九州公司司机"
+				},
+				{
+					"auditState":"审核通过",					
+					"auditSummary":"部门管理员"
+				},
+				{
+					"auditState":"审核通过",					
+					"auditSummary":"院级管理员"
+				}
+			],
+			
+	"myauditCar":[
+				{	
+					"applyTime":"2017-07-06 19:30",
+					"auditState":"审核通过",	
+					"auditJumpBorrow":"跨部门使用",				
+					"auditSummary":"九州公司",
+					"brand":"奥虎",
+					"carLicence":"京Ek7036"
+				}	
+			],
+	"remindIlleCar":[
+				{
+					"brand":"傲虎",					
+					"carLicence":"京A00001",
+					"time":"2017-07-06 19:30",
+					"id":"feifa"
+				}	
+			],
+	"peccancy":[
+				{
+					"personName":"李工",					
+					"carLicence":"京AV0000",
+					"reason":"闯红灯",
+					"place":"羊坊店路",
+					"time":"2017-07-06 19:30",
+					"id":"weizhang"
+				},
+				{
+					"personName":"",					
+					"carLicence":"京AV0077",
+					"reason":"红灯",
+					"place":"店路",
+					"time":"2017-07-06 19:30",
+					"id":"weizhang"
+				}	
+			],
+	"remindOut":[
+				{
+					"personName":"周工",	
+					"brand":"奥虎",				
+					"carLicence":"京AV0000"
+				}	
+			],
+	"myremindIlleCar":[
+				{
+					"brand":"奥虎",					
+					"carLicence":"京A00001",
+					"time":"2017-07-06 19:30"
+				}	
+			],
+	"mypeccancy":[
+				{
+					"personName":"郑工",					
+					"carLicence":"京AV0000",
+					"reason":"闯红灯",
+					"place":"北京市海淀区羊坊店路与复兴大街",
+					"time":"2017-07-06 19:30"
+				}	
+			],
+	"myremindOut":[
+				{
+					"personName":"bsm",	
+					"brand":"傲虎",				
+					"carLicence":"京AV0000"
+				}	
+			],
+	
+	"dueNotice":[
+				{
+					"brand":"别克",					
+					"carLicence":"京AV0000",				
+					"department":"九州公司",
+					"expireType":"保养"
+				}	
+			],
+	"maintenance":[
+				{
+					"brand":"别克",					
+					"carLicence":"京AV0000",				
+					"department":"九州公司",
+					"personName":"赵四"
+				}	
+			],
+	"state":"success"
+}

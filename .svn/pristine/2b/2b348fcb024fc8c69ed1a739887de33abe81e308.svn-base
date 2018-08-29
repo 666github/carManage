@@ -1,0 +1,57 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QueryHoliday
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var uri = "http://v.juhe.cn/calendar/month?";
+            var key = "key=";
+            var year_month = "&year-month="+DateTime.Now.ToString("yyyy-MM");
+            uri += key + year_month;
+
+            var result=Request(uri);
+            if(string.IsNullOrEmpty(result))
+            {
+                return;
+            }
+
+            var resObj = JsonConvert.DeserializeObject<dynamic>(result);
+            var data = ((string)resObj.result.data.holiday).Replace("\\","");
+
+            var uri1 = "http://localhost:2238/handler/Carmanage/HolidayUse/AutoHolidaySet.ashx?data="+data;
+            var result1 = Request(uri1);
+            if(result1=="success")
+            {
+
+            }
+        }
+
+        static string Request(string uri)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(uri);
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                var stream = response.GetResponseStream();
+                var streamReader = new StreamReader(stream);
+                var result = streamReader.ReadToEnd();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+    }
+}

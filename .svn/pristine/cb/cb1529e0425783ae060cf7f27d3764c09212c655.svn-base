@@ -1,0 +1,116 @@
+
+$(function(){
+	getDepartment()
+	driverTask();
+	function getDepartment(){
+		$("#regBranch").removeClass("ohide");
+			var option = $('#regBranch').html();
+	          $.ajax({
+	              type: "post",
+	              dataType: "json",
+	              url: "http://192.168.1.120:2238/handler/GetDepartment.ashx",
+	              data:{from:0},
+	              xhrFields:{withCredentials:true},
+	              success: function (data) {
+	                  var obj = data;
+	                  for (var i = 0; i < obj.length; i++) {
+	                      option += '<option value="' + obj[i].Id + '">' + obj[i].Name + '</option>';
+	                  }
+	                  $('#regBranch').html(option);
+	              },
+	              error: function () {
+	                  console.log("部门获取失败");
+	              }
+	         })
+	}
+	//部门管理信息
+	function driverTask(){	
+		department=$("#regBranch").val();
+		$.ajax({
+			type:"get",
+			url:"http://192.168.1.120:2238/handler/UserManage/Driver/ViewDriver.ashx",
+			xhrFields:{withCredentials:true},
+			data:{"department":department,"viewType":1,from:0},
+			dataType:"json",
+			async:true,
+			success:function(data){
+				if(data.state == "success"){
+					$(".driNum").text(data.driversTotal);
+					addNode(data.driversInfo);
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					location.href="./login.html"
+				}else{
+					alert(data.state);
+				}		
+			},error:function(e1,e2,e3){
+				console.log("加载失败")
+			}
+		})
+	}
+	 function addNode(_data){
+		var driver = '';
+		for(var i=0;i<_data.length;i++){			
+			//设置基本信息值			
+			driver += '<ul class="driverInfo">'+
+				'<li class="choice"  ><input type="checkbox" name="" id="" value="" class="ocheck"><span  class="userId" style="display:none;">'+_data[i].userid+'</span></li>'+
+				'<li class="driverIcon">'+
+					'<div class="icon"><img class="" src="'+_data[i].pictureUrl+'"/></div>'+
+					'<div class="iconInfo"><p class="driverName" datatype="driverName">'+_data[i].driverName+'</p><p class="departMent" datatype="departMent">'+_data[i].departMent+'</p></div>'+
+				'</li>'+
+				'<li class="driveingInfo">'+						
+					'<p class="driverTel">电话 : <span class="driverTelInfo" datatype="telInfo">'+_data[i].telInfo+'</span></p>'+
+					'<p class="mailNum">邮箱 : <span class="mailNumInfo" datatype="mailNumInfo">'+_data[i].mailNumInfo+'</span></p>'+
+				'</li>'+
+			'</ul>';
+		};
+		$('.driversInfo').html(driver);
+	}
+	//
+	$("#regBranch").change(function(){
+		driverTask();
+	});
+	//删除
+	$(".driDel").click(function(){
+		var ochecks = document.getElementsByClassName("ocheck");
+		var ocheck = [];
+		var nameDel=[];
+		for (var i = 0; i < ochecks.length; i++) {
+			if(ochecks[i].checked){
+				ocheck.push(ochecks[i]);
+			}
+		};		
+		$.each(ocheck, function() {
+			nameDel.push($(this).parents(".driverInfo").find(".userId").text());		
+		});
+		if(confirm("确定删除？")){	
+//			$.each(ocheck, function() {		
+//				$(this).parents('.driverInfo').remove();											
+//			});
+			delDri();
+		}	
+		function delDri(){debugger;
+			$.ajax({
+				type:"get",
+				url:"http://192.168.1.120:2238/handler/UserManage/Driver/DeleteDriver.ashx",
+				data:{"drivers":JSON.stringify({"Ids":nameDel}),from:0},
+				xhrFields: {withCredentials: true }, 
+				dataType:"json",
+				async:true,
+				success:function(data){
+					if(data.state=="success"){	
+						driverTask();
+					}else if(data.state=="1"){
+							alert("请重新登录");
+							window.location.href="./login.html"
+					}else{
+						alert(data.state);
+					}
+				}
+			})
+		}
+	});
+	
+})
+
+

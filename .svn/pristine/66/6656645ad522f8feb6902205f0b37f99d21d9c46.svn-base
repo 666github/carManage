@@ -1,0 +1,81 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.Statistics
+{
+    /// <summary>
+    /// ViewDriverStatistics 的摘要说明
+    /// </summary>
+    public class ViewDriverStatistics : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 1))
+                return;
+
+            //查询
+            var department = Convert.ToString(context.Session["department"]);
+            var startDate = context.Request["startDate"].Trim();
+            var endDate = context.Request["endDate"].Trim();
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                dynamic json = new JObject();
+
+                var drivers = cms.user.ToList()
+                    .Where(s => string.IsNullOrEmpty(department) ? true : department == s.Department.ToString())
+                    .Select(item => new
+                    {
+                        driverImg = ImageHelper.GetImagePath(item.UserPhoto),
+                        driverName = item.RealName,
+                        driverBranch = cms.departmentmanage.FirstOrDefault(s => s.Id == item.Department).Name,
+                        driverType = item.DriverType==0?"兼职":"专职",
+                        driverLicenseInfo = item.AllowModel,
+                        driverNumInfo = cms.returnregister.ToList().Count(s => s.user == item.Account
+                        && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < s.ReturnTime)
+                        && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > s.ReturnTime)),
+                        milesNum = cms.returnregister.ToList().Where(s => s.user == item.Account
+                        && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < s.ReturnTime)
+                        && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > s.ReturnTime)).Sum(x =>x.TravelMileage),
+                        illegalNumInfo = cms.illegalstatistic.ToList().Count(s=>s.User==item.Account
+                        && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < s.Time)
+                        && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > s.Time)),
+                        illeaglUCNumInfo=cms.illegalusecar.ToList().Count(s => s.User == item.Account
+                        && (string.IsNullOrEmpty(startDate) ? true : Convert.ToDateTime(startDate) < s.Time)
+                        && (string.IsNullOrEmpty(endDate) ? true : Convert.ToDateTime(endDate) > s.Time))
+                    });
+                json.partTimeDriCount = drivers.Count(s => s.driverType == "0");
+                json.fullTimeDriCount = drivers.Count(s => s.driverType == "1");
+                json.c1Count = drivers.Count(s => s.driverLicenseInfo == "C1");
+                json.c2Count = drivers.Count(s => s.driverLicenseInfo == "C2");
+                json.driversInfo = JArray.FromObject(drivers);
+                for (var i=0;i< json.driversInfo.Count; i++)
+                {
+                    if (json.driversInfo[i].milesNum == null)
+                    {
+                        json.driversInfo[i].milesNum = 0;
+                    }
+                }
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

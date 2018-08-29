@@ -1,0 +1,329 @@
+var gasCardList;
+$(function () {
+    gasCardList =function() {
+        department = $("#regBranch").val(); debugger;
+        var infLists = '';
+        $.ajax({
+            url: "../handler/FuelingCard/ViewCard.ashx",
+            xhrFields: { withCredentials: true },
+            data: { "department": department, from: 0 },
+            dataType: "json",
+            async: true,
+            success: function (data) {
+                if (data.state == "success") {
+                    $(".gasSum").text(data.gasSum);
+                    var cardLists = data.secondCardInf;
+                    for (var i = 0; i < cardLists.length; i++) {
+                        infLists += '<ul class="gasQuery">' +
+                            '<li class="gasDepart">' + cardLists[i].department + '</li>' +
+                            '<li class="gasNumf">' + cardLists[i].gasNumf + '</li>' +
+                            '<li class="gasNums">' + cardLists[i].gasNums + '</li>' +
+                            '<li class="gasPersonCar">' + (cardLists[i].gasState == null ? "" : cardLists[i].gasState) + '</li>' +
+                            '<li class="gasLicence">' + cardLists[i].gasLicence + '</li>' +
+                            //						'<li class="personId">'+cardLists[i].personId+'</li>'+
+                            //						'<li class="gasState">'+cardLists[i].gasBind+'</li>'+
+                            '<li class="gasDetail"><span class="gasDetailSpan">查看详情</span></li>' +
+                            '</ul>'
+                    }
+                    $('.gasBranch').html(infLists);
+                    gasDetail();
+                } else if (data.state == "1") {
+                    alert("请重新登录");
+                    location.href = "./login.html"
+                } else {
+                    alert(data.state);
+                }
+            }
+        })
+    }
+
+
+
+var department;
+getDepartment();
+gasCardList();
+ function getDepartment(){
+		var option = $('.allBranch').html();
+		$.ajax({
+	  		type: "post",
+			dataType: "json",
+			url: "../handler/GetDepartment.ashx",
+			data:{from:0},
+			xhrFields:{withCredentials:true},
+			success: function (data) {
+	  			var obj = data;
+	  			for (var i = 0; i < obj.length; i++) {
+	      			option += '<option value="' + obj[i].Name + '">' + obj[i].Name + '</option>';
+	 			}
+				$('.allBranch').html(option);
+				var currentBranch = $(".branchName").text();
+				$(".allBranch").val(currentBranch);
+				if(userType==1){
+					$(".allBranch").attr("disabled","disabled");
+				}
+			},
+			error: function () {
+	  			console.log("部门获取失败");
+	  		}
+		})
+		
+	}	
+	
+//change事件
+	$("#regBranch").change(function(){
+		gasCardList();
+	});
+//添加新卡
+	$(".addCard").click(function(){
+		$(".gasCardBg").removeClass("hideBg");
+		$(".cardListF").removeClass("ohide");
+		$("#CardNum1").removeClass("CardNum1");
+		$("#CardNum1").addClass("ohide");
+		$(".cardListF").addClass("CardNum1");
+	});
+	$(".closed").click(function(){
+		$(".gasCardBg").addClass("hideBg");
+	})
+	$("#quitCard").hover(function(){
+		$("#quitCard").css('background','#4375f8');
+		$("#sureCard").css('background','#FFFFFF');
+	},function(){
+		$("#quitCard").css('background','#FFFFFF');
+		$("#sureCard").css('background','#4375f8');
+	});
+	//新卡填写信息验证
+	function regCard(){
+		var regcardNum1=/^[0-9]{19}$/;
+	    var cardNum1 = $(".CardNum1").val();
+	    if (!regcardNum1.test(cardNum1)) {
+	        alert("加油卡格式为19位纯数字");
+	        return false;
+	    }
+		var regcardNum2=/^[0-9]{19}$/;
+	    var cardNum2 = $("#CardNum2").val();
+	    if (!regcardNum2.test(cardNum2)) {
+	        alert("加油卡格式为19位纯数字");
+	        return false;
+	    }
+		var regcardCar=/^京[A-Z]{1}[A-Z0-9]{5}$/;//var regcarLicence=/^[\u4e00-\u9fa5]{1}[A-Z][A-Z0-9]{5}/
+	    var cardCar=$("#cardCar").val().toUpperCase();
+	    if (!regcardCar.test(cardCar)) {
+	        alert("车牌格式不正确，标准格式为：京AV0001");	 
+	        return false;
+	    }
+	    return true;
+	}
+	//新卡确定
+	$("#sureCard").unbind("click").click(function(){		
+		var mainCardId=$(".CardNum1").val();
+		var associateCardId=$("#CardNum2").val();
+		var CarNumber=$("#cardCar").val();
+		//验证重复录入号码
+//		var sameNum="";			
+//		$.each($(".gasNums"), function() {
+//			if($(this).context.innerText==$("#CardNum2").val()){
+//				sameNum=0;debugger
+//				alert("填写重复，重新填写");
+//				return;
+//			}			
+//		});
+		
+		if(regCard()){debugger
+			$.ajax({
+				url:"../handler/FuelingCard/AddNewCard.ashx",
+				xhrFields: {withCredentials: true }, 
+				data:{"mainCardId":mainCardId,"associateCardId":associateCardId,"CarNumber":CarNumber,from:0},
+				dataType:"json",
+				async:true,
+				success:function(data){					
+					if(data.state=="success"){
+						$(".gasCardBg").addClass("hideBg");
+						gasCardList();debugger;
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}
+				}
+			})
+		}
+	})
+	//取消
+	$("#quitCard").unbind("click").click(function(){
+		$(".gasCardBg").addClass("hideBg");
+	});
+	//添加主卡列表和车牌列表
+	getCardNumF();
+	getLicence();
+	function getCardNumF(){debugger;
+		var option = $('.cardListF').html("");
+         $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "../handler/FuelingCard/GetCardList.ashx",
+            data:{"department":department,from:0},
+            xhrFields:{withCredentials:true},           
+            success:function(data){
+				if(data.state=="success"){
+					var obj = data.list;
+                for (var i = 0; i < obj.length; i++) {
+                    option += '<option value="' + obj[i].MainCardId + '">' + obj[i].MainCardId + '</option>';
+                }
+                $('.cardListF').html(option);
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}
+				},
+            error: function () {
+                console.log("主卡号获取失败");
+            }
+         })
+	}
+	function getLicence(){
+//		$("#cardCar").removeClass("ohide");
+			var option = $('#cardCar').html("");
+	         $.ajax({
+	            type: "post",
+	            dataType: "json",
+	            url: "../handler/GetCarNumbers.ashx",
+	            data:{from:0},
+	            xhrFields:{withCredentials:true},
+	            success: function (data) {
+	                var obj = data;debugger;
+	                for (var i = 0; i < obj.length; i++) {
+	                   option += '<option value="' + obj[i] + '">' + obj[i] + '</option>';
+	                }
+	                $('#cardCar').html(option);
+	            },
+	            error: function () {
+	                console.log("车牌获取失败");
+	            }
+	         })
+	};
+	
+	//录入卡号
+	$(".newCard").click(function(){
+		$(".cardListF").removeClass("CardNum1");
+		$(".cardListF").addClass("ohide");
+		$("#CardNum1").removeClass("ohide");
+		$("#CardNum1").addClass("CardNum1");
+	});
+	//详情查看
+	var secondCardId;	
+	function gasDetail(){						
+		$(".closedDetail").click(function(){
+			$(".detailInfBg").addClass("ohide");
+		});
+		$(".gasQuery").find(".gasDetailSpan").click(function(){
+			secondCardId=$(this).parents(".gasQuery").find(".gasNums").text();
+			$(".detailInfBg").removeClass("ohide");			
+			detailInf();
+		})
+	}	
+	$(".gasSE").blur(function(){//日期blur事件
+		detailInf();
+	})
+	function detailInf(){
+		var cardInfs = '';
+//		var secondCardId=othis.parents(".gasQuery").find(".gasNums").text();	
+		var startTime=$("#gasStart").val();
+		var endTime=$("#gasEnd").val();
+		$.ajax({
+			type:"get",
+			url:"../handler/FuelingCard/ViewDetail.ashx",
+			async:false,
+			xhrFields: {withCredentials: true}, 
+			data:{"associateCardId":secondCardId,"start":startTime,"end":endTime,from:0},
+			success:function(data){
+				var data=JSON.parse(data);
+				if(data.state=="success"){
+					var gasInf=data.gasCardInf;
+					for(var i=0;i<gasInf.length;i++){
+						cardInfs+='<ul class="gasIns">'+
+						'<li class="list1">'+gasInf[i].list1+'</li><li class="list2">'+gasInf[i].list2+'</li>'+
+						'<li class="list3">'+gasInf[i].list3+'</li><li class="list4">'+gasInf[i].list4+'</li>'+
+						'<li class="list5">'+gasInf[i].list5+'</li><li class="list6">'+gasInf[i].list6+'</li>'+
+						'<li class="list7">'+gasInf[i].list7+'</li><li class="list8">'+gasInf[i].list8+'</li><li class="list9">'+gasInf[i].list9+'</li>'+
+						'<li class="list10">'+gasInf[i].list10+'</li><li class="list11">'+gasInf[i].list11+'</li></ul>'	
+					}
+					cardInfs+='<ul class="gasIns">'+
+						'<li class="list1" style="color:red;font-weight:bold;">小计</li><li class="list2">奖励积分</li><li class="list3">'+data.bonus+'</li>'+
+						'<li class="list4" style="color:#4275f8;">圈存金额</li><li class="list5" style="color:#4275f8;">'+data.quancun+'</li>'+
+						'<li class="list6" style="color:#ff0060;">圈提金额</li><li class="list7" style="color:#ff0060;">'+data.quanti+'</li>'+
+						'<li class="list8" style="color:#4275f8;">加油金额</li><li class="list9" style="color:#4275f8;">'+data.jiayou+'</li>'+
+						'<li class="list10" style="color:#ff0060;">加油数量</li><li class="list11" style="color:#ff0060;">'+data.count+'</li></ul>';
+					$('.gasInfs').html(cardInfs);
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					window.location.href="./login.html"
+				}else{
+					alert(data.state);
+				}
+			},error:function(e1,e2,e3){
+				console.log("请求失败");
+			}
+		});
+	}
+//详情录入excel
+//	$("#gasInf").click(function(){
+//		$("#gasInf").addClass("ohide");
+//		$("#mysubmit").removeClass("ohide");
+//////		$("#mysubmit").trigger("click");
+//	})
+//	$("#mysubmit").click(function(){
+//		$(".gasLogging").removeClass("hideBg");
+//		$("#myform").submit();		
+//	})
+    $("#gasInf").change(function () {
+        gasInfChange();
+    })
+})	
+var gasInfChange = function () {
+    var table = $("#gasInf").val(); console.log(table);
+    //判断空文件上传
+    $.ajaxFileUpload({
+        secureuri: false,
+        fileElementId: 'gasInf',
+        dataType: 'json',
+        url: "../handler/FuelingCard/InputTable.ashx",
+        xhrFields: { withCredentials: true },
+        data: { from: 0 },
+        success: function (res) {
+            var data = JSON.parse(res);
+            if (data.state == "success") {
+                gasCardList();
+            } else if (data.state == "1") {
+                alert("请重新登录");
+                window.location.href = "./login.html"
+            } else {
+                alert(data.state);
+            }
+            $("#gasInf").val("");
+            console.log("请求成功");
+            $("#gasInf").change(function () {
+                gasInfChange();
+            })
+        }, error: function (e1, e2, e3) {
+            console.log("请求失败");
+            $("#gasInf").val("");
+        }
+
+    });
+};
+
+//function ifmload(ifm) {
+//  var val = JSON.parse($(ifm.contentWindow.document.body).find('pre').html());
+//  if (val.state == "success") {
+//      alert('录入成功！');
+//      $(".gasLogging").addClass("hideBg");       
+//  } else if (val.state == "1") {
+//      alert('请重新登录');
+//      window.location.href = './login.html';
+//  }else {
+//      alert('录入失败：' + val.state);
+//  }
+//}

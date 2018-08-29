@@ -1,0 +1,60 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.DepartmentManage
+{
+    /// <summary>
+    /// Add 的摘要说明
+    /// </summary>
+    public class Add : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否院级管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 2);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var name = context.Request["name"];
+            using(cmsdbEntities cms=new cmsdbEntities())
+            {
+                var tempDpm = cms.departmentmanage.FirstOrDefault(d => d.Name == name);
+                if(tempDpm!=null)
+                {
+                    json.state = "错误：当前已存在相同名称的部门";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                var count = cms.departmentmanage.Max(d=>d.Id);
+                var dpm = new departmentmanage()
+                {
+                    CreateDate = DateTime.Now,
+                    Id = count + 1,
+                    Name = name,
+                    Index = count + 1
+                };
+                cms.departmentmanage.Add(dpm);
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

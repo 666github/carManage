@@ -1,0 +1,92 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.UserManage.Driver
+{
+    /// <summary>
+    /// ViewDriver 的摘要说明
+    /// </summary>
+    public class ViewDriver : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+
+            var viewType = Convert.ToInt32(context.Request["viewType"]);
+            var type = context.Request["type"];
+                
+            var currentRole = Convert.ToString(context.Session["role"]);
+            dynamic json = new JObject();
+            json.state = "success";
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                if (!CheckHelper.IsHavePri(context, 1))
+                    return;
+
+                if (Convert.ToInt32(currentRole) < viewType)
+                {
+                    json.state = "没有权限";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+
+                var department = -1;
+                var driverType = -1;
+                //判断管理员类型
+                if (currentRole == "2")
+                {
+                    if (!string.IsNullOrEmpty(context.Request["department"]))
+                    {
+                        department = Convert.ToInt32(context.Request["department"]);
+                    }
+                }
+                else
+                    department = Convert.ToInt32(context.Session["department"]);
+                //判断是否查询司机
+                if (viewType == 0)
+                {
+                    //判断司机筛选是否全部
+                    if (context.Request["driverType"] != "")
+                        driverType = Convert.ToInt32(context.Request["driverType"]);
+                }
+                    
+                
+                var users = cms.user
+                    .Where(s =>s.UserType!=-1&& s.UserType == viewType &&(department==-1?true: s.Department== department)&& (viewType==0?(driverType==-1?true : s.DriverType == driverType) :true))
+                    .LeftJoin(cms.departmentmanage, u => u.Department, d => d.Id, (u, d) => new { u, d }).ToList()
+                    .Select(item => new
+                    {
+                        userid=item.u.Account,
+                        pictureUrl = ImageHelper.GetImagePath(item.u.UserPhoto),
+                        driverName = item.u.RealName,
+                        departMent = item.d.Name,
+                        typeInfo = item.u.DriverType == 0 ? "兼职" : "专职",
+                        licenseInfo = item.u.AllowModel,
+                        telInfo = item.u.Phone,
+                        mailNumInfo = item.u.Email,
+                        driverState = item.u.state
+                    });
+                json.driversTotal = users.Count();
+                json.driversInfo = JArray.FromObject(users);
+                context.Response.Write(json);
+            }
+        }
+
+       
+        public bool IsReusable                                                                                                                                        
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

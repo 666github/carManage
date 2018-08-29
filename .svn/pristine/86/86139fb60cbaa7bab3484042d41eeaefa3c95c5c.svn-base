@@ -1,0 +1,135 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+
+namespace CarManageSystem.helper
+{
+    public class CheckHelper
+    {
+        /// <summary>
+        /// 输入需要检查的各个字段进行检查
+        /// </summary>
+        /// <param name="strs"></param>
+        /// <returns></returns>
+        static public bool HasNull(params object[] objs)
+        {
+            var hasNull = false;
+            foreach (var obj in objs)
+            {
+                hasNull = obj==null ? true : hasNull;
+                switch (obj.GetType().ToString())
+                {
+                    case "System.String":
+                        hasNull = string.IsNullOrEmpty((string)obj) ? true : hasNull;
+                        break;
+                    case "System.Byte[]":
+                        hasNull = ((Byte[])obj).Length == 0 ? true : hasNull;
+                        break;
+                    default:
+                        break;
+                }
+                if (hasNull)
+                {
+                    break;
+                }
+            }
+            return hasNull;
+        }
+
+        /// <summary>
+        /// 查看是否登录或是否有权限 0登录 1部门管理员 2院级管理员
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="level"></param>
+        static public bool IsHavePri(HttpContext context,int level)
+        {
+            var account = Convert.ToString(context.Session["account"]);
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                dynamic json = new JObject();
+                var usr = cms.user.FirstOrDefault(s => s.Account == account);
+                switch(level)
+                {
+                    case 0:
+                        return IsLogin(context);
+                    case 1:
+                        if(IsLogin(context))
+                        {
+                            if (usr.UserType < 1)
+                            {
+                                json.state = "没有部门管理员权限！";
+                                context.Response.Write(json.ToString());
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case 2:
+                        if (IsLogin(context))
+                        {
+                            if (usr.UserType < 2)
+                            {
+                                json.state = "没有院级管理员权限！";
+                                context.Response.Write(json.ToString());
+                                return false;
+                            }
+                            else
+                            {
+                                return true;
+                            }
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 检测是否登陆
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        static public bool IsLogin(HttpContext context)
+        {
+            dynamic json = new JObject();
+            var temp = context.Session["account"];
+            var account=Convert.ToString(temp);
+            if(string.IsNullOrEmpty(account))
+            {
+                using(cmsdbEntities cms=new cmsdbEntities())
+                {
+                    var usr = cms.user.FirstOrDefault(u => u.Account == account);
+                    if (usr == null)
+                    {
+                        json.state = "1";
+                        context.Response.Write(json.ToString());
+                        return false;
+                    }
+                    else
+                    {
+                        if (usr.UserType != Convert.ToInt32(context.Session["role"]))
+                        {
+                            json.state = "1";
+                            context.Response.Write(json.ToString());
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+    }
+}

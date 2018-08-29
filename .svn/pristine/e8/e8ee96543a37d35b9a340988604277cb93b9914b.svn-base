@@ -1,0 +1,199 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+/**/
+html,body{width:100%;;height:100%;}
+.leave{cursor: pointer;}
+.container{width: 100%;height: 100%;}
+.leftInf{width: 16%;height:100%;/*border: solid 1px yellow;*/float: left;color:gray;border-right: solid 1px lightgrey;box-shadow: 0 0 5px lightgray;background:#F2F0F1;}
+.rightInf{width: 84%;height:100%;/*border: solid 1px black;*/float: left;background: #f0f4fa;/*background:url(../img/mybg.jpg) no-repeat;*/}
+#container{height: calc(100% - 50px);height: -webkit-calc(100% - 50px);height: -moz-calc(100% - 50px);}
+.personInf{padding: 10px 0;border-bottom: solid 1px lightgray;cursor: pointer;}
+.personPho{width: 100px;height:100px;border-radius: 50%;/*background: url(../img/login/tiantan.png);background-size:100% 100%;*/margin: auto;border: solid lightgrey 1px;}
+.personPho>img{width: 100px;height: 100px;border-radius: 50%;}
+.personInf>p{text-align: center;}
+.personInf>p:first-of-type{font-size: 18px;color:#000000;}
+.lists{height:71%;/*border: solid red 1px;*/overflow-y: auto;cursor: pointer;}
+.lists>li{height: 50px;line-height: 50px;margin-bottom: 2px;}
+.lists>li:hover p{background-color:#e3e7f1;}
+.p_pg1,.p_pg2{background: #e3e7f1;}
+.firList>p{padding-left:20px;}
+.firList>ul{padding-left:45px;}
+.firList>p>img{width: 16px;height: 14px;margin-right: 10px;}
+#carManage,#peopleManage,#railManage,#statistics{height: auto;}
+/**/
+.topTitle{height: 50px;background: #FFFFFF;padding-left: 2%;}
+.topTitle>img{float: left;height: 20px;margin: 15px 0;}
+.titleCh{float: left;margin-left: 20px;font-size: 18px;line-height: 50px;}
+.thrIcon{float: right;margin:15px 0;}
+.thrIcon>span{padding: 5px 20px 5px 5px;background: url(../img/index/out.png) 40px 8px no-repeat;cursor: pointer;margin-right: 15px;border-radius: 5px;}
+.thrIcon>span:hover{background-color:lightgray ;}
+.thrIcon>img{width: 16px;height: 16px;margin: 0 15px;}
+.ohide{display: none;}
+.secList li:hover{font-size: 18px;}
+@media only screen and (max-width: 1024px) and (max-height: 767px){	
+.lists{overflow-y: scroll;}
+}
+/*司机主页*/
+#carManage_dri,#statistics_dri{height: auto;}
+/*预约信息，背景遮罩*/
+.orderBg{width: 100%;height: 100%;position: absolute;left: 0;top: 0;}
+.blackBg{width: 100%;height: 100%;background: #000000;opacity: 0.6;position: absolute;left: 0;top: 0;}
+.orderInf{width: 42%;height: 36%;position: absolute;top: calc(50% - 18%);left: calc(50% - 21%); padding: 10px;background: #FFFFFF;border-radius: 5px;}
+.orderTitle{font-weight: bold;padding-left: 10px;}
+.closed{float: right;cursor: pointer;}
+.infList{width: 100%;height: 70%;margin-top: 10px;}
+.infList>li{float: left;width: 50%;height: 33.33%;padding-left: 10px;}
+.infList>li:last-child{width: 100%;}
+.infList>li>input,.infList>li>select{width: 100%;height: 35px;border: solid 1px lightgray;}
+.infList>li>input{border: none;border: solid 1px lightgray;}
+.infList>li>textarea{width: 100%;height: 100%;resize: none;}
+/*.useTime,.application{margin-right: 1%;}*/
+/*.returnTime,.destination{margin-left: 1%;}*/
+.orderInf>div{float: right;}
+#quit,#sure,#quitorder,#sureorder,#quitBack,#sureBack,#quitM,#sureM,#quitAdm,#sureAdm,#quitamend,#sureamend,#sureDel,#quitDel,#quitadd,#sureadd,#sureCard,#quitCard,#illegaQuit,#illegalSure,#ffycQuit,#ffycSure{padding: 2px 10px;border-radius: 2px;cursor: pointer;}
+#sure,#sureadd,#sureorder,#sureBack,#sureM,#sureAdm,#sureamend,#sureDel,#sureadd,#sureCard,#illegalSure,#ffycSure{background: #4375f8;}
+
+/*#quit:hover{background: #4375f8;}*/
+.quitSure{margin-top: 10px;}
+.hideBg{display: none;}
+.orderSee{width:350px;height: 160px;position: absolute;left:50%;top:calc(50% - 80px);padding: 10px;background: #FFFFFF;margin:-80px 0 0 -175px;border-radius: 5px;}
+.tosee1,.tosee2{padding-left:10px ;margin: 15px 0;}
+.tosee2{color: darkgray;}
+.toSee{color:#4375f8 ;cursor: pointer;}
+#sureClose{padding: 2px 10px;border-radius: 2px;background: #4375f8;float: right;color:#FFFFFF;cursor: pointer;}
+/*还车*/
+.orderBg1{width: 100%;height: 100%;border: solid 1px red;position: absolute;left: 0;top: 0;}
+.infList1{width: 100%;height: 70%;margin-top: 10px;}
+.infList1>li{float: left;width: 33.3%;height: 30%;padding-left: 10px;}
+/*.maintainYN,.instituteYN{height: 30%!important;}*/
+.maintainYN>input:last-child,.instituteYN>input:last-child{margin-left: 10px;}
+.carMile>input,.returntime>input{width: 100%;height: 35px;}
+.maintaintext,.resontext{width: 100%;height: 100% ;resize: none;}
+/*维修保养*/
+.orderBgM{width: 100%;height: 100%;border: solid 1px red;position: absolute;left: 0;top: 0;z-index: 3;}
+.orderInfM{width: 40%;height: 32%;position: absolute;padding: 10px;background: #FFFFFF;margin:18% 30%;border-radius: 5px;}
+.orderInfM>div{float: right;}
+.infListM{width: 100%;height: 60%;margin-top: 20px;}
+.infListM>li{float: left;width: 50%;height: 40%;padding-left: 10px;}
+.infListM>li>input{width: 100%;height: 30px;border: none;border: solid 1px lightgray;}
+.safeEnd,.nextMaint{position: relative;}
+.safeNext{width: 100%; height: 100%;position: absolute;left: 0;top: 0;}
+/*管理员维修单*/
+.orderBgAdm{width: 100%;height: 100%;border: solid 1px red;position: absolute;left: 0;top: 0;}
+.orderInfAdm{width: 30%;position: absolute;padding: 10px;background: #FFFFFF;margin:18% 35%;border-radius: 5px;}
+/*.orderInfAdm>div{float: right;}*/
+.infListAdm{padding-left: 10px;margin-top: 15px;}
+.infListAdm>li{width: 100%;height: 30px;width: 50%;float: left;}
+.infListAdm>li:last-child{height: 50px;width: 60%;}
+.infListAdm>li>textarea{width: 100%;height:50px;border: none;border: solid 1px lightgray;resize: none;}
+.quitSureAdm{margin:20px 0 15px;}
+.quitSureAdm>span{margin-right: 25px;}
+/*部门管理*/
+.BgBm{width: 100%;height: 100%;position: absolute;left: 0;top: 0;}
+.amendBm,.addBm,.delBm{width: 300px;height: 150px;position: absolute;top: calc(50% - 75px);left: calc(50% - 150px); padding: 10px;background: #FFFFFF;border-radius: 5px;}
+.BmTitle{font-weight: bold;padding-left: 10px;}
+.delBmto{padding-left: 10px;height: 40px;line-height: 40px;}
+.infListBm,.infListBmadd{width: 265px;height: 30px;margin-left:10px ;margin-top:25px;}
+.infListBmto{width: 265px;height: 30px;margin-left:10px ;}
+.quitSureBm{margin-top:30px;padding-left: 170px;}
+.quitSureBmdel{margin-top:20px;padding-left: 170px;}
+
+/*违章处理*/
+/*非法用车*/
+.illegalProcess,.ffycProcess{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.illegalFrameInfo,.ffycFrameInfo{	
+	width: 42%;
+    position: absolute;
+    top: calc(50% - 18%);
+    left: calc(50% - 21%);
+    padding: 10px;
+    background: #FFFFFF;
+    border-radius: 5px;
+}
+.illegalList,.ffycList{
+	margin-top: 10px;
+}
+.illegalList>li{
+	font-size: 0;
+	height: 35px;
+	padding: 0 10px;
+	margin-bottom: 10px;
+}
+.illegalList>li:last-of-type{
+	height: 45px;
+	margin-bottom: 0;
+}
+.illegalList>li>input{
+	height: 35px;
+	width: calc(50% - 5px);
+	border: 1px solid lightgray;
+	padding-left: 5px;
+	outline: none;
+}
+.illegalList>li>input:first-of-type,.illegalList>li>select:first-of-type{
+	margin-right: 10px;
+}
+.illegalList>li>select{
+	color: #888;
+	height: 35px;
+	width: calc(50% - 5px);
+	border: 1px solid lightgray;
+	padding-left: 5px;
+	outline: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url(../img/down.png);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 7px) 50%;
+    background-size: auto;
+}
+.illegalText{	
+	width: 100%;
+	height: 45px;
+	resize: none;
+	border: 1px solid lightgray;
+	padding-left: 5px;
+	outline: none;
+}
+.quitSure{
+	float: right;
+}
+
+.ffycList>li{
+	height: 35px;
+	padding: 0 10px;
+	margin-bottom: 10px;
+}
+.ffycList>li>span{
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+.ffycList>li>input,.ffycList>li>select{
+	height: 35px;
+	width: calc(100% - 105px);
+	border: 1px solid lightgray;
+	padding-left: 5px;
+	outline: none;
+}
+.ffycList>li>select{
+	appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-image: url(../img/down.png);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 7px) 50%;
+    background-size: 8px 8px;
+}
+.ffycList>li:last-of-type{
+	margin-bottom: 0;
+}

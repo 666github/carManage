@@ -1,0 +1,59 @@
+
+$(function () {
+//  lcarNumber = localStorage.getItem('carNumber');
+    $.ajax({
+        type: "get",
+        url: "http://192.168.1.120:2238/handler/UserManage/Driver/GetDetail.ashx",
+        xhrFields: {withCredentials: true }, 
+        dataType: "json",
+        data: { 'viewAccount': viewAccount,from:0 },
+        success: function (data) {
+            if (data.state=="success") {debugger
+                //车辆信息详情               
+                var user = data.user;
+                $(".topImg").attr("src", user.image);
+                $(".myname").text(user.RealName);                               
+                $(".mytel").text(user.Phone);
+                $(".myemail").text(user.Email);                
+                $(".driType").text(user.UserType);
+                $(".carType").text(user.AllowModel);
+                $(".date1").text(user.EffecDateStart);
+                $(".date2").text(user.EffecDateEnd);
+                $(".mtStartDet").val(user.mtStartDet);
+                $(".mtEndDet").val(user.mtEndDet);
+                $(".outnum").text(user.driveCount);
+                $(".num").text(user.illeCount);
+                $(".mile").text(user.driveMile);
+                if (user.state == "1") {
+                    $(".currentState").text("外出");
+                }else {
+                    $(".state_det").remove();
+                }
+                var isOut = data.isOut;
+                $(".brand").text(isOut.carBrand);
+                $(".licence").text(isOut.CarNumber);
+                $(".currUsed").text(isOut.UseCarTime);
+                $(".currBack").text(isOut.ExpectReturnTime);
+                $(".currDestination").text(isOut.Destinatio);
+                $(".currEffect").text(isOut.Purposes);
+                $(".img1").attr("src", user.image);
+                $(".img2").attr("src", user.DriverLicensePhoto);
+            } else if (data.state == "1") {
+                alert("请重新登录");
+                location.href = "./login.html"
+            } else {
+                alert(data.state);
+            }
+        },
+        error: function () {
+            alert('暂无详情可查看！')
+        }
+    });
+  
+//		返回
+		$(".backSpan").click(function(){
+			$("#container").load("html/peopleManage/driManage.html");
+			datadouble=="1"?page2=1:page2=2;			
+		});
+		
+})

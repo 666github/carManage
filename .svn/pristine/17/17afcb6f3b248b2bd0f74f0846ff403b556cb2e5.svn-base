@@ -1,0 +1,90 @@
+﻿<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/carManage/loggingIn.css"/>
+	<!--<script src="js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="js/carManage/carLoggingIn.js" type="text/javascript" charset="utf-8"></script>
+	<body >		
+		<div class="wrap">
+			<p class="cartitle">车辆录入</p>
+			<form action="../handler/CarManage/CarLogin.ashx" method="post" enctype="multipart/form-data" target="picIframe" id="myform">				
+				<ul class="carInf">
+					<li class="photos" id="photos1">							
+						<input type="file" onchange="PreviewImage(this,'carPhoto')" class="carPhoto" name="carPhoto"/>
+						<img src="img/index/scbg.jpg" class="carbg"/>
+						<div id='carPhoto'>
+        					<img class='img1' src='img/index/carbg.jpg' width='100%' height='100%' />			
+        				</div>
+        				<p style="display: none;"><input type="text" name="from" id="from" value="0" />0</p>
+					</li>					
+					<li><input type="text" name="carBrand" id="regbrand" class="carLength" value="" placeholder="品牌"/></li>
+					<li><input type="text" name="carNumber" id="regPlate" class="carLength" value="" placeholder="车牌"/></li>						
+					<li class="buyDate" style="border: none;">
+						<input type="text" name="simId" id="" value="" class="ICCID" placeholder="SIM卡卡号(20位数字)" autocomplete="off" style="width: 49%;"/>
+						<input type="text" name="buyDate" id="buyDate" class="Wdate carLength" value="" placeholder="购买日期" onclick="WdatePicker();" style="width: 49%;border: solid 1px #a9a9a9;float: right;"/>
+					</li>									
+					<li><input type="text" name="carType" id="otype" class="carLength" value="" placeholder="车架号"/></li>
+					<li><input type="text" name="carModel" id="regModel" class="carLength" value="" placeholder="车载人数"/></li>
+					<li class="safeDate" id="safeDate">
+						<input type="text" name="insuranceStartDate" id="safeStart" class="Wdate carLength" value="" placeholder="保险起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'safeEnd\')}'})"/> 到
+						<input type="text" name="insuranceEndDate" id="safeEnd" class="Wdate carLength" value="" placeholder="保险结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'safeStart\')}'})"/>
+					</li>
+					<li><input type="text" name="carPrice" id="regPrice" class="carLength" value="" placeholder="价格(万元)"/></li>
+					<li><input type="text" name="engineNumber" id="regEngin" class="carLength" value="" placeholder="发动机号"/></li>
+					<li class="maintainDate" id="maintainDate">
+						<select name="mtMileOrdate" class="mtMileOrdate" style="width: 27%;border: none;">
+							<option value="按时间保养">按时间保养</option>
+							<option value="按里程保养">按里程保养</option>							
+						</select>
+						<input type="text" name="maintenanceStartDate" id="maintainStart" class="Wdate carLength" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'maintainEnd\')}'})"/>
+						<input type="text" name="maintenanceEndDate" id="maintainEnd" class="Wdate carLength" value="" placeholder="结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'maintainStart\')}'})"/>
+						<input type="text" name="mtMile" id="mtMile" class="carLength" value="0" placeholder="下次保养里程(km)" style="display: none;width: 70%;border: none;outline: none;"/>
+					</li>
+					<li>
+						<select name="branchs" class="branchs carLength" id="branchs">
+							<option value="gray">部门</option>
+					    </select>
+					</li>
+					<li><input type="text" name="mileage" id="regMileage" class="carLength" value="" placeholder="里程(km)"/></li>	
+					<li class="annualDate" id="annualDate">
+						<input type="text" name="annualStartDate" id="annualStart" class="Wdate carLength" value="" placeholder="年检起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'annualEnd\')}'})"/> 到
+						<input type="text" name="annualEndDate" id="annualEnd" class="Wdate carLength" value="" placeholder="年检结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'annualStart\')}'})"/>
+					</li>
+				</ul>
+				<iframe width="0" height="0" name="picIframe" style="visibility: hidden;" onload="ifmload(this)"></iframe>
+				<input type="button" value="录入" id="mysubmit"/>
+			</form>
+		</div>
+        <script>
+            var option = $('#branchs').html();
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "http://192.168.1.120:2238/handler/GetDepartment.ashx",
+                data:{from:0},
+                xhrFields: {withCredentials: true},
+                success: function (data) {
+                    var obj = data;
+                    for (var i = 0; i < obj.length; i++) {
+                        option += '<option value="' + obj[i].Id + '">' + obj[i].Name + '</option>';
+                    }
+                    $('#branchs').html(option);
+                },
+                error: function () {
+                    console.log("部门获取失败");
+                }
+            })
+        </script>
+	</body>	
+</html>

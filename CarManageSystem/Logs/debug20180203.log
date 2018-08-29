@@ -1,0 +1,21 @@
+﻿2018-02-03 10:46:32,242 [11] DEBUG GPSServer-23861452 - Listener (0.0.0.0:8000) was started
+2018-02-03 10:46:32,336 [11] DEBUG WebSocketServer-48285290 - SubProtocol Basic found the commands: []
+2018-02-03 10:46:32,353 [11] DEBUG WebSocketServer-48285290 - Listener (0.0.0.0:8001) was started
+2018-02-03 10:46:55,827 [8] DEBUG GPSServer-17036346 - Listener (0.0.0.0:8000) was started
+2018-02-03 10:46:55,939 [8] DEBUG WebSocketServer-51989385 - SubProtocol Basic found the commands: []
+2018-02-03 10:46:55,953 [8] DEBUG WebSocketServer-51989385 - Listener (0.0.0.0:8001) was started
+2018-02-03 10:47:05,140 [6] DEBUG GPSServer-35320229 - Listener (0.0.0.0:8000) was started
+2018-02-03 10:47:05,271 [6] DEBUG WebSocketServer-16868352 - SubProtocol Basic found the commands: []
+2018-02-03 10:47:05,299 [6] DEBUG WebSocketServer-16868352 - Listener (0.0.0.0:8001) was started
+2018-02-03 11:13:31,183 [30] DEBUG GPSServer-36101041 - Listener (0.0.0.0:8000) was started
+2018-02-03 11:13:31,307 [30] DEBUG WebSocketServer-14055417 - SubProtocol Basic found the commands: []
+2018-02-03 11:13:31,330 [30] DEBUG WebSocketServer-14055417 - Listener (0.0.0.0:8001) was started
+2018-02-03 11:21:32,302 [30] DEBUG GPSServer-26754201 - Listener (0.0.0.0:8000) was started
+2018-02-03 11:21:32,479 [30] DEBUG WebSocketServer-30076054 - SubProtocol Basic found the commands: []
+2018-02-03 11:21:32,496 [30] DEBUG WebSocketServer-30076054 - Listener (0.0.0.0:8001) was started
+2018-02-03 11:22:12,602 [6] DEBUG GPSServer-35320229 - Listener (0.0.0.0:8000) was started
+2018-02-03 11:22:12,742 [6] DEBUG WebSocketServer-16868352 - SubProtocol Basic found the commands: []
+2018-02-03 11:22:12,767 [6] DEBUG WebSocketServer-16868352 - Listener (0.0.0.0:8001) was started
+2018-02-03 12:48:45,383 [10] DEBUG GPSServer-45653674 - Listener (0.0.0.0:8000) was started
+2018-02-03 12:48:45,483 [10] DEBUG WebSocketServer-54636159 - SubProtocol Basic found the commands: []
+2018-02-03 12:48:45,500 [10] DEBUG WebSocketServer-54636159 - Listener (0.0.0.0:8001) was started

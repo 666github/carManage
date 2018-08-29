@@ -1,0 +1,24 @@
+{
+
+	"partTimeDriCount":68,
+	"fullTimeDriCount":235,
+	"c1Count":68,
+	"c2Count":68,
+	"driversInfo": [
+		{
+			"driverImg": "img/driver.png",
+			"driverName": "赵新宇",
+			"driverBranch": "基础测绘部",
+			"driverType": "全职",
+			"driverLicenseInfo": "C1",
+			"driverNumInfo":15,
+			"illegalNumInfo":2,
+			"milesNum":451
+
+		}
+	
+		
+		
+	],
+	"state": "success"
+}

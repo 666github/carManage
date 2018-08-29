@@ -1,0 +1,148 @@
+﻿<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">
+	<title>司机主页</title>
+	<style type="text/css">
+		.wicon{background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAQCAYAAADj5tSrAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8xNS8xNGnF/oAAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAoElEQVQ4jWPceOnNfwYqAz9dYRQ+E7UtwAaGjyUsDAyYYUgJ2HT5LXZLcEmSCnA6duOlN///////H0bDALl8dPH/////Z8FuNW6Qtvw2nL3lyjsGBgYGhlmRqnj1kGwJuqHIlhJlCXq8EOITEsdqCXLEbbr8FisfFkTo+vBZRFZwERNEFFkCiw90nxJtCalxQmzegltCzVyP1RJq5HZ8AABuNZr0628DMwAAAABJRU5ErkJggg=="); background-repeat:no-repeat; background-position:right center;}		
+	</style>
+	</head>
+	<link rel="Shortcut Icon" href="img/easyicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="js/animateCss/animate.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/index_dri.css"/>
+	<link type="text/css" rel="stylesheet" href="js/jedate/skin/jedate.css">
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="driverManagement/js/index_dri.js" type="text/javascript" charset="utf-8"></script>
+	<script src="driverManagement/js/checkUser.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jedate/jedate.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jedate/jquery.jedate.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=S31jvlFodmGmjgANVObw5f9sG0kIWobi"></script>
+	<script src="js/jedate/jedateEnd.js" type="text/javascript" charset="utf-8"></script>
+	<!--load加载页面的样式-->
+
+	<!--<link rel="stylesheet" type="text/css" href="css/track/track.css"/>-->
+	<link rel="stylesheet" type="text/css" href="driverManagement/carsManage/css/returnCar.css"/>
+	<link rel="stylesheet" type="text/css" href="driverManagement/carsManage/css/carsManagement.css"/>
+
+
+
+	<body>
+		<div class="container">
+			<div class="leftInf">
+				<div class="personInf">
+					<!--<img src="img/login/car.png"/>-->
+					<div class="personPho"><img src=""/></div>
+					<p class="myName"> </p>
+					<p class="branchName"> </p>
+				</div>
+				<ul class="lists">
+					<li id="homePage" class="firList">
+						<p class="oHome"><img src="img/index/Home.png"/>首页</p>
+					</li>
+					<li id="carManage_dri" class="firList">
+						<p class="clcx_dri"><img src="img/index/car.png"/>用车登记</p>
+							<!--<li class="ycsq_dri">还车登记</li>-->
+					</li>
+					<li id="query_dri" class="firList">
+						<!--<p class="query_dri"><img src="img/index/USERS.png"/>司机查询</p>-->
+						<p class="ycsq_dri"><img src="img/index/USERS.png"/>还车登记</p>
+					</li>
+					<li id="statistics_dri" class="firList">
+						<p class="lsgj"><img src="img/index/MAP.png"/>历史轨迹</p>
+					</li>
+				</ul>
+			</div>
+			<div class="rightInf">
+				<div class="topTitle">
+					<img src="img/index/biaozhi.png"/>
+					<p class="titleCh">北京市测绘设计研究院车辆管理系统</p>
+					<p class="thrIcon">
+						<span>退出</span>
+					</p>
+				</div>
+				<div id="container">
+					<!--<iframe src="driverManagement/homePage/driverHome.html" width="100%" height="99%" scrolling="no" frameborder="0" name="mainiframe" id="iframes"></iframe>-->
+				</div>
+			</div>
+		</div>
+		<!--车辆查询预约（本部门）-->
+		<div class="orderBg hideBg">
+			<div class="blackBg"></div>
+			<div class="orderInf">
+				<p><span class="orderTitle">预约信息</span><span class="closed">&times;</span></p>
+				<ul class="infList">
+					<li class="useTime">
+						<input name="useTime" class="datainp wicon olength" id="inpstart" type="text" placeholder="用车时间" value=""  readonly>      
+					</li>
+					<li class="returnTime">
+						<input name="returnTime" class="datainp wicon olength" id="inpend" type="text" placeholder="结束日期"   readonly>		
+					</li>
+					<li class="application">
+						<select name="" class="branchs olength">
+							<option value="gray">用途</option>
+							<option value="会议">会议</option>
+							<option value="外业">外业</option>
+							<option value="培训">培训</option>
+							<option value="其他">其他</option>
+					    </select>
+					</li>
+					<li class="destination"><input type="text" name="destination" id="destination" class="olength" value="" placeholder="目的地"/></li>
+					<li><textarea name="" rows="" cols="" placeholder="用途说明原因" class="resonText olength"></textarea></li>
+				</ul>
+				<div class="quitSure"><span id="quit">取消</span><span id="orderSure">确定</span></div>
+			</div>
+			<div class="orderSee hideBg">
+				<p><span class="orderTitle">预约成功</span></p>
+				<p class="tosee1">你已成功预约车辆，点击<span class="toSee">查看预约车辆</span></p>
+				<p class="tosee2">你也可以在还车登记中查询</p>
+				<p><span id="sureClose">确定</span></p>
+			</div>
+		</div>
+		
+		<!-- 还车模态框 -->
+		<div class="orderBg1 hideBg">
+			<div class="blackBg"></div>
+			<div class="returnInf">
+				<p><span class="orderTitle">还车信息</span><span class="closed">&times;</span></p>
+				<ul class="infList1">
+					<li class="carMile"><input type="text" name="carMile" id="carMile" class="backLength" value="" placeholder="行车里程(km)"/></li>
+					<li class="returntime"><input type="text" name="returntime" id="retruntime" class="backLength" value="" placeholder="还车时间"/></li>
+					<li class="maintainYN">
+						维修保养：<input type="radio" name="yn" id="radioY" value="1"  class="maintainYN1 maintainyn"/>是<input type="radio" name="yn" id="radioN" value="0" checked="checked" class="maintainYN2 maintainyn"/>否
+					</li>
+					<li>
+						<select name="instituteYN" class="instituteYN backLength" style="width: 100%;height: 35px;">
+							<option value="">还车地点</option>
+							<option value="北一楼前">北一楼前</option>
+							<option value="车队">车队</option>
+							<option value="南院">南院</option>
+							<option value="玉渊潭">玉渊潭</option>
+							<option value="下东院">下东院</option>
+							<option value="院外">院外</option>
+						</select>
+					</li>
+					<li >
+						<select name="gasL" class="gasL backLength" style="width: 100%;height: 35px;">
+							<option value="">剩余油量</option>
+							<option value="不足10%">不足10%</option>
+							<option value="10%-30%">10%-30%</option>
+							<option value="30%-50%">30%-50%</option>
+							<option value="50%-70%">50%-70%</option>
+							<option value="大于70%">大于70%</option>
+						</select>
+					</li>					
+					<li style="width: 50%;" class="textarea2"><textarea name="" rows="" cols="" placeholder="维修保养说明" class="maintaintext backLength" readonly="readonly"></textarea></li>
+					<li style="width: 50%;" class="textarea1"><textarea name="" rows="" cols="" placeholder="还车地点，还车原因" class="resontext backLength ohide" readonly="readonly"></textarea></li>
+				</ul>
+				<div class="quitSure"><span id="returnQuit">取消</span><span id="returnSure">确定</span></div>
+			</div>
+		</div>
+	</body>
+</html>

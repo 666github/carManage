@@ -1,0 +1,206 @@
+//管理员
+info =1 
+{	
+	"remindNum1":5,
+	"remindNum2":5,
+	"remindNum3":5,
+	"remindNum4":5,
+	"redpoint2":1,
+	"redpoint3":1,
+	"redpoint4":1,
+	"audit":[
+				{
+					"applybody":"王五",					
+					"applyfor":"向您申请成为部门级管理员",
+					"applyid":"dongliangrui",
+					"fast":"[紧急]",
+					"sendtime":"2017-07-06 19:30"
+				},
+				{
+					"applybody":"王五",					
+					"applyfor":"向您申请成为院级管理员",
+					"applyid":"dongliangrui",
+					"fast":"[紧急]",
+					"sendtime":"2017-07-06 19:30"
+				}	
+			],
+	"auditCar":[
+				{
+					"applybody":"王五",					
+					"applyfor":"申请使用",
+					"brand":"奥虎",
+					"carLicence":"京Ek7036",
+					"applyid":"dongliangrui",
+					"sendtime":"2017-07-06 19:30"
+				}	
+			],
+	"myaudit":[
+				{
+					"auditState":"审核通过",					
+					"auditSummary":"九州公司司机"
+				},
+				{
+					"auditState":"审核通过",					
+					"auditSummary":"部门管理员"
+				},
+				{
+					"auditState":"审核通过",					
+					"auditSummary":"院级管理员"
+				}
+			],
+			
+	"myauditCar":[
+				{	
+					"applyTime":"2017-07-06 19:30",
+					"auditState":"审核通过",	
+					"auditJumpBorrow":"跨部门使用",				
+					"auditSummary":"九州公司",
+					"brand":"奥虎",
+					"carLicence":"京Ek7036"
+				}	
+			],
+	"state":"success"
+}
+
+info =2 
+
+{
+	"remindIlleCar":[
+				{
+					"brand":"傲虎",					
+					"carLicence":"京A00001",
+					"time":"2017-07-06 19:30"
+				}	
+			],
+	"peccancy":[
+				{
+					"personName":"王五",					
+					"carLicence":"京AV0000",
+					"reason":"闯红灯",
+					"place":"羊坊店路",
+					"time":"2017-07-06 19:30"
+				}	
+			],
+	"remindOut":[
+				{
+					"personName":"王五",	
+					"brand":"傲虎",				
+					"carLicence":"京AV0000"
+				}	
+			],
+	"myremindIlleCar":[
+				{
+					"brand":"傲虎",					
+					"carLicence":"京A00001",
+					"time":"2017-07-06 19:30"
+				}	
+			],
+	"myremindOut":[
+				{
+					"personName":"王五",					
+					"carLicence":"京AV0000",
+					"reason":"闯红灯",
+					"place":"羊坊店路",
+					"time":"2017-07-06 19:30"
+				}	
+			],
+	"state":"success"
+}
+
+info=3
+{
+	
+	"dueNotice":[
+				{
+					"brand":"迈巴赫",					
+					"brand":"傲虎",				
+					"department":"九州公司",
+					"expireType":"保养"
+				}	
+			],
+	"state":"success"
+}
+
+info=4
+{
+	"maintenance":[
+				{
+					"brand":"迈巴赫",					
+					"brand":"傲虎",				
+					"department":"九州公司",
+					"personName":"赵四"
+				}	
+			],
+	"state":"success"
+}
+
+
+//司机
+info = 1
+{
+	"remindNum1":5,
+	"remindNum2":5,
+	"remindNum3":5,
+	"remindNum4":5,
+	"redpoint2":1,
+	"redpoint3":1,
+	"redpoint4":1,
+	"audit":[
+				{
+					"auditState":"审核中",					
+					"auditSummary":"九州公司",
+					"carLicence":"京N00000",
+					"brand":"奇瑞",
+					"applyTime":"2017-07-06 19:30"
+				}
+			],
+	"auditUser":[
+				{
+					"auditState":"审核中",					
+					"auditSummary":"院级管理员"
+				}	
+			],
+	"state":"success"
+}
+info = 2
+{
+	"illegal":[
+				{
+					"illegaTitle":"您有违法用车记录",					
+					"auditSummary":"九州公司",
+					"carLicence":"京N00000",
+					"brand":"奇瑞",
+					"specificTime":"2017-07-06 19:30"
+				}
+			],
+	"state":"success"
+}
+
+info = 3
+{
+	"returnCar":[
+				{	
+					"returnTitle":"您已到达还车时间",
+					"auditSummary":"九州公司",	
+					"carLicence":"京N00000",				
+					"brand":"奥虎",
+					"returnTime":"2017-07-06 19:30"
+				}	
+			],
+	"state":"success"
+}
+
+info = 4
+{
+	"breakRule":[
+				{
+					"breakRuleTitle":"您有违章驾驶记录",					
+					"carLicence":"京A00001",
+					"ruleReason":"闯红灯",
+					"breakRulePlace":"西三旗",
+					"breakRuleTime":"2017-07-06 19:30"
+				}	
+			],
+	"state":"success"
+}
+	

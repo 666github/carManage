@@ -1,0 +1,49 @@
+
+$(function(){
+	driverTask();
+	//请求司机信息
+	function driverTask(){			
+		$.ajax({
+			type:"get",
+			url:"http://192.168.1.106:2238/handler/UserManage/Driver/ViewDriver.ashx",
+			xhrFields:{withCredentials:true},
+			data:{"viewType":2},
+			dataType:"json",
+			async:true,
+			success:function(data){
+				if(data.state == "success"){
+					$(".driNum").text(data.driversTotal);
+					addNode(data.driversInfo);
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					location.href="./login.html"
+				}else{
+					alert(data.state);
+				}		
+			},error:function(e1,e2,e3){
+				console.log("加载失败")
+			}
+		})
+	}
+	 function addNode(_data){
+		var driver = '';
+		for(var i=0;i<_data.length;i++){			
+			//设置基本信息值			
+			driver += '<ul class="driverInfo">'+
+				'<li class="choice"  style="display:none;"><input type="checkbox" name="" id="" value="" class="ocheck"><span  class="userId" >'+_data[i].userid+'</span></li>'+
+				'<li class="driverIcon">'+
+					'<div class="icon"><img class="" src="'+_data[i].pictureUrl+'"/></div>'+
+					'<div class="iconInfo"><p class="driverName" datatype="driverName">'+_data[i].driverName+'</p><p class="departMent" datatype="departMent">'+_data[i].departMent+'</p></div>'+
+				'</li>'+
+				'<li class="driveingInfo">'+						
+					'<p class="driverTel">电话 : <span class="driverTelInfo" datatype="telInfo">'+_data[i].telInfo+'</span></p>'+
+					'<p class="mailNum">邮箱 : <span class="mailNumInfo" datatype="mailNumInfo">'+_data[i].mailNumInfo+'</span></p>'+
+				'</li>'+
+			'</ul>';
+		};
+		$('.driversInfo').html(driver);
+	}
+
+})
+
+

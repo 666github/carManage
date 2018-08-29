@@ -1,0 +1,88 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.CarManage
+{
+    /// <summary>
+    /// FinishMaintain 的摘要说明
+    /// </summary>
+    public class FinishMaintain : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 1))
+                return;
+
+            var id = context.Request["id"];
+            var code = context.Request["code"];
+            var cost = context.Request["cost"];
+            
+
+            dynamic json = new JObject();
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                
+                var costRegister = cms.carcostregister.FirstOrDefault(s => s.Id == id);
+                if (costRegister == null)
+                {
+                    json.state = "此车未在维修保养状态，请刷新重试！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                var car = cms.carinfo.FirstOrDefault(s => s.CarNumber == costRegister.CarNumber && s.CarState == 3);
+                if (car == null)
+                {
+                    json.state = "此车未在维修保养状态，请刷新重试！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                costRegister.MaintenanceEndDate = DateTime.Now;
+                costRegister.UseTime = (costRegister.MaintenanceEndDate - costRegister.MaintenanceStartDate).ToString();
+                costRegister.Code = code;
+                costRegister.Cost =Convert.ToDecimal(cost);
+                car.CarState = 0;
+                
+                if (costRegister.Type != 1)
+                {
+                    var start = Convert.ToDateTime(context.Request["start"]);
+                    var end = Convert.ToDateTime(context.Request["end"]);
+                    switch (costRegister.Type)
+                    {
+                        case 2:
+                            car.MaintenanceStartDate = start;
+                            car.MaintenanceEndDate = end;
+                            break;
+                        case 3:
+                            car.AnnualStartDate = start;
+                            car.AnnualEndDate = end;
+                            break;
+                        case 4:
+                            car.InsuranceStartDate = start;
+                            car.InsuranceEndDate = end;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                cms.SaveChanges();
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

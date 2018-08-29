@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace testCode
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            var tcpclient = new TcpClient("127.0.0.1", 2333);
+            var stream = tcpclient.GetStream();
+            string message = "GPS|898600690117f0111523|4002.7845|11616.4319|024605.000|$GNRMC,024605.000,A,4002.7845,N,11616.4319,E,0.00,0.00,171017,,,A*72";
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            stream.Write(data, 0, data.Length);
+
+
+
+            //string str = "GPS|898600690117f0111523|4002.7845|11616.4319|024605.000|$GNRMC,024605.000,A,4002.7845,N,11616.4319,E,0.00,0.00,171017,,,A*72";
+            //byte[] bytes = Encoding.UTF8.GetBytes(str);
+            //var timespan = TimeSpan.FromHours(1);
+            //Console.WriteLine(timespan.TotalMinutes);
+            Console.ReadLine();
+        }
+    }
+}

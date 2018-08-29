@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>改车辆状态页面</title>
+    <style>
+        .div1{
+            text-align:center;
+            margin-top:300px;
+        } 
+    </style>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="div1">
+        <a class="a1" type="text">修改车辆状态为外出</a>
+        <select class="nce"></select>
+        <button class="btn">修改</button>
+    </div>
+</body>
+</html>
+<script>
+    var option = $('.nce').html();
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: "../handler/GetCarNumbersTest.ashx",
+        data: { from: 0 },
+        xhrFields: { withCredentials: true },
+        success: function (data) {
+            var obj = data;
+            for (var i = 0; i < obj.length; i++) {
+                option += '<option value="' + obj[i] + '">' + obj[i] + '</option>';
+            }
+            $('.nce').html(option);
+        },
+        error: function () {
+            console.log("车辆获取失败");
+        }
+    });
+
+    $('.btn').click(function () {
+        $.ajax({
+            type: "post",
+            dataType: "text",
+            url: "../handler/Gaizhuangtai.ashx",
+            data: { from: 0, carNumber: $('.nce').val() },
+            xhrFields: { withCredentials: true },
+            success: function (data) {
+                alert(data);
+            },
+            error: function () {
+                alert("修改失败");
+            }
+        });
+    });
+
+</script>

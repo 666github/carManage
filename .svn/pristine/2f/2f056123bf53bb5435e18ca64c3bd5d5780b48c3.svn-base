@@ -1,0 +1,12 @@
+﻿2018-02-07 18:12:32,424 [57] DEBUG GPSServer-66423049 - Listener (0.0.0.0:8000) was started
+2018-02-07 18:12:32,505 [57] DEBUG WebSocketServer-57633500 - SubProtocol Basic found the commands: []
+2018-02-07 18:12:32,522 [57] DEBUG WebSocketServer-57633500 - Listener (0.0.0.0:8001) was started
+2018-02-07 18:14:14,502 [33] DEBUG GPSServer-25552979 - Listener (0.0.0.0:8000) was started
+2018-02-07 18:14:14,605 [33] DEBUG WebSocketServer-42358134 - SubProtocol Basic found the commands: []
+2018-02-07 18:14:14,619 [33] DEBUG WebSocketServer-42358134 - Listener (0.0.0.0:8001) was started
+2018-02-07 20:29:52,058 [8] DEBUG GPSServer-12036987 - Listener (0.0.0.0:8000) was started
+2018-02-07 20:29:52,146 [8] DEBUG WebSocketServer-60052224 - SubProtocol Basic found the commands: []
+2018-02-07 20:29:52,163 [8] DEBUG WebSocketServer-60052224 - Listener (0.0.0.0:8001) was started
+2018-02-07 20:34:36,913 [8] DEBUG GPSServer-63110655 - Listener (0.0.0.0:8000) was started
+2018-02-07 20:34:37,019 [8] DEBUG WebSocketServer-36597234 - SubProtocol Basic found the commands: []
+2018-02-07 20:34:37,033 [8] DEBUG WebSocketServer-36597234 - Listener (0.0.0.0:8001) was started

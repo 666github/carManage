@@ -1,0 +1,411 @@
+$(function(){
+	getLicence();
+	function getLicence(){
+		$(".licences").removeClass("ohide");
+			var option = $('.licences').html();
+	         $.ajax({
+	            type: "post",
+	            dataType: "json",
+	            url: "http://192.168.1.117:2238/handler/GetCarNumbers.ashx",
+	            data:{from:0},
+	            xhrFields:{withCredentials:true},
+	            success: function (data) {
+	                var obj = data;
+	                for (var i = 0; i < obj.length; i++) {
+	                   option += '<option value="' + obj[i] + '">' + obj[i] + '</option>';
+	                }
+	                $('.licences').html(option);
+	            },
+	            error: function () {
+	                console.log("车牌获取失败");
+	            }
+	         })
+	}
+	//xuyao
+	$(".a1").click(function(){
+		$(".aaa").css({
+			"color":"#000000",
+			"border":"none"
+		});
+		$(".a1").css({
+			"color":"#4275f8",
+			"border-bottom":"solid 2px #4275f8"
+		});
+		$(".Mend").addClass("Mnone");
+		lookTapbars();
+	});
+	$(".a2").click(function(){
+		$(".aaa").css({
+			"color":"#000000",
+			"border":"none"
+		});
+		$(".a2").css({
+			"color":"#4275f8",
+			"border-bottom":"solid 2px #4275f8"
+		});
+		$(".Mend").removeClass("Mnone");
+		Ming();
+	});
+	$(".a3").click(function(){
+		$(".aaa").css({
+			"color":"#000000",
+			"border":"none"
+		});
+		$(".a3").css({
+			"color":"#4275f8",
+			"border-bottom":"solid 2px #4275f8"
+		});
+		$(".Mend").addClass("Mnone");
+		nopage();
+	});
+	lookTapbars();
+	$.each($(".ocheck"), function() {
+		console.log($(this))
+	});
+	$(".licences").change(function(){
+		nopage();
+	})
+	function lookTapbars(){
+		//查看需要维修
+		$.ajax({
+				type:"get",
+				url:"http://192.168.1.117:2238/handler/CarManage/CarMaintain/ViewNeedMaintain.ashx",
+				data:{from:0},
+				xhrFields: {withCredentials: true},
+				dataType:"json",
+				async:true,
+				success:function(data){
+					if(data.state=="success"){
+						var maintInf=data.maintInf;//
+						M1(maintInf);					
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}				
+				}			
+			})
+		//查看维修中
+//			$.ajax({
+//				type:"get",
+//				url:"http://192.168.1.117:2238/handler/CarManage/CarMaintain/ViewMaintaining.ashx",
+//				xhrFields: {withCredentials: true },
+//				dataType:"json",
+//				async:true,
+//				success:function(data){
+//					if(data.state=="success"){
+//						var maintIngul=data.maintIngul;					
+//						M2(maintIngul);
+//					}else if(data.state=="1"){
+//						alert("请重新登录");
+//						location.href="./login.html"
+//					}else{
+//						alert(data.state);
+//					}				
+//				}
+//			});
+		//查看完成维修
+//		page("http://192.168.1.117:2238/handler/CarManage/CarMaintain/ViewFinishMaintain.ashx");
+//		nopage();
+	}		
+	function Ming(){
+		$.ajax({
+				type:"get",
+				url:"http://192.168.1.117:2238/handler/CarManage/CarMaintain/ViewMaintaining.ashx",
+				xhrFields: {withCredentials: true },
+				data:{from:0},
+				dataType:"json",
+				async:true,
+				success:function(data){
+					if(data.state=="success"){
+						var maintIngul=data.maintIngul;					
+						M2(maintIngul);
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}				
+				}
+			});
+	}
+	function M1(maintInf){
+		$("#maintainNeed").html("");
+		for(var i=0;i<maintInf.length;i++){
+			if(maintInf[i].stateInf==1){
+				maintInf[i].stateInf="维修申请";
+			}else if(maintInf[i].stateInf==2){
+				maintInf[i].stateInf="保养到期";
+			}else if(maintInf[i].stateInf==3){
+				maintInf[i].stateInf="年检到期";
+			}else{
+				maintInf[i].stateInf="保险到期";
+			}			
+			$("#maintainNeed").append($('<ul class="maintInf"><li class="choice">'+
+				'<li class="carImg"><img src="'+maintInf[i].carImg+'"/></li><li class="brand" id="brandM"><span class="firBrand">'+maintInf[i].brand+'</span></li>'+
+				'<li class="licence" id="licenceM"><span class="carLicence1">车牌:</span><span class="carLicence2">'+maintInf[i].carLicence+'</span><span class="carSpace">'+maintInf[i].carSpace+'</span></li>'+
+				'<li class="safe"><span class="safe1">保险到期时间：</span><span class="safe2">'+maintInf[i].safe+'</span></li>'+
+				'<li class="lastMaint"><span class="lastMaint1">上次保养日期：</span><span class="lastMaint2">'+maintInf[i].lastMaint+'</span></li>'+
+				'<li class="endMaint"><span class="endMaint1">年检到期日：</span><span class="endMaint2">'+maintInf[i].endMaint+'</span></li>'+
+				'<li><div class="stateInfN">'+maintInf[i].stateInf+'</div><div class="agree">同意</div></li>'						
+				+'</ul>'));				
+		}
+		agree();
+	}
+	function M2(maintIngul){
+		$("#maintainIng").html("");
+		for(var i=0;i<maintIngul.length;i++){
+			if(maintIngul[i].stateInf==1){
+				maintIngul[i].stateInf="维修申请";
+			}else if(maintIngul[i].stateInf==2){
+				maintIngul[i].stateInf="保养到期";
+			}else if(maintIngul[i].stateInf==3){
+				maintIngul[i].stateInf="年检到期";
+			}else{
+				maintIngul[i].stateInf="保险到期";
+			}
+			$("#maintainIng").append($('<ul class="maintIngul noCheck"><li class="choice"><input type="radio" name="delinput" id="delinput" value="" class="ocheck" /><span class="oIds" style="display:none;">'+maintIngul[i].id+'</span></li>'+
+				'<li class="carImg"><img src="'+maintIngul[i].carImg+'"/></li><li class="brand" id="brandM"><span class="firBrand">'+maintIngul[i].brand+'</span></li>'+
+				'<li class="licence" id="licenceM"><span class="carLicence1">车牌:</span><span class="carLicence2">'+maintIngul[i].carLicence+'</span><span class="carSpace">'+maintIngul[i].carSpace+'</span></li>'+
+				'<li class="safe"><span class="safe1">保险到期时间：</span><span class="safe2">'+maintIngul[i].safe+'</span></li>'+
+				'<li class="lastMaint"><span class="lastMaint1">上次保养日期：</span><span class="lastMaint2">'+maintIngul[i].lastMaint+'</span></li>'+
+				'<li class="endMaint"><span class="endMaint1">年检到期日：</span><span class="endMaint2">'+maintIngul[i].endMaint+'</span></li>'+
+				'<li class="stateInfM">'+maintIngul[i].stateInf+'</li>'
+				+'</ul>'));				
+			}
+	}
+	function nopage(){debugger;
+		var carNumber=$(".licences").val();
+		$.ajax({
+			type:"get",
+			url:"http://192.168.1.117:2238/handler/CarManage/CarMaintain/ViewFinishMaintain.ashx",
+			data:{"carNumber":carNumber,from:0},
+			xhrFields: {withCredentials: true},
+			async:true,
+			success:function(data){
+				if(data!=""){var data=JSON.parse(data)}
+//				var data=JSON.parse(data);
+				var mtUls="";
+				if(data.state=="success"){
+					var maintEndul=data.maintEndul;					
+					for(var i=0;i<maintEndul.length;i++){						
+						mtUls+='<ul class="maintEndul"><li class="Elist1">'+(i+1)+'</li>'+
+								'<li class="Elist3">'+maintEndul[i].Elist3+'</li><li class="Elist4">'+maintEndul[i].Elist4+'</li><li class="Elist5">'+maintEndul[i].Elist5+'</li>'+
+								'<li class="Elist6">'+maintEndul[i].Elist6+'</li><li class="Elist7">'+maintEndul[i].Elist7+'</li><li class="Elist8">'+maintEndul[i].Elist8+'</li>'+
+								'<li class="Elist9">'+maintEndul[i].Elist9+'</li><li class="Elist10">'+maintEndul[i].Elist10+'</li>'+
+								'</ul>'
+					}
+					$(".pageDiv").html(mtUls);
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}
+			},
+			error:function(e1,e2,e3){
+				console.log("请求失败")
+			}
+		});
+	}
+	//选择同意保养的  加载保养中
+	function agree(){
+		$(".agree").on("click",function(){
+			var carLicence=$(this).parents('.maintInf').find('.carLicence2').text();
+			var carState=$(this).parents('.maintInf').find('.stateInfN').text();
+			var needState;
+			if(carState=="维修申请"){
+				needState=1;
+			}else if(carState=="保养到期"){
+				needState=2;
+			}else if(carState=="年检到期"){
+				needState=3;
+			}else{
+				needState=4;
+			}
+			$.ajax({
+				type:"get",
+				url:"http://192.168.1.117:2238/handler/CarManage/CarMaintain/AccessMaintain.ashx",
+				xhrFields: {withCredentials: true },
+				data:{"carNumber":carLicence,"needState":needState,from:0},
+				dataType:"json",
+				async:true,
+				success:function(data){
+					if(data.state=="success"){
+
+						lookTapbars();
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}				
+				}
+			})
+		})
+	}
+//选择需要结束保养的 加载保养最终结束
+	function page(_url){
+		debugger
+////		$(".page").prepend('<div class="pageDiv clearfix"></div>')
+		$(".pageBox").pageFun({  
+		interFace:_url,  /*接口*/
+		displayCount:10,  /*每页显示总条数*/
+		maxPage:5,/*每次最多加载多少页*/
+		dataFun:function(data){
+			
+	//  				var dataHtml = '<li>'+data.dataNum+'</li>';					
+			var dataHtml = '<ul class="maintEndul"><li class="Elist1">'+data.Elist1+'</li>'+
+						//'<li class="Elist2"><input type="radio" name="list2" id="" value="" class="ocheck"/></li>'+
+						'<li class="Elist3">'+data.Elist3+'</li><li class="Elist4">'+data.Elist4+'</li><li class="Elist5">'+data.Elist5+'</li>'+
+						'<li class="Elist6">'+data.Elist6+'</li><li class="Elist7">'+data.Elist7+'</li><li class="Elist8">'+data.Elist8+'</li>'+
+						'<li class="Elist9">'+data.Elist9+'</li><li class="Elist10">'+data.Elist10+'</li>'
+						'</ul>'
+				return dataHtml;
+		},
+		pageFun:function(i){
+			var pageHtml = '<li class="pageNum">'+i+'</li>';
+				return pageHtml;
+		}
+	
+		})
+	}
+	var carLicenceMing;
+	var idMing;
+	var stateInfMing;
+	$(".Mend").click(function(){							
+					
+	//选择项
+		var ochecks = document.getElementsByClassName("ocheck");
+		var ocheck = [];
+		
+		
+		for (var i = 0; i < ochecks.length; i++) {
+			if(ochecks[i].checked){
+				ocheck.push(ochecks[i]);
+				break;					
+			}
+		};	
+		if(ocheck.length==1){
+			$(".orderBgM").removeClass("hideBg");
+		}else{
+			alert("请选择一辆车辆")
+		}
+		$.each(ocheck, function(){
+			carLicenceMing=$(this).parents('.maintIngul').find('.carLicence2').text();
+			stateInfMing=$(this).parents('.maintIngul').find('.stateInfM').text();
+			idMing=$(this).parents('.maintIngul').find('.oIds').text();
+			if(stateInfMing=="保养到期"){
+				$(".safeNext").addClass("ohide");
+				$(".infListM #safeEnd").removeClass("ohide");
+				$(".infListM #nextMaint").removeClass("ohide");
+				$(".infListM #safeEnd").attr("placeholder","保养起始时间");
+				$(".infListM #nextMaint").attr("placeholder","保养结束时间");
+			}else if(stateInfMing=="年检到期"){
+				$(".infListM #safeEnd").removeClass("ohide");
+				$(".infListM #nextMaint").removeClass("ohide");
+				$(".safeNext").addClass("ohide");
+				$(".infListM #safeEnd").attr("placeholder","年检起始时间");
+				$(".infListM #nextMaint").attr("placeholder","年检结束时间");
+			}else if(stateInfMing=="保险到期"){
+				$(".infListM #safeEnd").removeClass("ohide");
+				$(".infListM #nextMaint").removeClass("ohide");
+				$(".safeNext").addClass("ohide");
+				$(".infListM #safeEnd").attr("placeholder","保险起始时间");
+				$(".infListM #nextMaint").attr("placeholder","保险结束时间");
+			}else{
+				$(".safeNext").removeClass("ohide");
+//				$(".infListM #safeEnd").val(currentTime());
+//				$(".infListM #nextMaint").val(currentTime());
+				$(".infListM #safeEnd").addClass("ohide");
+				$(".infListM #nextMaint").addClass("ohide");
+//				$(".infListM #safeEnd").attr("disabled","disabled").css("opacity",0.6);
+//				$(".infListM #nextMaint").attr("disabled","disabled").css("opacity",0.6);
+			}
+		});
+			
+	})
+		$(".quitSure #sureM").unbind("click").click(function(){
+			var start=$(".infListM #safeEnd").val();
+			var end=$(".infListM #nextMaint").val();
+			var priceMaint=$(".infListM #priceMaint").val();
+			var numMaint=$(".infListM #numMaint").val();
+			var mFourLengths=$(".infListM .mFourLength");	
+			if(stateInfMing!="维修申请"){
+				for(var i=0;i<mFourLengths.length;i++){
+					if(mFourLengths[i].value.length==0){
+						alert("有未填写信息");
+						return;
+					}
+				}
+			}else if(mFourLengths[2].value.length==0||mFourLengths[3].value.length==0){
+				alert("有未填写信息");
+				return;
+			}
+		debugger
+			var regpriceMaint=/^[0-9]*\.?[0-9]*$/;
+		    var priceMaint = $("#priceMaint").val();
+		    if (!regpriceMaint.test(priceMaint)) {
+		        alert("金额为纯数字或数字加小数点");
+		        return;
+		    }	    
+			//执行ajax
+			$.ajax({
+				type:"get",
+				url:"http://192.168.1.117:2238/handler/CarManage/CarMaintain/FinishMaintain.ashx",
+				xhrFields: {withCredentials: true },
+				data:{"carNumber":carLicenceMing,
+					  "needState":stateInfMing,
+					  "start":start,//接口中没写
+					  "end":end,//接口中没写
+					  "cost":priceMaint,
+					  "code":numMaint,
+					  "id":idMing,
+					  from:0
+					},
+				dataType:"json",
+				async:true,
+				success:function(data){								
+					if(data.state=="success"){
+						$(".orderBgM").addClass("hideBg");
+						Ming();						
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html";
+					}else{
+						alert(data.state);
+					}
+				},error:function(e1,e2,e3){
+					console.log("请求失败")
+				}
+			});			
+		})
+	$(".quitSure #quitM").hover(function(){
+			$(".quitSure #quitM").css('background','#4375f8');
+			$(".quitSure #sureM").css('background','#FFFFFF');
+		},function(){
+			$(".quitSure #quitM").css('background','#FFFFFF');
+			$(".quitSure #sureM").css('background','#4375f8');
+		})
+		$(".quitSure #quitM").click(function(){
+			$(".orderBgM").addClass("hideBg");
+		});
+	//当前时间
+	function currentTime(){
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth()+1;
+		var day = date.getDate();
+		if(month>=1 && month<=9){
+			month="0"+month;
+		}
+		if(day>=1 && day<=9){
+			day="0"+day;
+		}
+	var currentdate=year+'-'+month+'-'+day;
+		return currentdate;
+	}
+})
+
+		

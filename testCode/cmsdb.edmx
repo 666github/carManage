@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cmsdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="carinfo">
+          <Key>
+            <PropertyRef Name="CarNumber" />
+          </Key>
+          <Property Name="CarBrand" Type="varchar" MaxLength="20" />
+          <Property Name="CarNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CarModel" Type="varchar" MaxLength="20" />
+          <Property Name="EngineNumber" Type="varchar" MaxLength="50" />
+          <Property Name="CarType" Type="varchar" MaxLength="20" />
+          <Property Name="CarPrice" Type="decimal" Precision="20" Scale="0" />
+          <Property Name="BuyDate" Type="date" />
+          <Property Name="InsuranceStartDate" Type="date" />
+          <Property Name="InsuranceEndDate" Type="date" />
+          <Property Name="AnnualStartDate" Type="date" />
+          <Property Name="AnnualEndDate" Type="date" />
+          <Property Name="MaintenanceStartDate" Type="date" />
+          <Property Name="MaintenanceEndDate" Type="date" />
+          <Property Name="Mileage" Type="varchar" MaxLength="20" />
+          <Property Name="CarPhoto" Type="varchar" MaxLength="100" />
+          <Property Name="NeedMaintain" Type="int" />
+          <Property Name="CarState" Type="int" />
+          <Property Name="CarStateDetial" Type="int" />
+          <Property Name="HolodayStart" Type="datetime" Precision="0" />
+          <Property Name="HolodayEnd" Type="datetime" Precision="0" />
+          <Property Name="LoginAdmin" Type="varchar" MaxLength="20" />
+          <Property Name="MaintainUser" Type="varchar" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="IsOut" Type="int" />
+          <Property Name="CarPassword" Type="varchar" MaxLength="20" />
+          <Property Name="CurrentUser" Type="varchar" MaxLength="20" />
+          <Property Name="GasL" Type="varchar" MaxLength="10" />
+          <Property Name="islimit" Type="int" />
+          <Property Name="SimId" Type="varchar" MaxLength="100" />
+          <Property Name="Site" Type="varchar" MaxLength="45" />
+          <Property Name="MtMile" Type="varchar" MaxLength="45" />
+          <Property Name="MtMileOrDate" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="RealName" Type="varchar" MaxLength="20" />
+          <Property Name="Department" Type="int" />
+          <Property Name="AllowModel" Type="varchar" MaxLength="20" />
+          <Property Name="DriverType" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="UserPhoto" Type="varchar" MaxLength="200" />
+          <Property Name="DriverLicensePhoto" Type="varchar" MaxLength="200" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="EffecDateStart" Type="datetime" Precision="0" />
+          <Property Name="EffecDateEnd" Type="datetime" Precision="0" />
+          <Property Name="LastLoginDate" Type="varchar" MaxLength="50" />
+          <Property Name="ApplyRole" Type="int" />
+          <Property Name="ApplyDate" Type="datetime" Precision="0" />
+          <Property Name="ApplyLevel" Type="int" />
+          <Property Name="ApplyState" Type="int" />
+          <Property Name="state" Type="int" />
+          <Property Name="Enable" Type="int" />
+        </EntityType>
+        <EntityContainer Name="cmsdbModelStoreContainer">
+          <EntitySet Name="carinfo" EntityType="Self.carinfo" Schema="cmsdb" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="cmsdb" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cmsdbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="carinfo">
+          <Key>
+            <PropertyRef Name="CarNumber" />
+          </Key>
+          <Property Name="CarBrand" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CarModel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EngineNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CarPrice" Type="Decimal" />
+          <Property Name="BuyDate" Type="DateTime" />
+          <Property Name="InsuranceStartDate" Type="DateTime" />
+          <Property Name="InsuranceEndDate" Type="DateTime" />
+          <Property Name="AnnualStartDate" Type="DateTime" />
+          <Property Name="AnnualEndDate" Type="DateTime" />
+          <Property Name="MaintenanceStartDate" Type="DateTime" />
+          <Property Name="MaintenanceEndDate" Type="DateTime" />
+          <Property Name="Mileage" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CarPhoto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NeedMaintain" Type="Int32" />
+          <Property Name="CarState" Type="Int32" />
+          <Property Name="CarStateDetial" Type="Int32" />
+          <Property Name="HolodayStart" Type="DateTime" />
+          <Property Name="HolodayEnd" Type="DateTime" />
+          <Property Name="LoginAdmin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MaintainUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentId" Type="Int32" />
+          <Property Name="IsOut" Type="Int32" />
+          <Property Name="CarPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CurrentUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GasL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="islimit" Type="Int32" />
+          <Property Name="SimId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Site" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="MtMile" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="MtMileOrDate" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RealName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Department" Type="Int32" />
+          <Property Name="AllowModel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DriverType" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DriverLicensePhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EffecDateStart" Type="DateTime" />
+          <Property Name="EffecDateEnd" Type="DateTime" />
+          <Property Name="LastLoginDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApplyRole" Type="Int32" />
+          <Property Name="ApplyDate" Type="DateTime" />
+          <Property Name="ApplyLevel" Type="Int32" />
+          <Property Name="ApplyState" Type="Int32" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="Enable" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="cmsdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="carinfo" EntityType="Self.carinfo" />
+          <EntitySet Name="user" EntityType="Self.user" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cmsdbModelStoreContainer" CdmEntityContainer="cmsdbEntities">
+          <EntitySetMapping Name="carinfo">
+            <EntityTypeMapping TypeName="cmsdbModel.carinfo">
+              <MappingFragment StoreEntitySet="carinfo">
+                <ScalarProperty Name="CarBrand" ColumnName="CarBrand" />
+                <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+                <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+                <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
+                <ScalarProperty Name="CarType" ColumnName="CarType" />
+                <ScalarProperty Name="CarPrice" ColumnName="CarPrice" />
+                <ScalarProperty Name="BuyDate" ColumnName="BuyDate" />
+                <ScalarProperty Name="InsuranceStartDate" ColumnName="InsuranceStartDate" />
+                <ScalarProperty Name="InsuranceEndDate" ColumnName="InsuranceEndDate" />
+                <ScalarProperty Name="AnnualStartDate" ColumnName="AnnualStartDate" />
+                <ScalarProperty Name="AnnualEndDate" ColumnName="AnnualEndDate" />
+                <ScalarProperty Name="MaintenanceStartDate" ColumnName="MaintenanceStartDate" />
+                <ScalarProperty Name="MaintenanceEndDate" ColumnName="MaintenanceEndDate" />
+                <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+                <ScalarProperty Name="CarPhoto" ColumnName="CarPhoto" />
+                <ScalarProperty Name="NeedMaintain" ColumnName="NeedMaintain" />
+                <ScalarProperty Name="CarState" ColumnName="CarState" />
+                <ScalarProperty Name="CarStateDetial" ColumnName="CarStateDetial" />
+                <ScalarProperty Name="HolodayStart" ColumnName="HolodayStart" />
+                <ScalarProperty Name="HolodayEnd" ColumnName="HolodayEnd" />
+                <ScalarProperty Name="LoginAdmin" ColumnName="LoginAdmin" />
+                <ScalarProperty Name="MaintainUser" ColumnName="MaintainUser" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="IsOut" ColumnName="IsOut" />
+                <ScalarProperty Name="CarPassword" ColumnName="CarPassword" />
+                <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
+                <ScalarProperty Name="GasL" ColumnName="GasL" />
+                <ScalarProperty Name="islimit" ColumnName="islimit" />
+                <ScalarProperty Name="SimId" ColumnName="SimId" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="MtMile" ColumnName="MtMile" />
+                <ScalarProperty Name="MtMileOrDate" ColumnName="MtMileOrDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="cmsdbModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RealName" ColumnName="RealName" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="AllowModel" ColumnName="AllowModel" />
+                <ScalarProperty Name="DriverType" ColumnName="DriverType" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+                <ScalarProperty Name="DriverLicensePhoto" ColumnName="DriverLicensePhoto" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="EffecDateStart" ColumnName="EffecDateStart" />
+                <ScalarProperty Name="EffecDateEnd" ColumnName="EffecDateEnd" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="ApplyRole" ColumnName="ApplyRole" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="ApplyLevel" ColumnName="ApplyLevel" />
+                <ScalarProperty Name="ApplyState" ColumnName="ApplyState" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

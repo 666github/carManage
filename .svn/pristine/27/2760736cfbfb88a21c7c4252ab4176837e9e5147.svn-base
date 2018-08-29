@@ -1,0 +1,82 @@
+﻿<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/carManage/query.css"/>
+	<!--<script src="js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>-->	
+	<script src="js/carManage/infChangeDetail.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="wrap">
+			<ul class="wrap_back">
+				<li><p class="back_title">返回</p></li>				
+				<!--<li><div class="amend">修改</div></li>-->
+			</ul>
+			<div class="detailsInf">
+				<div id="detailsInf">
+					<div class="topInf">
+						<p class="top_branch">						
+						<select name="" class="topBranch isnull">							
+						</select>
+						<!--<span class="topBranch">基础测绘院</span>-->
+						<span class="detChange">修改</span>
+						<span class="detSave ohide">保存</span></p>
+						<div class="top_img" id="top_img">							
+							<input type="file" onchange="PreviewImage(this,'topPhoto')" class="topPhoto" name="topPhoto"/>
+							<div id='topPhoto'>
+            					<img class='img1' src='' width='100%' height='100%' />			
+            				</div>		
+        				</div>
+					</div>
+					<ul class="carInf_det">
+						<li class="brand_det">品牌：<input type="text" name="" id="" value="" placeholder="benz-s600" class="firBrandDet isnull" /></li>
+						<li class="licence_det">车牌：<span class="licenceDet"></span></li>
+						<li class="buyday_det">购买日期：<input type="text" name="insuranceStartDate"  class="Wdate buydayDet isnull" value="" placeholder="2017-08-08" onclick="WdatePicker()"/></li>					
+						<li class="type_det">车架号：<input type="text" name="" id="" value="" placeholder="LM0256354EDH56" class="typeDet isnull"/></li>
+						<li class="model_det">车载人数：<input type="text" name="" id="" value="" placeholder="7" class="modelDet isnull"/></li>
+						<li class="safe_det">
+							<span>保险起止日：</span><input type="text" name="StartDate" id="safeStart" class="Wdate isnull" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'safeEnd\')}'})"/><span>-</span>
+							<input type="text" name="EndDate" id="safeEnd" class="Wdate isnull" value="" placeholder="结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'safeStart\')}'})"/>
+						</li>
+						<li class="engin_det">发动机号：<input type="text" name="" id="" value="" placeholder="444ss" class="enginDet isnull" /></li>
+						<li class="price_det">价格(万)：<input type="text" name="" id="" value="" placeholder="25" class="priceDet isnull" /></li>												
+						<li class="annual_det">
+							<span>年检起止日：</span><input type="text" name="yearDate" id="yearStart" class="Wdate annualStartDet isnull" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'yearEnd\')}'})"/><span>-</span>
+							<input type="text" name="yearDate" id="yearEnd" class="Wdate annuaEndDet isnull" value="" placeholder="结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'yearStart\')}'})"/>							
+						</li>																	
+						<li class="mile_det">里程(km)：<span class="mileDet"></span></li>
+						<li class="outnum_det">出行次数：<span class="outnumDet"></span></li>
+						<li class="maintan_det">
+							<span>保养起止日：</span><input type="text" name="mtStartDet" id="mtStartDet" class="Wdate mtStartDet isnull" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'mtEndDet\')}'})"/><span>-</span>
+							<input type="text" name="yearDate" id="mtEndDet" class="Wdate mtEndDet isnull" value="" placeholder="结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'mtStartDet\')}'})"/>							
+						</li>	
+						<li class="mtMoney_det">维护保养金额(元)：<span class="mtMoneyDet"></span></li>
+						<li class="mtNum_det">维护保养次数：<span class="mtNumDet"></span></li>
+						<li class="simId" style="width: 33.33%;">SIM卡卡号：<input class="simIdDet" style="width: 60%;"></input></li>	
+					</ul>
+					<div class="detailsInfBg"></div>
+				</div>
+				<div class="state_det">
+					<p class="currentState">被预约</p>
+					<ul class="currentInf">
+						<li><span class="statePerson">预约人：</span><span class="currName"></span></li>
+						<li>部门：<span class="currBranch"></span></li>
+						<li>用车时间：<span class="currUsed"></span></li>
+						<li>还车时间：<span class="currBack"></span></li>
+						<li>目的地：<span class="currDestination"></span></li>
+						<li>用途：<span class="currEffect"></span></li>
+					</ul>
+				</div>				
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UpdateHolidayUse
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var postIp = ConfigurationManager.AppSettings.Get("postIp");
+
+            var uri = postIp+"/handler/Carmanage/HolidayUse/AutoUpdateHolidayUse.ashx";
+            try
+            {
+                var res = Request(uri);
+                if (res == "success")
+                {
+
+                }
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
+        }
+
+        static string Request(string uri)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(uri);
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                var stream = response.GetResponseStream();
+                var streamReader = new StreamReader(stream);
+                var result = streamReader.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using CarManageSystem.helper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Web.SessionState;
+using CarManageSystem.Extension;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// GetCarDetails 的摘要说明
+    /// </summary>
+    public class GetCarDetails : IHttpHandler ,IRequiresSessionState
+    {
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否登陆
+            if (!CheckHelper.IsHavePri(context, 0))
+                return;
+
+            var carNumber = context.Request["carNumber"];
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var now = DateTime.Now;
+                var car = cms.carinfo
+                    .Where(s => s.CarNumber == carNumber)
+                    .LeftJoin(cms.departmentmanage,r=>r.DepartmentId,d=>d.Id,(r,d)=>new { r,d.Name})
+                    .ToList()
+                    .Select(s => new
+                    {
+                        imgSrc = ImageHelper.GetImagePath(s.r.CarPhoto),
+                        topBranch = s.Name,
+                        firBrandDet = s.r.CarBrand,
+                        licenceDet = s.r.CarNumber,
+                        modelDet = s.r.CarModel,
+                        typeDet = s.r.CarType,
+                        enginDet = s.r.EngineNumber,
+                        priceDet = s.r.CarPrice,
+                        buydayDet = s.r.BuyDate.Value.ToShortDateString(),
+                        annualStartDet = s.r.AnnualStartDate.Value.ToShortDateString(),
+                        annuaEndDet = s.r.AnnualEndDate.Value.ToShortDateString(),
+                        safeStartDet = s.r.InsuranceStartDate.Value.ToShortDateString(),
+                        safeEndDet = s.r.InsuranceEndDate.Value.ToShortDateString(),
+                        mtStartDet = s.r.MaintenanceStartDate.Value.ToShortDateString(),
+                        mtEndDet = s.r.MaintenanceEndDate.Value.ToShortDateString(),
+                        mileDet = s.r.Mileage,
+                        mtMoneyDet = cms.carcostregister.Where(c => c.CarNumber == s.r.CarNumber).Sum(i => i.Cost)==null?"": cms.carcostregister.Where(c => c.CarNumber == s.r.CarNumber).Sum(i => i.Cost).ToString(),
+                        outnumDet = cms.returnregister.Where(c => c.CarNumber == s.r.CarNumber).Count().ToString(),
+                        mtNumDet = cms.carcostregister.Where(c => c.CarNumber == s.r.CarNumber).Count().ToString(),
+                        currentState = s.r.CarState == 0 && (s.r.HolodayStart < now && s.r.HolodayEnd > now) ? 4 : (s.r.CarState == 0 && s.r.NeedMaintain == 1 ? 5 : s.r.CarState)
+                    }).FirstOrDefault();
+
+                var person = cms.carinfo
+                    .Where(c => c.CarNumber == car.licenceDet&&!string.IsNullOrEmpty(c.CurrentUser))
+                    .LeftJoin(cms.user,r=>r.CurrentUser, u=>u.Account,(r,u)=>new { r,u.RealName,u.Department})
+                    .LeftJoin(cms.departmentmanage,r=>r.Department,d=>d.Id,(r,d)=>new { r,d.Name})
+                    .LeftJoin(cms.borrowregister,r=>r.r.r.CurrentUser,b=>b.User,(r,b)=>new { r,b})
+                    .LeftJoin(cms.returnregister,r=>r.b.UniqueCode,r=>r.UniqueCode,(b,r)=> new {b,r.UniqueCode })
+                    .Where(r => string.IsNullOrEmpty(r.UniqueCode)&&r.b.b.BorrowState==1)
+                    .ToList()
+                    .Select(i => new
+                    {
+                        currName = i.b.r.r.RealName,
+                        currBranch = i.b.r.Name,
+                        currUsed=i.b.b.UseCarTime.Value.ToShortDateString(),
+                        currBack=i.b.b.ExpectReturnTime.Value.ToShortDateString(),
+                        currDestination=i.b.b.Destination,
+                        currEffect=i.b.b.Purposes
+                    }).FirstOrDefault();
+
+                //转Json
+                dynamic json = new JObject();
+                json.state = "success";
+                json.carInf_det = JObject.FromObject(car);
+                json.state_det = person==null? new JObject() : JObject.FromObject(person);
+                context.Response.Write(json.ToString());
+            } 
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

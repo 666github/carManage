@@ -1,0 +1,15 @@
+{
+	"state":"success",
+	"sumNum":68,
+	"carAmount":152,
+	"carsAssetsInfo":[
+		{
+			"carsImg":"img/car03.jpg",
+			"firstBrand":"马自达-阿特兹",
+			"plateNum":"京V·8888",
+			"seat":"5座",
+			"carMoney":23
+
+		}
+	]
+}

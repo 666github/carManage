@@ -1,0 +1,55 @@
+{  
+  "car_inf": [
+		    {	
+		    "ocheck"	:"0",  
+		    "otime":"09/08-09-07",
+				 "carImg":"img/pagebg.jpg",
+		      "brand": "雪弗兰-大黄蜂",
+		      "otime":"10.01-10.07",
+		      "licence": "京A00000",
+		      "space": "5座"
+		    },
+		    {	
+		    "ocheck"	:"0",  
+		    "otime":"",
+				 "carImg":"img/pagebg.jpg",
+		      "brand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "space": "5座"
+		    },
+		    {	
+		    "ocheck"	:"0",  
+		    "otime":"",
+				 "carImg":"img/pagebg.jpg",
+		      "brand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "space": "5座"
+		    },
+		    {	
+		    "ocheck"	:"0",  
+		    "otime":"",
+				 "carImg":"img/pagebg.jpg",
+		      "brand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "space": "5座"
+		    },
+		    {	
+		    "ocheck"	:"0",  
+		    "otime":"09/08-09-07",
+				 "carImg":"img/pagebg.jpg",
+		      "brand": "雪弗兰-大黄蜂",
+		      "licence": "京A00000",
+		      "space": "5座"
+		    },
+		    {
+		    "ocheck"	:"1",
+		    "otime":"09/08-09-07",
+				"carImg":"img/pagebg.jpg",
+		      "brand": "雪弗兰-大黄蜂",
+		      "otime":"10.01-10.07",
+		      "licence": "京A00000",
+		      "space": "5座"
+		    }
+  ],
+  "state": "success"
+}

@@ -1,0 +1,219 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "microsoft yahei","微软雅黑";
+	}
+li{
+	list-style: none;
+	}
+a{
+	text-decoration: none;
+	color: black;
+	}
+.clearfloat:after{
+	display: block;
+	clear: both;content: "";
+	visibility: hidden;
+	height: 0;
+	}
+html,body{
+	width:100%;;
+	height:100%;
+	}
+.wrap{
+	width: 100%;
+	height: 100%;
+	padding-left: 2%;
+	}
+.wrap_top,.online_top{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	/*border: solid red 1px;*/
+	/*padding-left:2% ;*/
+	}
+.wrap_top>li{
+	width: 25%;
+	float: left;
+}
+.wrap_top>li:nth-child(2){
+	width: 50%;
+}
+.mtBranch,.status,.mtTime{float: left;height: 30px;}
+.mtTime{border: solid 1px #e3e3e3;;background: #FFFFFF;}
+.mtTime>input{border:none;text-align:center;height: 100%;background: #FFFFFF;}
+.mtBranch,.status{
+	width: 26%;
+    height: 30px;
+    padding: 0 10px;
+    margin-right: 2.5%;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+   	appearance: none;
+	-moz-appearance: none;
+    -webkit-appearance: none;
+	background-image: url("../../img/down.png");
+	background-repeat: no-repeat;
+	background-position: calc(100% - 7px) 50%;
+	background-size: auto auto;
+	outline: none;
+}
+.cartitle{
+	width: 110px;
+	height:45px;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: solid 3px darkgray;
+	text-align: center;
+	}
+.vehicle{
+	width: 100%;
+	height:40px;
+	}
+.vehicle>li{
+	width: 33%;
+	float: left;
+}
+.serviceCosts ,.maintenanceCosts,.maintenanceCount{
+	border-radius: 10px;
+	padding: 0 8px;
+	color: #FFFFFF;
+}
+.maintenanceCosts{
+	background: #4275f8;
+}
+.serviceCosts{
+	background:#ff0060;
+}
+.maintenanceCount{
+	background: #38c8ec;
+}
+.oquery,.amend{
+	color: #FFFFFF;
+	background: #4275f8;;
+	width:60px;height: 30px;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 3px;
+	margin: 10px 15px 10px 0;
+	float: right;
+	cursor: pointer;
+	}
+.amend{
+	background: #4275f8;
+	}
+.allBran{
+	width: 100%;
+	height: 30px;
+	margin: 15px 0 10px 0;
+	}
+.allBranch,.status{
+	width: 26%;
+	height: 30px;
+	padding: 0 10px;
+	margin-right: 2.5%;
+	border-radius: 5px;
+	border: 1px solid #e3e3e3;
+
+}
+
+
+.driversInfo{
+	width: 100%;
+	padding-top: 10px;
+	height: calc(100% - 110px);
+	height: -webkit-calc(100% -110px);
+	height: -moz-calc(100% -110px);
+	/*border: solid 1px black;*/
+	overflow: auto;
+	}
+#driverInfo{
+	width: 100%;
+	}
+.carInfo{
+	width: 24%;
+	/*height: 48%;*/
+	margin:0 1% 1% 0;
+	background: #FFFFFF;
+	float: left;
+	border: solid 1px #e3e3e3;
+	border-radius: 5px;
+	}
+.carInfo:hover{
+	border: 1px solid #4275f8;
+    /*box-shadow: 0 0 6px #4275f8;*/
+   box-shadow: rgba(66,117,248,0.5) 0 1px 5px;
+}
+.carInfo>li:last-child{
+	height: 38px;
+	line-height: 38px;
+	border-top: solid 1px #e3e3e3;
+	}
+/*.carImg{height: 56%;}*/
+.carsImg>img {
+    width: 100%;
+    height: 150px;
+}
+@media only screen and (max-height: 768px){
+.carImg>img{width: 100%;height: 125px;}
+}
+@media only screen and (max-height: 600px) {
+    .carsImg>img {
+        width: 100%;
+        height: 105px;
+    }
+}
+.brands,.license{
+	padding: 0 9px;
+	height: 30px;
+	}
+.carsImg{
+	padding: 9px 9px 0;
+	}
+.firstBrand,.tripCount{
+	color: #4275f8;
+	}
+.license{
+	color: gray;
+	}
+.seat{
+	float: right;
+	}
+.tripMile,.tripCount{
+	width: 50%;
+	float: left;
+	text-align: center;
+	}
+.miles,.count{
+	font-weight: 600;
+}
+.tripMile{
+	color: #ff2275;
+	border-right: solid 1px #e3e3e3;
+}
+
+
+
+
+@media only screen and (max-width: 1280px){
+	.wrap_top>li{
+		width: 20%;
+		float: left;
+	}
+	.wrap_top>li:nth-child(2){
+		width: 60%;
+	}
+	.carsImg>img {
+        width: 100%;
+        height: 125px;
+    }
+}
+@media only screen and (min-width: 1600px){
+.carInfo{width: 19%;}	
+}
+@media only screen and (max-height: 768px){
+.carsImg>img{width: 100%;height: 125px;}
+}
+
+

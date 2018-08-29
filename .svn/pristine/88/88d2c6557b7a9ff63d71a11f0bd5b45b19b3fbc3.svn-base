@@ -1,0 +1,70 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+using CarManageSystem.Extension;
+using System.Diagnostics;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// EndMaintain 的摘要说明
+    /// </summary>
+    public class ViewFinishMaintain : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 1))
+                return;
+
+            dynamic json = new JObject();
+            var carNumber = context.Request["carNumber"];
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                try
+                {
+                    var tempCars = cms.carcostregister
+                                  .Where(s => (string.IsNullOrEmpty(carNumber) ? true : s.CarNumber == carNumber)&&(!string.IsNullOrEmpty(s.Code)))
+                                  .LeftJoin(cms.carinfo, cc => cc.CarNumber, ci => ci.CarNumber, (cc, ci) => new { cc, ci })
+                                  .ToList()
+                                  .OrderByDescending(x => x.cc.MaintenanceStartDate)
+                                  .Select(i => new
+                                  {
+                                      Elist3 = i.ci.CarBrand,
+                                      Elist4 = i.ci.CarNumber,
+                                      Elist5 = i.ci.CarType,
+                                      Elist6 = i.ci.InsuranceEndDate.Value.ToShortDateString(),
+                                      Elist7 = i.ci.MaintenanceEndDate.Value.ToShortDateString(),
+                                      Elist8 = i.ci.AnnualEndDate.Value.ToShortDateString(),
+                                      Elist9 = i.cc.Cost,
+                                      Elist10 = i.cc.Code
+                                  });
+
+                    json.maintEndul = JArray.FromObject(tempCars);
+                    json.state = "success";
+                    context.Response.Write(json.ToString());
+                }
+                catch(Exception e)
+                {
+                    Debug.Write(e.Message);
+                }
+                
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

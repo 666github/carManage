@@ -1,0 +1,65 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+namespace CarManageSystem.handler.DepartmentManage
+{
+    /// <summary>
+    /// Delete 的摘要说明
+    /// </summary>
+    public class Delete : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 2);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+
+            var old = Convert.ToInt32(context.Request["old"]);
+            var newPoint = Convert.ToInt32(context.Request["newPoint"]);
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var oldDpm = cms.departmentmanage.FirstOrDefault(d => d.Id == old);
+                var newDpm = cms.departmentmanage.FirstOrDefault(d => d.Id == newPoint);
+                if(oldDpm==null)
+                {
+                    json.state = "当前删除的部门不存在，请刷新重试";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                if (newDpm == null)
+                {
+                    json.state = "当前所指定的部门不存在，请刷新重试";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                var users = cms.user.Where(u => u.Department == old).ToList();
+                var cars = cms.carinfo.Where(c => c.DepartmentId == old).ToList();
+                users.ForEach(item => item.Department = newDpm.Id);
+                cars.ForEach(item => item.DepartmentId = newDpm.Id);
+                cms.departmentmanage.Remove(oldDpm);
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+                cms.Dispose();
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

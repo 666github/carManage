@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />-->
+    <style type="text/css">
+        body, html, #realallmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <!-- <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=k5qdEecswsybcCTOdgTG8lHhlMeLO9W7"></script>-->
+    <title></title>
+</head>
+<body>
+    <div id="realallmap"></div>
+</body>
+
+<script type="text/javascript">
+    var mapr;
+    //实时轨迹
+    // 百度地图API功能
+    mapr = new BMap.Map("realallmap");
+    mapr.centerAndZoom(new BMap.Point(116.404, 39.915), 12);
+    mapr.enableScrollWheelZoom(true);
+    mapr.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+    mapr.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+    mapr.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+    mapr.addControl(new BMap.MapTypeControl());                  //添加地图类型控件
+
+    var myIcon = new BMap.Icon("/img/1.png", new BMap.Size(30, 26), {    //小车图片
+        offset: new BMap.Size(0, -5),    //相当于CSS精灵
+        imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+    });
+
+    var myIcon1 = new BMap.Icon("/img/2.png", new BMap.Size(30, 26), {    //小车图片
+        offset: new BMap.Size(0, -5),    //相当于CSS精灵
+        imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。
+    });
+
+    var ctrl = new BMapLib.TrafficControl({
+        showPanel: true //是否显示路况提示面板
+    });
+    mapr.addControl(ctrl);
+    ctrl.setAnchor(BMAP_ANCHOR_BOTTOM_RIGHT);
+
+    var tcBtn = document.getElementById('tcBtn');
+    //tcBtn.click();
+
+    var carMk;
+    var count = 0;
+    var wsImpl = window.WebSocket || window.MozWebSocket;
+    var convertor = new BMap.Convertor();
+    var arrCar = [];//车辆id的数组
+    var arrIlle = [];
+    var arrMK = [];//车辆标记的数组
+    var arrLabel = []; //车辆标签的数组
+
+    var opts = {
+        width: 200,     // 信息窗口宽度
+        height: 150,     // 信息窗口高度
+    }
+
+    var run = function () {
+        debugger
+        //window.ws = new wsImpl('ws://192.168.1.120:8001/'); //测试
+        window.ws = new wsImpl('ws://114.251.124.43:8001/');  // 正式
+        ws.onmessage = function (data) {
+            console.log(data.data);
+            var obj = eval('(' + data.data + ')');
+            for (var i = 0; i < obj.length; i++) {
+                var car = obj[i];
+                //过滤是否为自己部门的车
+                if (HasCarNumbers.indexOf(car.id) < 0) {
+                    console.log("有" + car.id);
+                    continue;
+                }
+                var index = arrCar.indexOf(car.id);
+                var p = new BMap.Point(car.position.x, car.position.y);
+                switch (car.state) {
+                    case 0:
+                    case 1:
+                        if (index > -1) {
+                            //实时改变label 字
+                            arrLabel[index].V.innerHTML = car.id + car.isillegal == 3?":维修保养":((car.isillegal == 8 ? "(非法用车)" : (car.isillegal == 9 ? "(未借车:" + car.userName + ")" : (car.userName == "" ? "" : "(" + car.userName + ")"))));
+                            debugger
+
+                            if (arrIlle[index] != car.isillegal && car.isillegal == 8) {
+                                arrMK[index] = new BMap.Marker(p, { icon: myIcon1 });
+                                setEvent(arrMK[index]);
+                            }
+                            else if (arrIlle[index] != car.isillegal && car.isillegal != 8) {
+                                arrMK[index] = new BMap.Marker(p, { icon: myIcon });
+                                setEvent(arrMK[index]);
+                            }
+                            arrMK[index].setPosition(p);
+                        }
+                        else {
+                            var labelgg = new BMap.Label(car.id + car.isillegal==3?"维修保养":((car.isillegal == 8 ? "(非法用车)" : (car.isillegal == 9 ? "(未借车:" + car.userName + ")" : (car.userName == "" ? "" : "(" + car.userName + ")"))), { offset: new BMap.Size(20, -10) }));
+                            var carMk;
+
+                            if (car.isillegal == 8)
+                                carMk = new BMap.Marker(p, { icon: myIcon1 });
+                            else
+                                carMk = new BMap.Marker(p, { icon: myIcon });
+                            
+                            setEvent(carMk);
+                            mapr.addOverlay(carMk);
+                            carMk.setLabel(labelgg); //添加GPS label
+                            carMk.setPosition(p);
+                            arrCar.push(car.id);
+                            arrMK.push(carMk);
+                            arrIlle.push(car.isillegal);
+                            arrLabel.push(labelgg);
+                            clickY(car.id);
+
+                        }
+                        break;
+                    case -1:
+                        if (index > -1) {
+                            clickN(arrCar[index]);
+                            mapr.removeOverlay(arrMK[index]);
+                            arrCar.remove(index);
+                            arrMK.remove(index);
+                            arrIlle.remove(index);
+                            arrLabel.remove(index);
+                        }
+                        break;
+                    default: break;
+                }
+            }
+        };
+    }
+
+    var setEvent = function (carMk) {
+        carMk.addEventListener("click", function (e) {
+            debugger
+            if (e.point == undefined) {
+                debugger
+                e = e.currentTarget;
+            }
+
+            mapr.panTo(new BMap.Point(e.point.lng, e.point.lat));
+            //mapr.centerAndZoom(new BMap.Point(e.point.lng, e.point.lat), 12);
+            //根据carId 去请求驾驶员、用途、目的地、借车日期
+            var index = arrMK.indexOf(carMk);
+            //非法用车
+            if (arrLabel[index].V.innerHTML.indexOf('非法用车') != -1) {
+                $.ajax({
+                    type: "get",
+                    url: "../handler/Trajectory/GetDepartmentByCarNumber.ashx",
+                    data: { carNumber: arrCar[index] },
+                    xhrFields: { withCredentials: true },
+                    success: function (data) {
+                        var infoWindow = new BMap.InfoWindow(arrCar[index] + " 正在非法用车！</br>部门:" + data, opts);  // 创建信息窗口对象
+                        mapr.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat)); //开启信息窗口
+                        return;
+                    },
+                    error: function () {
+                        alert('请求失败，请重试!');
+                        return;
+                    }
+                })
+            }
+            //未借车
+            else if (arrLabel[index].V.innerHTML.indexOf('未借车') != -1) {
+                $.ajax({
+                    type: "get",
+                    url: "../handler/Trajectory/GetWeiJieCheInfo.ashx",
+                    data: { carNumber: arrCar[index] },
+                    xhrFields: { withCredentials: true },
+                    success: function (data) {
+                        data = JSON.parse(data);
+                        if (data.state != 'success') {
+                            var infoWindow = new BMap.InfoWindow(arrCar[index] + "非法用车，中途已处理" + data.depart, opts);  // 创建信息窗口对象
+                            mapr.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat)); //开启信息窗口
+                            return;
+                        }
+                        var infoWindow = new BMap.InfoWindow(arrCar[index] + "非法用车，中途已处理</br>驾驶人:" + data.user + "</br>手机号:" + data.phone + "</br>部门:" + data.depart, opts);  // 创建信息窗口对象
+                        mapr.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat)); //开启信息窗口
+                        return;
+                    },
+                    error: function () {
+                        alert('请求失败，请重试!');
+                        return;
+                    }
+                })
+            }
+            else if (arrLabel[index].V.innerHTML.indexOf('维修保养') != -1) {
+                var infoWindow = new BMap.InfoWindow(arrCar[index] + "此车在维修保养中", opts);  // 创建信息窗口对象
+                mapr.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat)); //开启信息窗口
+                return;
+            }
+            //未借车围栏内移动
+            else if (arrLabel[index].V.innerHTML.indexOf('(') == -1) {
+                var infoWindow = new BMap.InfoWindow(arrCar[index] + " 未借车,正在电子围栏内移动", opts);  // 创建信息窗口对象
+                mapr.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat)); //开启信息窗口
+                return;
+            }
+
+            else {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "../handler/Trajectory/GetDriverInfo.ashx",
+                    data: { carNumber: arrCar[index], from: 0 },
+                    xhrFields: { withCredentials: true },
+                    success: function (data) {
+                        debugger
+                        var resObj = data;
+                        if (data.state == "warning") {
+                            alert(arrCar[index] + "正在非法用车！");
+                        } else if (data.state == "success") {
+                            var infoWindow = new BMap.InfoWindow("车牌:" + resObj.userInfo.carNumber + "</br>驾驶员:" + resObj.userInfo.user + "</br>部门:" + resObj.userInfo.department + "</br>手机号:" + resObj.userInfo.phoneNumber + "</br>用途:" + resObj.userInfo.purpose + "</br>目的地:" + resObj.userInfo.destination + "</br>借车时间:" + resObj.userInfo.time, opts);  // 创建信息窗口对象
+                            mapr.openInfoWindow(infoWindow, new BMap.Point(e.point.lng, e.point.lat)); //开启信息窗口
+                        }
+                    },
+                    error: function () {
+                        alert('请求失败，请重试!');
+                    }
+                })
+            }
+        });
+    }
+
+    var arry = [
+        //new BMap.Point(116.380967, 39.913285),
+        //new BMap.Point(115.424374, 35.914668)
+    ]
+    //查询实时的历史轨迹
+    var rtHistory = function (code, position, color) {
+        debugger
+        $.ajax({
+            type: "get",
+            url: "../handler/Trajectory/GetRealTimeTrajectory.ashx",
+            data: { code: arrCar[index] },
+            xhrFields: { withCredentials: true },
+            success: function (data) {
+                for (var i = 0; i < position.length; i++) {
+                    arry.push(new BMap.Point(position[i].Longitude, position[i].Latitude));
+                    //console.log(position[i].Longitude + "    " + position[i].Latitude)
+                }
+                var polyline = new BMap.Polyline(arry, { strokeColor: color, strokeWeight: 5, strokeOpacity: 1 });
+                map.addOverlay(polyline);
+            },
+            error: function () {
+                alert('请求失败，请重试!');
+                return;
+            }
+        })
+    }
+
+    var setPosition = function (carNumber) {
+        debugger
+        var index = arrCar.indexOf(carNumber);
+        if (index != -1) {
+            var tempMK = arrMK[index];
+            tempMK.dispatchEvent('click');
+        }
+    }
+
+    setTimeout(function () {
+        run();
+    }, 1000);
+
+    Array.prototype.remove = function (dx) {
+        if (isNaN(dx) || dx > this.length) { return false; }
+        for (var i = 0, n = 0; i < this.length; i++) {
+            if (this[i] != this[dx]) {
+                this[n++] = this[i]
+            }
+        }
+        this.length -= 1
+    }
+</script>
+</html>

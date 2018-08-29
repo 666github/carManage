@@ -1,0 +1,150 @@
+﻿<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="driverManagement/driverPersonCenter/css/driverPersonCenter.css"/>
+	<script src="driverManagement/driverPersonCenter/js/driverPersonCenter.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="wrap">			
+			<div class="perTitle"><p class="pertitle">个人中心</p><span class="applayUp">申请成为部门级管理员</span></div>				
+			<ul class="personCenter clearfloat">
+				<li><a href="#" id="person_amend" class="percenterUl personCenter_a">资料修改</a></li>
+				<!--<li><a href="#" id="person_news" class="percenterUl">消息提醒</a></li>
+				<li><a href="#" id="peson_audit" class="percenterUl">待审批</a></li>
+				<li><a href="#" id="person_order" class="percenterUl">预约车辆</a></li>-->
+			</ul>
+			<!--资料修改-->
+			<div id="infAmend" class="ohides">				
+				<div class="baseInf">
+					<p>基本信息</p>
+					<div class="oleft">
+						<div class="ulBg" ></div>
+						<form action="../handler/PersonalCenter/ChangeInfo/ChangeBaseInfo.ashx" method="post" enctype="multipart/form-data" target="picIframe" id="myform" style="position: relative;">
+							
+							<ul class="personalLeftInf">
+								<li class="photos">
+									<span>头像：</span>
+									<input type="file" onchange="PreviewImage2(this,'carPhoto')" class="carPhoto" name="userPhoto"/>
+									<div class="otext">请上传(jpg)图片</div>
+									<div class="carbg">上传</div>
+									<div id='carPhoto'>
+			        					<img class='img1' src='img/login/user.png' width='100%' height='100%' />			
+			        				</div>
+			        				<p style="display: none;"><input type="text" name="from" id="from" value="0" />0</p>
+								</li>
+								<li class="driverCard">
+									<span>驾照：</span>
+									<div class="top_img" id="top_img">							
+										<input type="file" onchange="PreviewImage(this,'topPhoto')" class="topPhoto" name="topPhoto"/>
+										<div id='topPhoto'>
+			            					<img class='img2' src='' width='100%' height='100%' />
+			            				</div>
+			            				<div class="licenceBg">上传</div>
+			        				</div>
+								</li>
+								<li><span>用户名：</span><span class="userName">&nbsp;</span></li>
+								<li><span>姓名：</span><input type="text" name="regmyName" id="regmyName" value="" placeholder="姓名"/></li>
+								<li>
+									<span>所属部门：</span>
+									<select name="regBranch" class="brach olength" id="regBranch">
+										<option value="">所属部门</option>
+									</select>
+								</li>
+								<!--<li><span>电话：</span><span class="myPhone">&nbsp;</span></li>
+								<li><span>邮箱：</span><span class="myEmail">&nbsp;</span></li>-->
+								<li>
+									<span>司机类型：</span>
+									<select name="driverType" class="driverType olength">
+										<!--<option value="gray">司机类型</option>-->
+										<option value="1">全职司机</option>
+										<option value="0">兼职司机</option>
+									</select>
+								</li>
+								<li>
+									<span>驾驶类型：</span>
+									<select name="regCarType" class="driType olength" id="driType">
+										<option value="A1">A1</option>
+										<option value="A2">A2</option>
+										<option value="B1">B1</option>
+										<option value="B2">B2</option>
+										<option value="C1">C1</option>
+										<option value="C2">C2</option>
+										<option value="C3">C3</option>
+										<option value="C4">C4</option>
+										<option value="M">M</option>
+									</select>
+								</li>
+								<li class="effDate" id="effDate">
+									<span>有效日期：</span>	
+									<input type="text" name="effecDateStart" id="effecStart" class="Wdate olength" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'effecEnd\')}'})"/>
+									<span>&nbsp;到&nbsp;</span>
+									<input type="text" name="effecDateEnd" id="effecEnd" class="Wdate olength" value="" placeholder="结束时间" onclick="WdatePicker({minDate:'#F{$dp.$D(\'effecStart\')}'})"/>
+								</li>			
+							</ul>
+							<iframe width="0" height="0" name="picIframe" style="visibility: hidden;" onload="ifmload(this)"></iframe>
+							<input type="button" value="修改" id="mysubmit"/>
+						</form>
+					</div>
+				</div>
+				<div class="userSafe">
+					<p>账户安全</p>
+					<div class="oright">
+						<ul class="rightUl">
+							
+							<li class="rightList">
+								<span>电话：</span><input type="text" name="oPhone" id="oPhone" value="" placeholder=" " autocomplete="off"/><div class="changeBg"></div>
+								<span class="change safePhone" data='0'>修改</span>								
+							</li>
+							<li class="rightList">
+								<span>邮箱：</span><input type="text" name="oEmail" id="oEmail" value="" placeholder="" autocomplete="off"/><div class="changeBg"></div>
+								<span class="change safeEmail" data='0'>修改</span>								
+							</li>
+							<li class="rightList">
+								<span>旧密码：</span><input type="password" name="password" id="oldPsw" value="" placeholder="请输入旧密码" autocomplete="off"/>
+							</li>
+							<li class="rightList">
+								<span>新密码：</span><input type="password" name="password" id="psw" value="" placeholder=" 请输入新密码" autocomplete="off"/>					
+							</li>
+							<li class="rightList">
+								<span>确认密码：</span><input type="password" name="password" id="rpsw" value="" placeholder="请确认新密码 " autocomplete="off"/><div class="changePsw"></div>
+								<span class="change safePsw" data='0'>修改</span>								
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>	
+
+		</div>
+	</body>
+	<script>
+// 		var option = $('#regBranch').html().trim();
+//		$.ajax({
+//    		type: "post",
+//			dataType: "json",
+//			url: "http://192.168.1.106:2238/handler/GetDepartment.ashx",
+//			xhrFields:{withCredentials:true},
+//			success: function (data) {
+//    			var obj = data;
+//    			for (var i = 0; i < obj.length; i++) {
+//        			option += '<option value="' + obj[i].Name + '">' + obj[i].Name + '</option>';
+// 	 			}
+//				$('#regBranch').html(option);
+//			},
+//			error: function () {
+//    			console.log("部门获取失败");
+//    		}
+//		})
+	</script>
+</html>

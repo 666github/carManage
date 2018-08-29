@@ -1,0 +1,44 @@
+{
+	"driversInfo": [
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "赵新宇",
+			"typeInfo": "全职",
+			"licenseInfo": "C1",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"effectDate":"2017/02/08-2017/03/05"
+		},
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "高师傅",
+			
+			"typeInfo": "兼职",
+			"licenseInfo": "B2",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"effectDate":"2017/02/08-2017/03/05"
+		},
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "师傅",
+			
+			"typeInfo": "兼职",
+			"licenseInfo": "B2",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"effectDate":"2017/02/08-2017/03/05"
+		},
+		{
+			"pictureUrl": "img/driver.png",
+			"driverName": "傅",
+			
+			"typeInfo": "兼职",
+			"licenseInfo": "B2",
+			"telInfo":13854952265,
+			"mailNumInfo":"zhaoxinyu@163.com",
+			"effectDate":"2017/02/08-2017/03/05"
+		}
+	],
+	"state": "success"
+}

@@ -1,0 +1,20 @@
+{
+	"car_inf":[
+		{
+			"carImg":"http://....",
+			"brand1":"斯巴鲁",
+			"brand2":"森林人",
+			"licence":"京A.00001",			
+		},
+		{
+			"carImg":"http://....",
+			"brand1":"斯巴鲁",
+			"brand2":"森林人",
+			"licence":"京A.00001",
+		}
+
+	]
+
+
+
+}

@@ -1,0 +1,31 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+/**/
+html,body{width:100%;;height:100%;}
+.container{width: 100%;height: 100%;/*background: lightpink;*/}
+.leftInf{width: 18%;height:100%;border: solid 1px yellow;float: left;color:gray;}
+.rightInf{width: 80%;height:100%;border: solid 1px black;float: left;margin-left:2% ;}
+/*.personInf>img{width: 80px;height:80px;border-radius: 50%;margin:0 auto;}*/
+.personInf{padding: 10px 0;border-bottom: solid 1px gray;}
+.personPho{width: 100px;height:100px;border-radius: 50%;background: url(../img/car.png);background-size:100% 100%;margin: auto;border: solid lightgrey 1px;}
+.personInf>p{text-align: center;}
+.personInf>p:first-of-type{font-size: 18px;color:#000000;}
+.lists{height:75%;border: solid red 1px;overflow-y: scroll;}
+.lists>li{height: 50px;line-height: 50px;padding-left:40px;}
+.lists>li:hover{background: lightcyan;}
+.lists>li:first-child{background:url(../img/index/Home.png) 15px 17.5px no-repeat ;}
+.lists>li:nth-child(2){background:url(../img/index/branch.png) 15px 17px no-repeat ;}
+.lists>li:nth-child(3){background:url(../img/index/USERS.png) 15px 18.5px no-repeat ;}
+.lists>li:nth-child(4){background:url(../img/index/car.png) 15px 18px no-repeat ;}
+.lists>li:nth-child(5){background:url(../img/index/MAP.png) 15px 18px no-repeat ;}
+.lists>li:nth-child(6){background:url(../img/index/GRAPH.png) 15px 18px no-repeat ;}
+#carManage,#peopleManage{height: auto;}
+/**/
+.topTitle{height: 50px;}
+.topTitle>img{float: left;height: 16px;margin: 17px 0;}
+.titleCh{float: left;margin-left: 30px;font-size: 18px;line-height: 50px;}
+.thrIcon{float: right;margin:15px 0;}
+.thrIcon>img{width: 16px;height: 16px;margin: 0 15px;}
+.ohide{display: none;}

@@ -1,0 +1,233 @@
+$(document).ready(function() {
+	checkMessage();
+	getAllMessage();
+	
+});
+
+//切换消息模块
+function checkMessage(){
+	$('.illegalCar').click(function(){
+		$('.illegalFrame').removeClass("hide").addClass("animated zoomIn");
+		$('.illegalFrame').siblings("div").addClass("hide");
+	});
+	$('.dueRemind').click(function(){
+		$('.dueNoticeFrame').removeClass("hide").addClass("animated zoomIn");
+		$('.dueNoticeFrame').siblings("div").addClass("hide");
+	});
+	$('.maintenanceRemind ').click(function(){
+		$('.maintenanceFrame').removeClass("hide").addClass("animated zoomIn");
+		$('.maintenanceFrame').siblings("div").addClass("hide");
+	});
+	$('.warningMessage ').click(function(){
+		$('.auditFrame').removeClass("hide").addClass("animated zoomIn");
+		$('.auditFrame').siblings("div").addClass("hide");
+	})
+}
+
+//获得所有提醒
+function getAllMessage(){
+	var content = this;
+	$.ajax({
+		type:"get",
+		url:"http://192.168.1.106:2238/handler/Index/IndexMessage.ashx",
+		xhrFields:{withCredentials:true},
+		data:{from:0},
+		dataType:"json",
+		success:function(data){
+			if(data.state=="success"){
+				content.getAudit(data.audit, data.auditCar, data.myaudit, data.myauditCar);
+			    //content.getRemind(data.remindIlleCar, data.remindOut, data.myremindIlleCar, data.myremindIlle);
+				//content.getDueNotice(data.dueNotice);
+				//content.getMaintenance(data.maintenance);
+			}else if(data.state=="1"){
+				alert("请重新登录");
+				parent.location.href="login.html"
+			}else{
+				alert(data.state);
+			}
+		},error:function(e1,e2,e3){
+			console.log("加载失败")
+		}
+	});
+	this.getAudit = function (_data, _data1, _data2, _data3) {
+	    var auditNode = "";
+	    for (var i = 0; i < _data.length; i++) {
+	        auditNode += '<div class="auditNode">' +
+				'<div class="auditMessage"><span class="auditState">' + _data[i].fast + '</span><span class="auditSummary"></span></div>' +
+				'<div class="auditIcon">' +
+					'<div><span class="id" style="display:none">' + _data[i].applyid + '</span><span class="applicant">' + _data[i].applybody + '</span>&nbsp;提交于<span class="applyTime">' + _data[i].sendtime + '</span></div>' +
+					'<div><span class="newsY">同意</span><span class="newsN">拒绝</span></div>' +
+				'</div>' +
+			'</div>';
+	    }
+
+	    for (var i = 0; i < _data1.length; i++) {
+	        auditNode += '<div class="auditNode">' +
+				'<div class="auditMessage"><span class="auditState">' + _data1[i].fast + '</span><span class="auditSummary">' + _data1[i].auditAdm + '</span> ' + _data1[i].applyfor + '</div>' +
+				'<div class="auditIcon">' +
+					'<div><span class="applicant">' + _data1[i].applybody + '</span>&nbsp;提交于<span class="applyTime">' + _data1[i].sendtime + '</span></div>' +
+					'<div><span class="newsY">同意</span><span class="newsN">拒绝</span></div>' +
+				'</div>' +
+			'</div>';
+	    }
+
+	    for (var i = 0; i < _data2.length; i++) {
+	        auditNode += '<div class="auditNode">' +
+				'<div class="auditMessage"><span class="auditState">' + _data2[i].auditState + '</span>您申请的<span class="auditSummary">' + _data2[i].auditSummary + '</span>'
+			    + '</div></div>';
+	    }
+		for (var i=0; i<_data3.length;i++) {
+		    auditNode += '<div class="auditNode">' +
+				'<div class="auditMessage"><span class="auditState">' + _data3[i].auditState + '</span>您申请使用<span class="auditSummary">' + _data3[i].auditSummary + '</span>车牌为<span>' + _data3[i].carLicence + '</span>的<span>' + _data3[i].brand + '</span> </div>' +
+				'<div class="auditIcon">' +
+					'<div>提交于<span class="applyTime">' + _data3[i].applyTime + '</span></div>' +
+				'</div>' +
+			'</div>';
+		}
+		$('.auditInfo').append(auditNode);
+		content.newsYN();
+	}
+	this.getRemind = function (_data, _data1, _data2, _data3) {
+	    getIllage(_data);
+	    getOutsideReturn(_data1);
+		$(".illegalInfo>div:nth-child(odd)").addClass("rowBgColor");
+	}
+	function getIllage(_data, _data2) {
+		var illegalNode = "";
+		for (var i=0;i<_data.length;i++) {
+			illegalNode += '<div class="illegalNode">'+
+				'<div class="driverPic">'+
+					'<p class="remindTitle">非法用车</p>'+
+				'</div>'+
+				'<div class="carInfo">'+
+					'<span class="brand">品牌：'+_data[i].illegal_infUl21+'</span>'+
+					'<span class="carLicence">车牌：'+_data[i].illegal_infUl3+'</span>'+
+				'</div>'+
+				'<div class="transportTime">'+
+					'<span class="specificTime">用车时间：'+_data[i].illegal_infUl51+'</span>'+
+				'</div>'+
+				'<div class="dispose"><span>处理</span></div>'+
+			'</div>';
+		}
+		for (var i = 0; i < _data2.length; i++) {
+		    illegalNode += '<div class="illegalNode">' +
+				'<div class="illegaTitle">' + _data[i].illegaTitle + '</div>' +
+				'<div class="illegalCarInfo">' +
+					'<p>品牌：<span>' + _data[i].brand + '</span></p><p>车牌号：<span>' + _data[i].carLicence + '</span></p>' +
+				'</div>' +
+				'<div class="illegalTime">' +
+					'<p>部门：<span>' + _data[i].auditSummary + '</span></p><p class="transportTime">用车时间：<span class="specificTime">' + _data[i].specificTime + '</span></p>' +
+				'</div>' +
+			'</div>';
+		}
+		$(".illegalInfo").append(illegalNode);
+	}
+	function getOutsideReturn(_data, _data3) {
+	    var illegalNode = "";
+	    for (var i=0;i<_data3.length;i++) {
+	    '<div class="breakRuleNode">' +
+				'<div class="returnTitle">' + _data[i].breakRuleTitle + '</div>' +
+				'<div class="returnCarInfo">' +
+					'<p>车牌号：<span>' + _data[i].carLicence + '</span></p><p>违章原因：<span>' + _data[i].ruleReason + '</span></p>' +
+				'</div>' +
+				'<div class="returnCarTime">' +
+					'<p>地点：<span>' + _data[i].breakRulePlace + '</span></p><p class="transportTime">违章时间：<span class="returnTime">' + _data[i].breakRuleTime + '</span></p>' +
+				'</div>' +
+			'</div>'
+	    }
+		for (var i=0;i<_data.length;i++) {
+			illegalNode += '<div class="illegalNode">'+
+				'<div class="driverPic">'+
+					'<p class="remindTitle">院外还车</p>'+
+				'</div>'+
+				'<div class="carInfo">'+
+					'<span class="brand">品牌：'+_data[i].illegal_infUl21+'</span>'+
+					'<span class="carLicence">车牌：'+_data[i].illegal_infUl3+'</span>'+
+				'</div>'+
+				'<div class="transportTime">'+
+					'<span class="specificTime">车辆类型：'+_data[i].illegal_infUl51+'</span>'+
+				'</div>'+
+			'</div>';
+		}
+		$(".illegalInfo").append(illegalNode);
+	}
+	this.getDueNotice = function(_data){
+		var dueNoticeNode = "";
+		for (var i=0;i<_data.length;i++) {
+			dueNoticeNode += '<div class="dueNoticeNode">'+
+				'<div class="dueNoticeDriver">'+_data[i].maturity_inf11+'</div>'+
+				'<div class="carInfo">'+
+					'<span class="carLicence">车牌：'+_data[i].maturity_inf21+'</span>'+
+					'<span class="departMent">'+_data[i].maturity_inf31+'</span>'+
+				'</div>'+
+				'<div class="transportTime">'+
+					'到期类型：<span class="expireType">'+_data[i].maturity_inf32+'</span>'+
+				'</div>'+
+			'</div>';
+		}
+		$('.dueNoticeInfo').append(dueNoticeNode);
+	}
+	this.getMaintenance = function(_data){
+		var maintenanceNode = "";
+		for (var i=0;i<_data.length;i++) {
+			maintenanceNode += '<div class="maintenanceNode">'+
+				'<div class="maintenanceDriver">'+_data[i].maintenance_inf11+'</div>'+
+				'<div class="carInfo">'+
+					'<span class="carLicence">车牌：'+_data[i].maintenance_inf21+'</span>'+
+					'<span class="departMent">'+_data[i].maintenance_inf31+'</span>'+
+				'</div>'+
+				'<div class="transportTime">'+	
+					'维修申请人：<span class="expireType">'+_data[i].maintenance_inf32+'</span>'+
+				'</div>'+
+			'</div>';
+		}
+		$('.maintenanceInfo').append(maintenanceNode);
+	}
+	
+	//审核
+	this.newsYN = function(){
+		$('.newsY').click(function(){
+		    var name = $(this).parents('.auditNode').find('.id').text();
+			var auditAdm = $(this).parents('.auditNode').find('.auditSummary').text();
+			var arry = [name];
+			var auditNode = $(this);
+			debugger
+			$.ajax({
+				type:"get",
+				url: "http://192.168.1.106:2238/handler/UserManage/Driver/AccessDriver.ashx",
+				data: { drivers: JSON.stringify({ "Ids": arry }), access:1,from:0},
+				xhrFields:{withCredentials:true},
+				dataType:"json",
+				success:function(data){
+
+					auditNode.parent().parent().parent().remove();
+					
+				},error:function(e1,e2,e3){
+					console.log("请求失败")
+				}
+			});
+		});
+		$('.newsN').click(function(){
+		    var name = $(this).parents('.auditNode').find('.id').text();
+			var auditAdm = $(this).parents('.auditNode').find('.auditSummary').text();
+			var arry = [name];
+			var auditNode = $(this);
+			$.ajax({
+				type:"get",
+				url: "http://192.168.1.106:2238/handler/UserManage/Driver/AccessDriver.ashx",
+				data: { drivers: JSON.stringify({ "Ids": arry }), access: 0,from:0 },
+				xhrFields:{withCredentials:true},
+				dataType:"json",
+				success:function(data){
+					
+					auditNode.parent().parent().parent().remove();
+					
+				},error:function(e1,e2,e3){
+					console.log("请求失败")
+				}
+			});
+		});
+	}
+	
+}
+

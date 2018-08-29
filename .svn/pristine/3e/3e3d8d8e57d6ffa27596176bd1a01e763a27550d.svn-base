@@ -1,0 +1,281 @@
+<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">
+	<title>管理员主页</title>
+	<style type="text/css">
+		.wicon{background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAQCAYAAADj5tSrAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNi8xNS8xNGnF/oAAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAoElEQVQ4jWPceOnNfwYqAz9dYRQ+E7UtwAaGjyUsDAyYYUgJ2HT5LXZLcEmSCnA6duOlN///////H0bDALl8dPH/////Z8FuNW6Qtvw2nL3lyjsGBgYGhlmRqnj1kGwJuqHIlhJlCXq8EOITEsdqCXLEbbr8FisfFkTo+vBZRFZwERNEFFkCiw90nxJtCalxQmzegltCzVyP1RJq5HZ8AABuNZr0628DMwAAAABJRU5ErkJggg=="); background-repeat:no-repeat; background-position:right center;}		
+	</style>
+	</head>
+	<link rel="Shortcut Icon" href="img/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<link rel="stylesheet" type="text/css" href="js/animateCss/animate.min.css"/>
+	<link type="text/css" rel="stylesheet" href="js/jedate/skin/jedate.css">
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/My97DatePicker/WdatePicker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/trafficStatistics/statistics.js" type="text/javascript" charset="utf-8"></script>	
+	<script src="js/jedate/jedate.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jedate/jquery.jedate.js"></script>
+	<script src="js/jedate/jedateEnd.js" type="text/javascript" charset="utf-8"></script>	
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=S31jvlFodmGmjgANVObw5f9sG0kIWobi"></script>
+	<body>
+		<div class="container">
+			<div class="leftInf">
+				<div class="personInf">					
+					<div class="personPho"><img src="img/login/tiantan.png"/></div>
+					<p class="myName"></p>
+					<p class="branchName"></p>
+				</div>
+				<ul class="lists">
+					<li id="homePage" class="firList">
+						<p class="oHome"><img src="img/index/Home.png"/>首页</p>
+					</li>
+					<li id="branchManage" class="firList">
+						<p class="oBranch"><img src="img/index/branch.png"/>部门管理</p>
+					</li>
+					<li id="peopleManage" class="firList">
+						<p><img src="img/index/USERS.png"/>人员管理</p>
+						<ul class="secList ohide">
+							<!--<li class="yjgly">院级管理员</li>-->
+							<li class="bmjgly">部门级管理员</li>
+							<li class="sjgl">司机管理</li>
+						</ul>
+					</li>
+					<li id="borrowCar" class="firList">
+						<p class="jc"><img src="img/index/jieche.png"/>借车登记</p>
+					</li>
+					<li id="returnCar" class="firList">
+						<p class="hc"><img src="img/index/huanche.png"/>还车登记</p>
+					</li>
+					<li id="carManage" class="firList">
+						<p><img src="img/index/car.png"/>车辆管理</p>
+						<ul class="secList ohide">
+							<li class="xxxg">信息修改</li>
+							<!--<li class="hcdj">还车登记</li>-->
+							<li class="cllr">车辆录入</li>	
+							<li class="wxby">维修保养</li>
+							<li class="jjryc">节假日用车</li>							
+							<!--<li class="jjkxx">加油卡信息</li>-->
+						</ul>
+					</li>
+					<li id="railManage" class="firList">
+						<p><img src="img/index/MAP.png"/>轨道管理</p>
+						<ul class="secList ohide">
+							<li class="ssgj">实时轨迹查看</li>
+							<li class="lsgj">历史轨迹查看</li>
+						</ul>
+					</li>
+					<li id="statistics" class="firList">
+						<p><img src="img/index/GRAPH.png"/>统计</p>
+						<ul class="secList ohide">
+							<li class="cllc">车辆里程</li>
+							<li class="sjtj">司机统计</li>
+							<!--<li class="assets">车辆财产统计</li>-->
+							<li class="clwxby">车辆维修保养</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="rightInf">
+				<div class="topTitle">					
+					<img src="img/index/biaozhi.png"/>
+					<p class="titleCh">北京市测绘设计研究院车辆管理系统</p>
+					<p class="thrIcon">
+					<!--<img src="img/index/infor.png"/><img src="img/index/set.png"/>-->
+					<span>退出</span>
+					</p>
+				</div>
+				<div id="container">
+					
+				</div>
+			</div>			
+		</div>
+		<div class="orderBg hideBg">
+			<div class="blackBg"></div>
+			<div class="orderInf">
+				<p><span class="orderTitle">预约信息</span><span class="closed">&times;</span></p >
+				<ul class="infList">
+					<li class="useTime">
+						<input name="useTime" class="datainp wicon orderLength" id="inpstart" type="text" placeholder="用车时间" value=""  readonly>      
+					</li>
+					<li class="returnTime">
+						<input name="returnTime" class="datainp wicon orderLength" id="inpend" type="text" placeholder="结束日期"   readonly>		
+					</li>
+					<li class="application">
+						<select name="" class="branchs orderLength">
+							<option value="gray">用途</option>
+							<option value="外业">外业</option>
+							<option value="会议">会议</option>
+							<option value="培训">培训</option>
+							<option value="其它">其它</option>
+						</select>
+					</li>
+					<li class="destination"><input type="text" name="destination" id="destination" class="orderLength" value="" placeholder="目的地"/></li>
+					<li><textarea name="" rows="" cols="" placeholder="用途说明原因" class="resonText orderLength"></textarea></li>
+				</ul>
+				<div class="quitSure"><span id="quitorder">取消</span><span id="sureorder">确定</span></div>
+			</div>
+			<div class="orderSee hideBg">
+				<p><span class="orderTitle">预约成功</span></p >
+				<p class="tosee1">你已成功预约车辆，点击<span class="toSee">查看预约车辆</span></p >
+				<p class="tosee2">你也可以在车辆管理还车中心中查询</p >
+				<p><span id="sureClose">确定</span></p >
+			</div>
+		</div>
+		<div class="orderBg1 hideBg">
+			<div class="blackBg"></div>
+			<div class="orderInf">
+				<p><span class="orderTitle">还车信息</span><span class="closed">&times;</span></p >
+				<ul class="infList1">
+					<li class="carMile"><input type="text" name="carMile" id="carMile" class="backLength" value="" placeholder="行车里程(km)"/></li>
+					<li class="returntime"><input type="text" name="returntime" id="retruntime" class="backLength" value="" placeholder="还车时间"/></li>
+					<li class="maintainYN">
+						维修保养：<input type="radio" name="yn" id="" value="是"  class="maintainYN1 maintainyn"/>是<input type="radio" name="yn" id="" value="否" checked="checked" class="maintainYN2 maintainyn"/>否
+					</li>
+					<!--<li class="instituteYN">
+						是否院外还车：<input type="radio" name="ny" id="" value="是" checked="checked" class="instituteYN1 instituteyn"/>是<input type="radio" name="ny" id="" value="否" class="instituteYN2 instituteyn"/>否
+					</li>-->
+					<li>
+						<select name="instituteYN" class="instituteYN" style="width: 100%;height: 35px;">
+							<option value="">还车地点</option>
+							<option value="北一楼前">北一楼前</option>
+							<option value="车队">车队</option>
+							<option value="南院">南院</option>
+							<option value="玉渊潭">玉渊潭</option>
+							<option value="下东院">下东院</option>
+							<option value="院外">院外</option>
+						</select>
+					</li>
+					<li >
+						<select name="gasL" class="gasL" style="width: 100%;height: 35px;">
+							<option value="">剩余油量</option>
+							<option value="不足10%">不足10%</option>
+							<option value="10%-30%">10%-30%</option>
+							<option value="30%-50%">30%-50%</option>
+							<option value="50%-70%">50%-70%</option>
+							<option value="大于70%">大于70%</option>
+						</select>
+					</li>
+					<li style="width: 50%;" class="textarea1"><textarea name="" rows="" cols="" placeholder="维修保养说明" class="maintaintext backLength"></textarea></li>
+					<li style="width: 50%;" class="textarea2"><textarea name="" rows="" cols="" placeholder="还车地点，还车原因" class="resontext backLength"></textarea></li>
+				</ul>
+				<div class="quitSure"><span id="quitBack">取消</span><span id="sureBack">确定</span></div>
+			</div>			
+		</div>
+		<div class="orderBgM hideBg">
+			<div class="blackBg"></div>
+			<div class="orderInfM">
+				<p><span class="orderTitle">结束维修/保养/年检/保险</span><span class="closed">&times;</span></p>
+				<ul class="infListM">
+					<li class="safeEnd"><input type="text" name="safeEnd" id="safeEnd" class="Wdate mFourLength" value="" placeholder="起始时间" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'nextMaint\')}'})"/></li>
+					<li class="nextMaint"><input type="text" name="nextMaint" id="nextMaint" class="Wdate mFourLength" value="" placeholder="结束时间"/ onclick="WdatePicker({minDate:'#F{$dp.$D(\'safeEnd\')}'})"></li>
+					<li class="priceMaint"><input type="text" name="priceMaint" id="priceMaint" class="priceMaint mFourLength" value="" placeholder="维修金额(元)" /></li>
+					<li class="numMaint"><input type="text" name="numMaint" id="numMaint" class="mFourLength" value="" placeholder="维修单号" /></li>
+				</ul>
+				<div class="quitSure"><span id="quitM">取消</span><span id="sureM">确定</span></div>
+			</div>
+		</div>
+		<div class="orderBgAdm hideBg">
+			<div class="blackBg"></div>
+			<div class="orderInfAdm">
+				<p><span class="orderTitle">维修保养</span><span class="closed">&times;</span></p>
+				<ul class="infListAdm clearfloat">
+					<li class="maintainAdm"><input type="radio" name="Madm" id="" value="维修"  class="maintAdm" checked="checked"/>维修</li>
+					<li class="maintainAdm"><input type="radio" name="Madm" id="" value="保养"  class="maintAdm"/>保养</li>
+					<li class="maintainAdm"><input type="radio" name="Madm" id="" value="年检"  class="maintAdm"/>年检</li>
+					<li class="maintainAdm"><input type="radio" name="Madm" id="" value="续保"  class="maintAdm"/>续保</li>		
+					<li class="textareaAdm"><textarea name="" rows="" cols="" placeholder="原因" class="resontextAdm"></textarea></li>
+				</ul>
+				<div class="quitSure quitSureAdm"><span id="quitAdm">取消</span><span id="sureAdm">确定</span></div>
+			</div>			
+		</div>
+		<div class="BgBm hideBg">
+			<div class="blackBg"></div>
+			<div class="amendBm hideBg">
+				<p><span class="BmTitle">部门名称修改</span><span class="closed">&times;</span></p>
+				<select class="infListBm">
+					<option value="九州公司">九州公司</option>
+				</select>				
+				<div class="quitSure quitSureBm"><span id="quitamend">取消</span><span id="sureamend">确定</span></div>
+			</div>
+			<div class="delBm hideBg">
+				<p><span class="BmTitle">删除部门</span><span class="closed">&times;</span></p>
+				<p class="delBmto">将司机和车指定到新的部门：</p>
+				<select class="infListBmto">
+					<option value="九州公司">九州公司</option>
+					<option value="九州公司">九州公司</option>
+				</select>				
+				<div class="quitSure quitSureBmdel"><span id="quitDel">取消</span><span id="sureDel">确定</span></div>
+			</div>
+			<div class="addBm hideBg">
+				<p><span class="BmTitle">添加新的部门</span><span class="closed">&times;</span></p>
+				<select class="infListBmadd">
+					<option value="九州公司">九州公司</option>
+				</select>				
+				<div class="quitSure quitSureBm"><span id="quitadd">取消</span><span id="sureadd">确定</span></div>
+			</div>
+		</div>
+		<div class="illegalProcess hideBg">
+			<div class="blackBg"></div>
+			<div class="illegalFrameInfo">
+				<p><span class="orderTitle">违章处理</span><span class="closed">&times;</span></p>
+				<ul class="illegalList">
+					<li class="timeAndplace">
+						<input name="useTime" class="datainp wicon illegalLength illegalTime"  type="text" placeholder="违章时间" value=""  readonly>      
+						<input type="text" class="illegalPlace" placeholder="违章地点"/>
+					</li>
+					<li class="assign">
+						<select name="regBranch" class="branch" id="regBranch">
+							<option value=" ">所属部门</option>	
+						</select>
+						<select name="personage" class="personage" id="personage">
+							<option value=" ">姓名</option>	
+						</select>
+					</li>
+					<li>
+						<textarea name="" rows="" cols="" placeholder="违章原因说明" class="illegalText illegalLength"></textarea>
+					</li>
+				</ul>
+				<div class="quitSure"><span id="illegaQuit">取消</span><span id="illegalSure">确定</span></div>
+			</div>
+		</div>
+		<div class="ffycProcess hideBg">
+			<div class="blackBg"></div>
+			<div class="ffycFrameInfo">
+				<p><span class="orderTitle">非法用车处理</span><span class="closed">&times;</span></p>
+				<ul class="ffycList">
+					<li>
+						<span>时间：</span>
+						<input type="text" class="ffycTime" placeholder="2017-09-09"/>
+					</li>
+					<li>
+						<span>所属部门：</span>
+						<select name="regBranch" class="branch" id="regBranch">
+							<option value=" ">所属部门</option>	
+						</select>
+					</li>
+					<li>
+						<span>司机姓名：</span>
+						<select name="personage" class="personage" id="personage">
+							<option value=" ">姓名</option>
+						</select>
+					</li>
+				</ul>
+				<div class="quitSure"><span id="ffycQuit">取消</span><span id="ffycSure">确定</span></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+	</script>
+</html>

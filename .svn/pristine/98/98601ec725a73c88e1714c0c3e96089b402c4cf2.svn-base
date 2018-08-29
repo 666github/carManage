@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarManageSystem.Model
+{
+    public class MyGlobal
+    {
+        static public List<Car> carsList = new List<Car>();
+
+        static public List<illegalusecar> illegalUseList = new List<illegalusecar>();
+    }
+}

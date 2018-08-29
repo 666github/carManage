@@ -1,0 +1,122 @@
+$(function(){
+	getLicence();	
+	function getLicence(){
+		var option = $('.licences').html();
+         $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "http://192.168.1.120:2238/handler/GetCarNumbers.ashx",
+            data:{from:0},
+            xhrFields:{withCredentials:true},
+            success: function (data) {
+                var obj = data;
+                for (var i = 0; i < obj.length; i++) {
+                   option += '<option value="' + obj[i] + '">' + obj[i] + '</option>';
+                }
+                $('.licences').html(option);
+            },
+            error: function () {
+                console.log("车牌获取失败");
+            }
+         })
+	}
+//---列表树
+illList();
+function setlistCss(_this){		
+		$(".mapsecList li").css('color','gray')
+		_this.css('color','blue');
+		$(".mapsecList").css('display','none');
+		_this.parent().css('display','block');
+	}
+	function illList(){
+		$.ajax({
+	  		type:"get",
+			url:"http://192.168.1.120:2238/handler/Trajectory/GetCarNumberTree.ashx",
+			data:{from:0},
+			xhrFields:{withCredentials:true},
+			async:true,
+            success: function (data) {
+            	var data=JSON.parse(data);
+	  			if(data.state=="success"){  				
+					var maplist=data.maplist;
+	  				var listhtml="";
+	  				for(var i = 0;i < maplist.length;i++){
+	  					var carnum="";
+	  					for(var k=0;k<maplist[i].carNum.length;k++){
+                        	carnum+='<li class="">'+maplist[i].carNum[k]+'</li>'                        	
+                        }
+	  					listhtml += '<li id="mapcarManage" class="mapfirList"><p>'+maplist[i].department+'</p><ul class="mapsecList ohide">'+carnum+'</ul></li>';	  					                                             
+	  				}
+	  				$(".illlists").html(listhtml);
+	  				if(userType==1){
+	  					$.each($(".mapfirList p"), function() {
+	  						if($(this).text()!=$(".branchName").text()){
+	  							$(this).parent().addClass("ohide");
+	  							$(".illLists").css("height","auto")
+	  						}
+	  					});
+	  				}
+	  				listclick();
+	  				$(".mapsecList").on("click","li",function(){
+	  					$(".mapsecList li").css("color","#000000");
+	  					$(this).css("color","red");
+						queryBrearule();
+					})
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					location.href="./login.html"
+				}else{
+					alert(data.state);
+				}
+			},
+			error: function () {
+	  			console.log("信息加载失败");
+	  		}
+		})
+	}
+	function listclick(){
+		$(".mapfirList p").click(function(){
+			$(this).siblings().toggle();	
+			$(this).parent().siblings().find('.mapsecList').css('display','none');
+		});				
+	}
+//---	
+	function queryBrearule(){debugger
+		var breakRuleInf="";
+		var carLicence=$(".licences").val();
+		$.ajax({
+			type:"get",
+			url:"http://192.168.1.120:2238/handler/CarManage/Illegal/ViewIllegal.ashx",
+			xhrFields: {withCredentials: true}, 
+			data:{"carLicence":carLicence,from:0},
+			success:function(data){
+				var data=JSON.parse(data);
+				if(data.state=="success"){
+					var brearule=data.brearule;					
+					for(var i=0;i<brearule.length;i++){
+						breakRuleInf +='<ul class="breakRulesInf">'+
+						'<li ><span>违章人:&nbsp;</span><span class="person">'+brearule[i].person+'</span></li>'+
+						'<li ><span>违章行为:&nbsp;</span><span class="act">'+brearule[i].act+'</span></li>'+
+						'<li ><span>违章地点:&nbsp;</span><span class="area">'+brearule[i].area+'</span></li>'+
+						'<li ><span>违章时间:&nbsp;</span><span class="date">'+brearule[i].date+'</span></li>'+
+						'<li ><span>违章扣分:&nbsp;</span><span class="fen">'+brearule[i].fen+'</span><span>分</span></li>'+
+						'<li ><span>是否处理:&nbsp;</span><span class="handled">'+brearule[i].handled+'</span></li>'+
+						'<li ><span>违章罚款:&nbsp;</span><span class="money">'+brearule[i].money+'</span><span>元</span></li>'+
+						'</ul>'
+					}
+					$(".breakRules").html(breakRuleInf);
+					if(brearule.length==0){
+						$(".breakRules").html("<div style='color:red;text-align:center;line-height:30px;background:lightgray;border-radius:5px;'>暂无信息</div>")
+					}
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					window.location.href="./login.html"
+				}else{
+					alert(data.state);
+				}
+			},error:function(e1,e2,e3){
+				console.log("请求失败");
+			}
+		})
+	}
+})

@@ -1,0 +1,53 @@
+{
+	"state": "success",
+	"audit":[
+		{
+			"auditState":"审核通过",
+			"auditSummary":"测绘一部",
+			"carLicence":"京B·JF349",
+			"brand":"北汽威旺",
+			"applyTime":"2017-06-19 9:26"
+		},
+		{
+			"auditState":"等待审核",
+			"auditSummary":"测绘一部",
+			"carLicence":"京B·JZ760",
+			"brand":"五菱宏光",
+			"applyTime":"2017-06-19 9:26"
+		}
+	],
+	"illegal":[
+		{
+			"illegaTitle":"您使用了限号车辆",
+			"auditSummary":"测绘一部",
+			"carLicence":"京B·JF349",
+			"brand":"五菱宏光",
+			"specificTime":"2017/08/08-2017/08/12"
+		},
+		{
+			"illegaTitle":"您使用了限号车辆",
+			"auditSummary":"测绘一部",
+			"carLicence":"京B·JZ760",
+			"brand":"五菱宏光",
+			"specificTime":"2017/08/08-2017/08/12"
+		}
+	],
+	"returnCar":[
+		{
+			"returnTitle":"您已到达还车时间",
+			"auditSummary":"测绘一部",
+			"carLicence":"京B·JF349",
+			"brand":"五菱宏光",
+			"returnTime":"2017/08/08-2017/08/12"
+		}
+	],
+	"breakRule":[
+		{
+			"breakRuleTitle":"您有违章驾驶记录",
+			"carLicence":"京B·JF349",
+			"ruleReason":"闯红灯",
+			"breakRulePlace":"南锣鼓巷",
+			"breakRuleTime":"2017/08/08 08:00"
+		}
+	]
+}

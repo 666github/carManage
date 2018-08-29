@@ -1,0 +1,80 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.CarManage.CarQuery
+{
+    /// <summary>
+    /// ChangeCarInfo 的摘要说明
+    /// </summary>
+    public class ChangeCarInfo : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+
+            dynamic json = new JObject();
+            json.state = "success";
+            var carNumber = context.Request["carNumber"];
+            var firBrandDet = context.Request["firBrandDet"];
+            var buydayDet = context.Request["buydayDet"];
+            var modelDet = context.Request["modelDet"];
+            var typeDet = context.Request["typeDet"];
+            var safeStart = context.Request["safeStart"];
+            var safeEnd = context.Request["safeEnd"];
+            var enginDet = context.Request["enginDet"];
+            var priceDet = context.Request["priceDet"];
+            var yearStart = context.Request["yearStart"];
+            var yearEnd = context.Request["yearEnd"];
+            var mtStartDet = context.Request["mtStartDet"];
+            var mtEndDet = context.Request["mtEndDet"];
+            var depart = context.Request["department"];
+
+            depart = ConvertHelper.ConvertDepartment(depart);
+
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var car = cms.carinfo.FirstOrDefault(c => c.CarNumber == carNumber);
+                if(car == null)
+                {
+                    json.state = "没有查询到此车的信息，请刷新重试";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                car.DepartmentId = Convert.ToInt32(depart);
+                car.CarBrand = firBrandDet;
+                car.BuyDate = Convert.ToDateTime(buydayDet);
+                car.CarModel = modelDet;
+                car.CarType = typeDet;
+                car.EngineNumber = enginDet;
+                car.CarPrice = Convert.ToDecimal(priceDet);
+                car.InsuranceStartDate = Convert.ToDateTime(safeStart);
+                car.InsuranceEndDate = Convert.ToDateTime(safeEnd);
+                car.AnnualStartDate = Convert.ToDateTime(yearStart);
+                car.AnnualEndDate = Convert.ToDateTime(yearEnd);
+                car.MaintenanceStartDate = Convert.ToDateTime(mtStartDet);
+                car.MaintenanceEndDate = Convert.ToDateTime(mtEndDet);
+                cms.SaveChanges();
+                context.Response.Write(json.ToString());
+
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

@@ -1,0 +1,225 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "microsoft yahei","微软雅黑";
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+.hide{
+	display: none;
+}
+.driverHome{
+	padding-left: 15px;
+	background: #f5f7fa;
+}
+.welcomeTitle{
+	height: 80px;
+	line-height: 80px;
+	font-size: 14px;
+	color: #444;
+}
+.welcomeTitle>p{
+	text-indent: 35px;
+	background: url(../../../img/index/warning.png) no-repeat 10px center;
+}
+.lastTime{
+	color: #4275f8;	
+}
+.messageRemind{
+	height: 165px;
+}
+.moduleTitle{
+	height: 20px;
+	text-indent: 14px;
+	border-left: 4px solid #4275f8;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+	margin-bottom: 20px;
+}
+.auditTitle {
+	color: #4275f8;
+}
+.illegalTitle {
+	border-left: 4px solid #f7714f;
+	color: #f7714f;
+}
+.retuenTitle {
+	border-left: 4px solid #2bc787;
+	color: #2bc787;
+}
+.breakRuleTitle {
+	border-left: 4px solid #38c8ec;
+	color: #38c8ec;
+}
+.messageModule{
+	width: calc(25% - 10px);
+	margin-right: 8px;
+	border-radius: 5px 5px 0 0;
+	height: 130px;
+	float: left;
+	padding-top: 22px;
+	position: relative;
+	cursor: pointer;
+}
+.illegalCar{
+	background: #4275f8 url(../../../img/index/非法用车.png) no-repeat 90% 60px;
+}
+.dueRemind{
+	background: #f7714f url(../../../img/index/到期提醒.png) no-repeat 90% 60px;
+}
+.maintenanceRemind{
+	background: #2bc787 url(../../../img/index/维修申请.png) no-repeat 90% 60px;
+}
+.warningMessage{
+	background: #38c8ec url(../../../img/index/警告信息.png) no-repeat 90% 60px;
+	margin-right: 0;
+}
+.messageTip{
+	text-indent: 30px;
+	line-height: 22px;
+	font-size: 14px;
+	color: #fff;
+}
+.remindNum{
+    float: left;
+    width: 56px;
+    height: 56px;
+    background: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 46px;
+    margin: 8px 25px;
+    font-family: "微软雅黑";
+    font-size: 20px;
+}
+.illegalTip{
+	color: #4275f8;
+	border: 5px solid #7b9ffa;
+}
+.remindTag{
+    border: 5px solid #ff126f;
+    border-radius: 50%;
+    background: #ff126b;
+    position: absolute;
+    top: 58px;
+    left: 65px;
+}
+.dueTip{
+	color: #f7714f;
+	border: 5px solid #f99c84;
+}
+.maintenanceTip{
+	color: #2bc787;
+	border: 5px solid #6bd8ab;
+}
+.warningTip{
+	color: #38c8ec;
+	border: 5px solid #74d9f2;
+}
+.inceCheck{
+	margin-top: 96px;
+	text-align: center;
+	font-size: 14px;
+	color: #444;
+}
+.auditInfo,.illegalInfo,.returnInfo,.breakRuleInfo{
+    width: 100%;
+    /*float: left;*/
+    height: calc(100vh - 335px);
+    overflow-y: auto;
+}
+.auditNode{
+	height: 80px;
+    padding: 20px 0;
+    font-size: 16px;
+    text-indent: 78px;
+    background: url(../../../img/index/车图标.png) no-repeat 17px center;
+}
+.auditFinish{
+	color: #4275f8;
+}
+.auditState{
+	color: #ff8861;
+}
+.auditSummary{
+	color: #4275f8;
+}
+.auditIcon>div{
+	width: 50%;
+	float: left;
+	font-size: 14px;
+	color: #666;
+	line-height: 24px;
+}
+
+
+
+.personnelStatistic{
+	width: 230px;
+	height: 300px;
+	float: right;
+	margin-right: 30px;
+}
+.numberType{
+	width: 230px;
+	height: 100px;
+	background: url(../../../img/index/更多.png) no-repeat right 0;
+}
+.numberType>p{
+	line-height: 36px;
+	font-size: 14px;
+	color: #444;
+}
+.collegaCount,.departCount,.driversCount{
+	font-size: 24px !important;
+	color: #4275f8 !important;
+}
+
+/*非法用车*/
+/*还车提醒*/
+.illegalNode,.returnNode,.breakRuleNode{
+	height: 80px;
+	padding: 5px 0 5px 25px;
+}
+.illegalNode>div,.returnNode>div,.breakRuleNode>div{
+	line-height: 24px;
+}
+.illegaTitle,.returnTitle{
+	font-size: 16px;
+}
+.illegalCarInfo,.illegalTime,.returnCarInfo,.returnCarTime{
+	font-size: 14px;
+	color:#a8a8a8;
+}
+.illegalNode p ,.returnNode p ,.breakRuleNode p{
+	width: 50%;
+	display: inline-block;
+}
+.specificTime,.returnTime{
+	color: #ff0060;
+}
+.rowBgColor{
+	background: #efefef;
+}
+.rowBgCar{
+	background: #efefef url('../../../img/index/车图标.png') no-repeat 17px center;
+}
+
+.messageAll{
+	position: relative;
+}
+.loadingStatus {
+    position: absolute;
+    z-index: 8888;
+    width: 100%;
+    height: 100%;
+    background: url(../../../img/loading.gif) no-repeat center ;/*rgba(0,0,0,0.3)*/
+}
+

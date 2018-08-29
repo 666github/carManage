@@ -1,0 +1,104 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+
+namespace CarManageSystem.handler
+{
+    /// <summary>
+    /// CarLogin 的摘要说明
+    /// </summary>
+    public class CarLogin : IHttpHandler, IRequiresSessionState
+    {
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            if (!CheckHelper.IsHavePri(context, 1))
+                return;
+
+            var account = Convert.ToString(context.Session["account"]);
+            var carBrand = context.Request["carBrand"].Trim();
+            var carNumber = context.Request["carNumber"].Trim();
+            var carModel = context.Request["carModel"].Trim();
+            var engineNumber = context.Request["engineNumber"].Trim();
+            var carType = context.Request["carType"].Trim();
+            var carPrice = context.Request["carPrice"].Trim();
+            var buyDate = context.Request["buyDate"].Trim();
+            var insuranceStartDate = context.Request["insuranceStartDate"].Trim();
+            var insuranceEndDate = context.Request["insuranceEndDate"].Trim();
+            var annualStartDate = context.Request["annualStartDate"].Trim();
+            var annualEndDate = context.Request["annualEndDate"].Trim();
+            var maintenanceStartDate = context.Request["maintenanceStartDate"].Trim();
+            var maintenanceEndDate = context.Request["maintenanceEndDate"].Trim();
+            var mileage = context.Request["mileage"].Trim();
+           
+            var path1 = ImageHelper.SaveImage(context.Request.Files["carPhoto"]);
+            var departmentid = Convert.ToInt16(context.Request["branchs"]);
+
+            dynamic json = new JObject();
+
+            //空校验
+            if (helper.CheckHelper.HasNull(carBrand, carNumber, carModel, engineNumber, carType, carPrice, buyDate, insuranceStartDate, insuranceEndDate, annualStartDate, annualEndDate,
+                maintenanceStartDate, maintenanceEndDate, mileage, path1))
+            {
+                json.state = "有空值，请检查！";
+                context.Response.Write(json.ToString());
+                return;
+            }
+
+            //验证是否注册过
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var tempCar = cms.carinfo.Where(s => s.CarNumber == carNumber).FirstOrDefault();
+                if (tempCar != null)
+                {
+                    json.state = "已存在相同车牌号的车辆！";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+
+                //插入数据
+                carinfo car = new carinfo()
+                {
+                    CarBrand = carBrand,
+                    CarNumber = carNumber,
+                    CarModel = carModel,
+                    EngineNumber = engineNumber,
+                    CarType = carType,
+                    CarPrice = Convert.ToDecimal(carPrice),
+                    BuyDate = Convert.ToDateTime(buyDate),
+                    InsuranceStartDate = Convert.ToDateTime(insuranceStartDate),
+                    InsuranceEndDate = Convert.ToDateTime(insuranceEndDate),
+                    AnnualStartDate = Convert.ToDateTime(annualStartDate),
+                    AnnualEndDate = Convert.ToDateTime(annualEndDate),
+                    MaintenanceStartDate = Convert.ToDateTime(maintenanceStartDate),
+                    MaintenanceEndDate = Convert.ToDateTime(maintenanceEndDate),
+                    Mileage = mileage,
+                    CarPhoto = path1,
+                    CarState = 0,
+                    LoginAdmin = account,
+                    DepartmentId = departmentid,
+                    IsOut = 0,
+                    CurrentUser = ""
+                };
+                cms.carinfo.Add(car);
+                cms.SaveChanges();
+
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

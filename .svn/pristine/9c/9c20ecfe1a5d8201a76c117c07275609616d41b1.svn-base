@@ -1,0 +1,264 @@
+$(function(){
+	//部门默认颜色设置
+//	(function(){
+//		$("select").css("color","darkgray");
+//		$("option").css("color","black")
+//		$("select").change(function(){
+////			var selItem=$(this).val();
+////			if(selItem==$(this).find("option:first").val()){
+////				$(this).css("color","darkgray")
+////			}else{
+//				$(this).css("color","black")
+////			}
+//		})
+//	})();
+	//车辆录入信息验证
+//	function regGasCard(){		
+//	    $.each($(".cardLen"),function(){
+//	    	if($(this).val().length==0){
+//	    		alert("所有选项必填，有未填写选项！");
+//	        return false;
+//	    	}
+//	    })
+//	    var regcardNum=/^[0-9]{19}$/;
+//	    var cardNum = $("#regcardNum").val();
+//	    if (!regcardNum.test(cardNum)) {
+//	        alert("加油卡格式为19位纯数字");
+//	        return false;
+//	    }
+//	    var regcarLicence=/^京[A-Z]{1}[A-Z0-9]{5}$/;//var regcarLicence=/^[\u4e00-\u9fa5]{1}[A-Z][A-Z0-9]{5}/
+//	    var carLicence=$("#regcarLicence").val().toUpperCase();
+//	    if (!regcarLicence.test(carLicence)) {
+//	        alert("车牌格式不正确，标准格式为：京AV0001");	 
+//	        return false;
+//	    }
+//	    var regPay=/^[0-9]*\.?[0-9]*$/;
+//	    var myPay = $("#regPay").val();
+//	    if (!regPay.test(myPay)) {
+//	        alert("消费金额格式为纯数字或数字加小数点");
+//	        return false;
+//	    }
+//	    var reglitre=/^[0-9]*\.?[0-9]*$/;
+//	    var litre = $("#reglitre").val();
+//	    if (!reglitre.test(litre)) {
+//	        alert("消费金额格式为纯数字或数字加小数点");
+//	        return false;
+//	    }
+//	    var regPrice=/^[0-9]*\.?[0-9]*$/;
+//	    var oPrice = $("#regPrice").val();
+//	    if (!regPrice.test(oPrice)) {
+//	        alert("价格格式为纯数字或数字加小数点");
+//	        return false;
+//	    }
+//	    var regEngin=/^[a-zA-Z0-9]{4,}$/
+//	    var oEngin = $("#regEngin").val();
+//	    if (oEngin.length < 4) {
+//	        alert("发动机号不能少于4位！");
+//	        return false;
+//	    }
+//	    if (!regEngin.test(oEngin)) {
+//	        alert("发动机号只能由字母、数字组成！");
+//	        return false;
+//	    }
+//	    return true;
+//	    
+//	}
+getDepartment();
+//gasCardList();
+ function getDepartment(){
+		var option = $('.allBranch').html();
+		$.ajax({
+	  		type: "post",
+			dataType: "json",
+			url: "http://192.168.1.106:2238/handler/GetDepartment.ashx",
+			xhrFields:{withCredentials:true},
+			success: function (data) {
+	  			var obj = data;
+	  			for (var i = 0; i < obj.length; i++) {
+	      			option += '<option value="' + obj[i].Name + '">' + obj[i].Name + '</option>';
+	 			}
+				$('.allBranch').html(option);
+				var currentBranch = $(".branchName").text();
+				$(".allBranch").val(currentBranch);
+			},
+			error: function () {
+	  			console.log("部门获取失败");
+	  		}
+		})
+		
+	}
+	function gasCardList(){
+		var regBranch = $("#regBranch").val();
+		var infLists = '';
+		$.ajax({
+			url:"url",
+			xhrFields: {withCredentials: true }, 
+			data:{"regBranch":regBranch},		
+			dataType:"json",
+			async:true,
+			success:function(data){
+				if(data.state=="success"){
+					$(".gasSum").text(data.gasSum);
+					$(".firstCardNum").text(data.firstCardNum);
+					var CardLists=data.gasCardInf;
+					for(var i=0;i<CardLists.length;i++){
+						infLists+='<ul class="gasQuery">'+
+						'<li class="gasNums">'+CardLists[i].gasNums+'</li>'+
+						'<li class="gasLicence">'+CardLists[i].gasLicence+'</li>'+
+//						'<li class="personId">'+CardLists[i].personId+'</li>'+
+						'<li class="gasState">'+CardLists[i].gasState+'</li><li class="gasDetail"><span class="gasDetailSpan">查看详情</span></li>'+
+						'</ul>'
+					}
+					$('.gasBranch').html(infLists);
+					gasDetail();
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					location.href="./login.html"
+				}else{
+					alert(data.state);
+				}
+			}
+		})
+	}
+//change事件
+	$("#regBranch").change(function(){
+		gasCardList();
+	});
+//添加新卡
+	$(".addCard").click(function(){
+		$(".gasCardBg").removeClass("hideBg");
+	});
+	$(".closed").click(function(){
+		$(".gasCardBg").addClass("hideBg");
+	})
+	$("#quitCard").hover(function(){
+		$("#quitCard").css('background','#4375f8');
+		$("#sureCard").css('background','#FFFFFF');
+	},function(){
+		$("#quitCard").css('background','#FFFFFF');
+		$("#sureCard").css('background','#4375f8');
+	});
+	//填写信息验证
+	function regCard(){
+		var regcardNum1=/^[0-9]{19}$/;
+	    var cardNum1 = $("#CardNum1").val();
+	    if (!regcardNum1.test(cardNum1)) {
+	        alert("加油卡格式为19位纯数字");
+	        return false;
+	    }
+		var regcardNum2=/^[0-9]{19}$/;
+	    var cardNum2 = $("#CardNum2").val();
+	    if (!regcardNum2.test(cardNum2)) {
+	        alert("加油卡格式为19位纯数字");
+	        return false;
+	    }
+		var regcardCar=/^京[A-Z]{1}[A-Z0-9]{5}$/;//var regcarLicence=/^[\u4e00-\u9fa5]{1}[A-Z][A-Z0-9]{5}/
+	    var cardCar=$("#cardCar").val().toUpperCase();
+	    if (!regcardCar.test(cardCar)) {
+	        alert("车牌格式不正确，标准格式为：京AV0001");	 
+	        return false;
+	    }
+	    return true;
+	}
+	//添加新卡
+	$("#sureCard").unbind("click").click(function(){
+		var CardNum1=$("#CardNum1").val();
+		var CardNum2=$("#CardNum2").val();
+		var CardCar=$("#cardCar").val();
+		if(regCard()){
+			$.ajax({
+				url:"",
+				xhrFields: {withCredentials: true }, 
+				data:{"CardNum1":CardNum1,"CardNum2":CardNum2,"CardCar":CardCar},
+				dataType:"json",
+				async:true,
+				success:function(data){
+					if(data.state=="success"){
+						$(".gasCardBg").addClass("hideBg");
+						gasCardList();
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}
+				}
+			})
+		}
+	})
+	//详情查看	
+//	function gasDetail(){		
+		var cardInfs = '';
+		$(".closedDetail").click(function(){
+			$(".detailInfBg").addClass("ohide");
+		});
+		$(".gasQuery").find(".gasDetailSpan").click(function(){
+			$(".detailInfBg").removeClass("ohide");
+			
+			var gasLicence=$(this).parents(".gasQuery").find(".gasLicence").text();			
+			$.ajax({
+				type:"get",
+				url:"url",
+				async:false,
+				xhrFields: {withCredentials: true }, 
+				data:{"gasLicence":gasLicence},
+				success:function(data){
+					if(data.state=="success"){
+						var gasInf=data.gasCardInf;
+						for(var i=0;i<gasInf.length;i++){
+							cardInfs+='<ul class="gasIns">'+
+							'<li class="list1">'+gasInf[i].list1+'</li><li class="list2">京AV0000</li>'+
+							'<li class="list3">2012-20-10 10:08:08</li><li class="list4">加油</li>'+
+							'<li class="list5">2156.2</li><li class="list6">95号京标(VI)汽油</li>'+
+							'<li class="list7">50.36</li><li class="list8">7.2</li><li class="list9">155</li>'+
+							'<li class="list10">8554.55</li><li class="list11">羊坊店路加油站</li></ul>'						
+						}
+						$('.gasInfs').html(cardInfs);
+					}else if(data.state=="1"){
+						alert("请重新登录");
+						location.href="./login.html"
+					}else{
+						alert(data.state);
+					}
+				}	
+			})
+		})
+//	}
+	
+	
+//	function CardInf(gasCardInf){
+//
+//			var driver = '';
+//			for(var i=0;i<_data.length;i++){				
+//				//设置基本信息值			
+//				CardInf += '<ul class="driverInfo">'+
+//					''+					
+//					''+
+//				'</ul>';
+//			};
+//			$('.driApprove2').html(CardInf);
+//	}
+	
+	$("#gasInf").change(function(){
+		$("#gasInf").addClass("ohide");
+		$("#mysubmit").removeClass("ohide");
+		$("#mysubmit").trigger("click");
+	})
+	$("#mysubmit").click(function(){		
+		$("#myform").submit();
+		$("#mysubmit").addClass("ohide");
+		$("#gasInf").removeClass("ohide");
+	})
+})
+function ifmload(ifm) {
+    var val = JSON.parse($(ifm.contentWindow.document.body).find('pre').html());
+    debugger
+    if (val.state == "success") {
+        alert('录入成功！');
+    } else if (val.state == "1") {
+        alert('请重新登录');
+        window.location.href = './login.html';
+    } else {
+        alert('录入失败：' + val.state);
+    }
+}

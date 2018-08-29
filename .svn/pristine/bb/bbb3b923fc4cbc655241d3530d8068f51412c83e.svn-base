@@ -1,0 +1,93 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace QueryIllegalInfo
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var carsInfo = Request("http://localhost:2238/handler/GetAllCarsInfo.ashx");
+            var carList = JsonConvert.DeserializeObject<List<dynamic>>(carsInfo);
+            foreach(var car in carList)
+            {
+                var uri = "http://v.juhe.cn/wz/query?";
+                var key = "key=";
+                var city = "&city=BJ";
+                var hphm = "&hphm="+ car.CarNumber.ToString();
+                var engineno = "&engineno="+ car.EngineNumber.ToString();
+                var classno = "&classno="+car.CarType.ToString();
+                uri = uri+key + city+ hphm+ engineno+ classno;
+
+                var result = Request(uri);
+                if (string.IsNullOrEmpty(result))
+                {
+                    return;
+                }
+
+                //{
+                //    "resultcode": "200",
+                //    "reason": "查询成功",
+                //    "result": {
+                //        "province": "BJ",
+                //        "city": "BJ",
+                //        "hphm": "京L51696",
+                //        "hpzl": "02",
+                //        "lists": [
+                //              {
+                //                "date": "2017-06-05 15:16:00",                       违章时间
+                //                "area": "北京市石景山区莲石东路北辅路莲石东路北辅路东口至莲石东路北辅路西口段",            违章地点
+                //                "act": "机动车违反停车规定的",                                      违章行为
+                //                "code": "",
+                //                "fen": "0",
+                //                "money": "200",
+                //                "handled": "0"
+                //              }
+                //        ]
+                //    },
+                //     "error_code": 0
+                //}
+                var resObj = JsonConvert.DeserializeObject<dynamic>(result);
+                var carnumber = "carnumber=" + car.CarNumber.ToString();
+                var date = "&date="+(string)resObj.result.lists.date;
+                var area ="&area="+ (string)resObj.result.lists.area;
+                var act = "&act="+(string)resObj.result.lists.act;
+                var fen = "&fen=" + (string)resObj.result.lists.fen;
+                var money = "&money=" + (string)resObj.result.lists.money;
+                var uri1 = "http://localhost:2238/handler/Carmanage/AutoQueryIllegal.ashx?" + carnumber+date+area+act;
+                var result1 = Request(uri1);
+                if (result1 == "success")
+                {
+
+                }
+            }
+        }
+
+
+
+
+        static string Request(string uri)
+        {
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create(uri);
+                request.Method = "GET";
+                var response = (HttpWebResponse)request.GetResponse();
+                var stream = response.GetResponseStream();
+                var streamReader = new StreamReader(stream);
+                var result = streamReader.ReadToEnd();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+    }
+}

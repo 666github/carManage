@@ -1,0 +1,3 @@
+﻿2018-01-30 13:19:39,794 [5] DEBUG GPSServer-8721811 - Listener (0.0.0.0:8000) was started
+2018-01-30 13:19:39,884 [5] DEBUG WebSocketServer-35772575 - SubProtocol Basic found the commands: []
+2018-01-30 13:19:39,899 [5] DEBUG WebSocketServer-35772575 - Listener (0.0.0.0:8001) was started

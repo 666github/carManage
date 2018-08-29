@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />-->
+
+    <title></title>
+</head>
+<body>
+</body>
+
+<script type="text/javascript">
+    var wsImpl = window.WebSocket || window.MozWebSocket;
+    window.ws = new wsImpl('ws://192.168.1.120:8011/'); //ws://192.168.1.120:8001/     ws://114.251.124.43:8001/
+    ws.onmessage = function (data) {
+        console.log(data);
+    };
+</script>
+</html>

@@ -1,0 +1,142 @@
+//图片上传
+function PreviewImage(imgFile,id){
+		var filextension=imgFile.value.substring(imgFile.value.lastIndexOf("."),imgFile.value.length);
+		filextension=filextension.toLowerCase();
+		if((filextension!='.jpg')){
+			alert("请输入jpg格式图片");
+			imgFile.focus();
+		}else{
+			var path;
+	//		var fileId = imgFile.getAttribute("id");
+			if(document.all){//ie
+				imgFile.select();
+				path = document.selection.createRange().text;
+				document.getElementById(id).innerHTML = "";
+			}else{//ff
+				path=window.URL.createObjectURL(imgFile.files[0]);
+				document.getElementById(id).innerHTML = "<img class='img1' width='120px' height='100px' src='"+path+"' />";
+			}
+		}
+}
+
+function ifmload(ifm) {
+    var val = $(ifm.contentWindow.document.body).find('pre').html();
+    if (val == "success") {
+        alert('注册成功！');
+        window.location.href = '../login.html';
+    } else if (val == undefined) {
+
+    } else {
+        alert('注册失败：' + ifm);
+    }
+}
+//
+$(function(){
+//部门默认颜色设置
+	(function(){
+		$("select").css("color","darkgray");
+		$("option").css("color","black")
+		$("select").change(function(){
+			var selItem=$(this).val();
+			if(selItem==$(this).find("option:first").val()){
+				$(this).css("color","darkgray")
+			}else{
+				$(this).css("color","black")
+			}
+		})
+	})();
+//已有账号去登录
+
+//验证注册信息正确性
+	function register() {
+	    var userName = $("#regUserName").val();
+	    if (userName.length == 0) {
+	        alert("用户名不能为空！");
+	        return false;
+	    }
+	    var reg = /^[a-zA-Z0-9_]+$/;
+	    if (!reg.test(userName)) {
+	        alert("登录名只能由字母、数字或下划线组成！");
+	        return false;
+	    }
+	    
+	    var carType = $("#regCarType").val();
+	    var regCarType = /^[a-zA-Z]{1}[0-9]{0,1}$/;
+	    if (!regCarType.test(carType)) {
+	        alert("请输入正确的准驾车型！");
+	        return false;
+	    }
+	    
+	    var pwd = $("#regPwd").val();
+	    if (pwd.length < 4) {
+	        alert("登录密码不能为空，且不能少于4位！");
+	        return false;
+	    }
+	    if (!reg.test(pwd)) {
+	        alert("登录密码只能由字母、数字或下划线组成！");
+	        return false;
+	    }
+	    
+	    var email= $("#regEmail").val();   
+	    var regEmail=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+	    if (!regEmail.test(email)) {
+	        alert("邮箱格式不正确！");
+	        return false;
+	    }
+	     
+	    var effDateStart=$("#effDateStart").val();
+	    if(effDateStart.length ==0){
+	    	alert("请输入有效起始时间");
+	    	return false;
+	    }
+	    
+	    var effDateEnd=$("#effDateEnd").val();
+	    if(effDateEnd.length ==0){
+	    	alert("请输入有效起始时间");
+	    	return false;
+	    }
+	    
+	    var phone = $("#regPhone").val();   
+	    var regNum = /^1[3578]\d{9}$/;
+	    if(!regNum.test(phone)){
+	    	alert("请输入正确的手机号码");
+	    	return false;
+	    }
+	    
+	    var branch = $("#regBranch").val();
+	    if(branch=="gray"){
+	    	alert("请选择部门");
+	    	return false;
+	    }
+	    
+	    var driverType = $(".driverType").val();
+	    if(driverType=="gray"){
+	    	alert("请选择司机类型");
+	    	return false;
+	    }	    
+	    
+	    var userName = $("#regmyName").val();
+	    if(userName.length < 2){
+	    	alert("请输入正确的姓名");
+	    	return false;
+	    }
+	    if($(".img1").attr('src')=='' || $(".img2").attr('src')==''){
+	    	alert("请上传照片");
+	    	return false;
+	    }
+	    return true;
+	}
+	
+$("#mysubmit").click(function(){
+	if(register()){
+	    $("#myform").submit();
+       
+	}
+})
+
+
+
+
+
+})
+

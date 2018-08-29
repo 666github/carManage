@@ -1,0 +1,51 @@
+{
+  "maintInf": [
+    {
+	  "carImg":"http://127.0.0.1:8020/CarManageSystem/CarManageSystem/img/car2.png",
+      "brand": "雪弗兰-大黄蜂",
+      "carLicence": "京A00000",
+      "carSpace": "5座",
+      "safe":"2017-01-05",
+      "lastMaint":"2017-01-05",
+      "endMaint":"2017-01-05",
+      "stateInf": "年检到期"
+    }
+  ],
+  "maintIngul": [
+    {
+	  "list1":"1",
+      "list3": "雪弗兰-大黄蜂",
+      "list4": "京A00000",
+      "list5": "5座",
+      "list6":"2017-01-05",
+      "list7":"2017-01-05",
+      "list8":"2017-01-05"
+    }
+  ],
+   "maintEndul": [
+    {
+	  "Elist1":"1",
+      "Elist3": "雪弗兰-大黄蜂",
+      "Elist4": "京A00000",
+      "Elist5": "5座",
+      "Elist6":"2017-01-05",
+      "Elist7":"2017-01-05",
+      "Elist8":"2017-01-05",
+      "Elist9": "366元",
+      "Elist10": "365235687"
+    },
+    {
+	  "Elist1":"1",
+      "Elist3": "雪弗兰-大黄蜂",
+      "Elist4": "京A00000",
+      "Elist5": "5座",
+      "Elist6":"2017-01-05",
+      "Elist7":"2017-01-05",
+      "Elist8":"2017-01-05",
+      "Elist9": "366元",
+      "Elist10": "365235687"
+    }
+  ],
+  
+  "state": "success"
+}

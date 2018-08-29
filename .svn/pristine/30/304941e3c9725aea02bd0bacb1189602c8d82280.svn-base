@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="driverManagement/homePage/css/driverHome.css"/>
+		<script src="driverManagement/homePage/js/driverHome.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="driverHome">
+			<div class="welcomeTitle">
+				<p>欢迎您进入北京测绘设计研究院车辆管理系统[ 上次登录时间<span class="lastTime">2017年07月16日12：45</span> ]</p>
+			</div>
+			<div class="messageRemind">
+				<!--<div class="messageTitle moduleTitle">消息提醒</div>-->
+				<div class="messageNotice">
+					<div class="illegalCar messageModule">
+						<div class="messageTip">消息提醒</div>
+						<!--<div class="illegalTip remindNum">3<span class="remindTag"></span></div>-->
+					</div>
+					<div class="dueRemind messageModule">
+						<div class="messageTip">非法用车</div>
+						<!--<div class="dueTip remindNum">6<span class="remindTag"></div>-->
+					</div>
+					<div class="maintenanceRemind messageModule">
+						<div class="messageTip">还车提醒</div>
+						<!--<div class="maintenanceTip remindNum">2<span class="remindTag"></div>-->
+					</div>
+					<div class="warningMessage messageModule">
+						<div class="messageTip">违章信息</div>
+						<!--<div class="warningTip remindNum">13<span class="remindTag"></div>-->
+					</div>
+				</div>
+			</div>
+			<div class="messageAll">
+				<div class="loadingStatus hide"></div>
+				<!--消息提醒-->
+				<div class="auditFrame">
+					<div class="auditTitle moduleTitle">消息提醒</div>
+					<div class="auditInfo">
+						<div class="auditNode">
+							<div class="auditMessage"><span class="auditFinish">[审批通过]</span>您申请使用<span class="auditSummary">测绘一部</span>车牌为<span>京P·24D32</span>的<span>马自达-阿特兹</span> </div>
+							<div class="auditIcon">
+								<div>提交于<span class="applyTime">2017-06-19 9:26</span></div>
+								<!--<div>处理节点：<span class="processNode">院级管理员审批</span></div>-->
+							</div>
+						</div>
+						<div class="auditNode">
+							<div class="auditMessage"><span class="auditState">[等待审批]</span>您申请使用<span class="auditSummary">测绘一部</span>车牌为<span>京P·24D32</span>的<span>马自达-阿特兹</span> </div>
+							<div class="auditIcon">
+								<div>提交于<span class="applyTime">2017-06-19 9:26</span></div>
+								<!--<div>处理节点：<span class="processNode">院级管理员审批</span></div>-->
+							</div>
+						</div>
+						<div class="auditNode">
+							<div class="auditMessage"><span class="auditState">[紧急]</span><span class="auditSummary">[管理员审核]</span> 向您申请成为部门级管理员</div>
+							<div class="auditIcon">
+								<div>提交于<span class="applyTime">2017-06-19 9:26</span></div>
+								<!--<div>处理节点：<span class="processNode">院级管理员审批</span></div>-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--非法用车-->
+				<div class="illegalFrame hide">
+					<div class="illegalTitle moduleTitle">非法用车</div>
+					<div class="illegalInfo">
+						<div class="illegalNode">
+							<div class="illegaTitle">您使用了限号车辆</div>
+							<div class="illegalCarInfo">
+								<p>品牌：<span>现代-朗动</span></p><p>车牌号：<span>京P·SB941</span></p>
+							</div>
+							<div class="illegalTime">
+								<p>部门：<span>测绘一部</span></p><p class="transportTime">用车时间：<span class="specificTime">2017/08/08-2017/08/12</span></p>
+							</div>
+						</div>
+						<div class="illegalNode">
+							<div class="illegaTitle">您使用了限号车辆</div>
+							<div class="illegalCarInfo">
+								<p>品牌：<span>现代-朗动</span></p><p>车牌号：<span>京P·SB941</span></p>
+							</div>
+							<div class="illegalTime">
+								<p>部门：<span>测绘一部</span></p><p class="transportTime">用车时间：<span class="specificTime">2017/08/08-2017/08/12</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--还车提醒-->
+				<div class="returnFrame hide">
+					<div class="retuenTitle moduleTitle">还车提醒</div>
+					<div class="returnInfo">
+						<div class="returnNode">
+							<div class="returnTitle">您已到达还车时间</div>
+							<div class="returnCarInfo">
+								<p>品牌：<span>现代-朗动</span></p><p>车牌号：<span>京P·SB941</span></p>
+							</div>
+							<div class="returnCarTime">
+								<p>部门：<span>测绘一部</span></p><p class="transportTime">还车时间：<span class="returnTime">2017/08/08 08:00</span></p>
+							</div>
+						</div>
+						<div class="returnNode">
+							<div class="returnTitle">您已到达还车时间</div>
+							<div class="returnCarInfo">
+								<p>品牌：<span>现代-朗动</span></p><p>车牌号：<span>京P·SB941</span></p>
+							</div>
+							<div class="returnCarTime">
+								<p>部门：<span>测绘一部</span></p><p class="transportTime">还车时间：<span class="returnTime">2017/08/08 08:00</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--违章信息-->
+				<div class="breakRuleFrame hide">
+					<div class="breakRuleTitle moduleTitle">违章信息</div>
+					<div class="breakRuleInfo">
+						<div class="breakRuleNode">
+							<div class="returnTitle">您有违章驾驶记录</div>
+							<div class="returnCarInfo">
+								<p>车牌号：<span>京P·SB941</span></p><p>违章原因：<span>闯红灯</span></p>
+							</div>
+							<div class="returnCarTime">
+								<p>地点：<span>南锣鼓巷</span></p><p class="transportTime">违章时间：<span class="returnTime">2017/08/08 08:00</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,21 @@
+{
+	"state":"success",
+	"mileageInfo":[
+		{
+			"carsImg":"img/car03.jpg",
+			"firstBrand":"马自达-阿特兹",
+			"plateNum":"京V·8888",
+			"seat":"5座",
+			"miles":5461,
+			"count":56
+		},
+		{
+			"carsImg":"img/car02.png",
+			"firstBrand":"马自达-阿特兹",
+			"plateNum":"京V·66666",
+			"seat":"5座",
+			"miles":5461,
+			"count":56
+		}
+	]
+}

@@ -1,0 +1,23 @@
+{
+
+	"gasNums":100100222366113335,
+	"personId":10320125689522335,
+	"gasState":"使用",
+	"gasCardInf": [
+		{
+			"driverImg": "img/driver.png",
+			"driverName": "赵新宇",
+			"driverBranch": "基础测绘部",
+			"driverType": "全职",
+			"driverLicenseInfo": "C1",
+			"driverNumInfo":15,
+			"illegalNumInfo":2,
+			"milesNum":451
+
+		}
+	
+		
+		
+	],
+	"state": "success"
+}

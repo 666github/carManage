@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cmsdbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityType Name="appversion">
+    <Key>
+      <PropertyRef Name="platform" />
+    </Key>
+    <Property Name="version" Type="varchar" MaxLength="255" />
+    <Property Name="platform" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="associatecardinfo">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="AssociateCardId" Type="varchar" MaxLength="45" />
+    <Property Name="CardHolder" Type="varchar" MaxLength="45" />
+    <Property Name="TradeTime" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="TradeType" Type="varchar" MaxLength="10" />
+    <Property Name="Amount" Type="decimal" Precision="10" Scale="0" />
+    <Property Name="OilProduct" Type="varchar" MaxLength="45" />
+    <Property Name="Count" Type="double" />
+    <Property Name="Price" Type="decimal" Precision="10" Scale="0" />
+    <Property Name="BonusPoints" Type="double" />
+    <Property Name="Balance" Type="decimal" Precision="10" Scale="0" />
+    <Property Name="Place" Type="varchar" MaxLength="45" />
+    <Property Name="guid" Type="varchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <EntityType Name="borrowregister">
+    <Key>
+      <PropertyRef Name="UniqueCode" />
+    </Key>
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" />
+    <Property Name="UseCarTime" Type="datetime" Precision="0" />
+    <Property Name="ExpectReturnTime" Type="datetime" Precision="0" />
+    <Property Name="User" Type="varchar" MaxLength="20" />
+    <Property Name="Department" Type="int" />
+    <Property Name="Purposes" Type="varchar" MaxLength="255" />
+    <Property Name="Cause" Type="varchar" MaxLength="255" />
+    <Property Name="Destination" Type="varchar" MaxLength="255" />
+    <Property Name="BorrowState" Type="int" />
+    <Property Name="UniqueCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BorrowTime" Type="datetime" Precision="0" />
+    <Property Name="BorrowStateOD" Type="int" />
+    <Property Name="nodeUser" Type="varchar" MaxLength="20" />
+    <Property Name="pushtype" Type="int" />
+  </EntityType>
+  <EntityType Name="carcostregister">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Type" Type="int" />
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccessUser" Type="varchar" MaxLength="20" />
+    <Property Name="UseTime" Type="varchar" MaxLength="20" />
+    <Property Name="Code" Type="varchar" MaxLength="20" />
+    <Property Name="Table" Type="varchar" MaxLength="20" />
+    <Property Name="MaintenanceStartDate" Type="datetime" Precision="0" />
+    <Property Name="MaintenanceEndDate" Type="datetime" Precision="0" />
+    <Property Name="Cost" Type="decimal" Precision="10" Scale="0" />
+    <Property Name="Time" Type="datetime" Precision="0" />
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="carinfo">
+    <Key>
+      <PropertyRef Name="CarNumber" />
+    </Key>
+    <Property Name="CarBrand" Type="varchar" MaxLength="20" />
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CarModel" Type="varchar" MaxLength="20" />
+    <Property Name="EngineNumber" Type="varchar" MaxLength="50" />
+    <Property Name="CarType" Type="varchar" MaxLength="20" />
+    <Property Name="CarPrice" Type="decimal" Precision="20" Scale="0" />
+    <Property Name="BuyDate" Type="date" />
+    <Property Name="InsuranceStartDate" Type="date" />
+    <Property Name="InsuranceEndDate" Type="date" />
+    <Property Name="AnnualStartDate" Type="date" />
+    <Property Name="AnnualEndDate" Type="date" />
+    <Property Name="MaintenanceStartDate" Type="date" />
+    <Property Name="MaintenanceEndDate" Type="date" />
+    <Property Name="Mileage" Type="varchar" MaxLength="20" />
+    <Property Name="CarPhoto" Type="varchar" MaxLength="100" />
+    <Property Name="NeedMaintain" Type="int" />
+    <Property Name="CarState" Type="int" />
+    <Property Name="CarStateDetial" Type="int" />
+    <Property Name="HolodayStart" Type="datetime" Precision="0" />
+    <Property Name="HolodayEnd" Type="datetime" Precision="0" />
+    <Property Name="LoginAdmin" Type="varchar" MaxLength="20" />
+    <Property Name="MaintainUser" Type="varchar" MaxLength="50" />
+    <Property Name="DepartmentId" Type="int" />
+    <Property Name="IsOut" Type="int" />
+    <Property Name="CarPassword" Type="varchar" MaxLength="20" />
+    <Property Name="CurrentUser" Type="varchar" MaxLength="20" />
+    <Property Name="GasL" Type="varchar" MaxLength="10" />
+    <Property Name="islimit" Type="int" />
+    <Property Name="SimId" Type="varchar" MaxLength="100" />
+    <Property Name="Site" Type="varchar" MaxLength="45" />
+    <Property Name="MtMile" Type="varchar" MaxLength="45" />
+    <Property Name="MtMileOrDate" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="carlist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="state" Type="int" />
+    <Property Name="isillegal" Type="int" />
+    <Property Name="userName" Type="varchar" MaxLength="20" />
+    <Property Name="x" Type="double" />
+    <Property Name="y" Type="double" />
+  </EntityType>
+  <EntityType Name="departmentmanage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="20" />
+    <Property Name="Index" Type="int" />
+    <Property Name="CreateDate" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="holidaydata">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="start" Type="date" />
+    <Property Name="end" Type="date" />
+    <Property Name="isAlreadySet" Type="int" />
+  </EntityType>
+  <EntityType Name="illegalstatistic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Time" Type="datetime" Precision="0" />
+    <Property Name="User" Type="varchar" MaxLength="20" />
+    <Property Name="Place" Type="varchar" MaxLength="100" />
+    <Property Name="Type" Type="varchar" MaxLength="100" />
+    <Property Name="IsPush" Type="varchar" MaxLength="20" />
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" />
+    <Property Name="money" Type="decimal" Precision="10" Scale="0" />
+    <Property Name="fen" Type="varchar" MaxLength="5" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+    <Property Name="Handled" Type="int" />
+  </EntityType>
+  <EntityType Name="illegalusecar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" />
+    <Property Name="Time" Type="datetime" Precision="0" />
+    <Property Name="User" Type="varchar" MaxLength="20" />
+    <Property Name="Cause" Type="varchar" MaxLength="255" />
+    <Property Name="State" Type="int" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+    <Property Name="IsAdd" Type="int" />
+  </EntityType>
+  <EntityType Name="jijian">
+    <Key>
+      <PropertyRef Name="user" />
+    </Key>
+    <Property Name="department" Type="int" />
+    <Property Name="user" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="level" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="limitcarnumber">
+    <Key>
+      <PropertyRef Name="LimitDate" />
+    </Key>
+    <Property Name="LimitDate" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="LimitNumber" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="mainfuelingcard">
+    <Key>
+      <PropertyRef Name="AssociateCardId" />
+    </Key>
+    <Property Name="MainCardId" Type="varchar" MaxLength="45" />
+    <Property Name="AssociateCardId" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="Cardholder" Type="varchar" MaxLength="45" />
+    <Property Name="DepartmentId" Type="int" />
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="msg_borrowcar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="IsAudit" Type="int" />
+    <Property Name="AccessUser" Type="varchar" MaxLength="20" />
+    <Property Name="AccessTime" Type="datetime" Precision="0" />
+    <Property Name="AccessCar" Type="varchar" MaxLength="20" />
+    <Property Name="UserDepartment" Type="varchar" MaxLength="20" />
+    <Property Name="AuditUser" Type="varchar" MaxLength="20" />
+    <Property Name="AuditTime" Type="datetime" Precision="0" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="RealName" Type="varchar" MaxLength="45" />
+    <Property Name="type" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+    <Property Name="pushtype" Type="int" />
+    <Property Name="nodeLevel" Type="int" />
+  </EntityType>
+  <EntityType Name="msg_expire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="IsAudit" Type="int" />
+    <Property Name="Car" Type="varchar" MaxLength="20" />
+    <Property Name="Type" Type="int" />
+    <Property Name="AuditUser" Type="varchar" MaxLength="20" />
+    <Property Name="AuditTime" Type="datetime" Precision="0" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="CarDepartment" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+    <Property Name="ApplyTime" Type="datetime" Precision="0" />
+  </EntityType>
+  <EntityType Name="msg_maintain">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="IsAudit" Type="int" />
+    <Property Name="User" Type="varchar" MaxLength="20" />
+    <Property Name="Car" Type="varchar" MaxLength="20" />
+    <Property Name="ApplyTime" Type="datetime" Precision="0" />
+    <Property Name="AuditUser" Type="varchar" MaxLength="20" />
+    <Property Name="AuditTime" Type="datetime" Precision="0" />
+    <Property Name="UserDepartment" Type="varchar" MaxLength="20" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="CarDepartment" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+  </EntityType>
+  <EntityType Name="msg_outreturncar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="User" Type="varchar" MaxLength="20" />
+    <Property Name="Time" Type="datetime" Precision="0" />
+    <Property Name="Car" Type="varchar" MaxLength="20" />
+    <Property Name="Place" Type="varchar" MaxLength="100" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="CarDepartment" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+  </EntityType>
+  <EntityType Name="msg_userapply">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsLook" Type="int" />
+    <Property Name="IsAudit" Type="int" />
+    <Property Name="AccessUser" Type="varchar" MaxLength="20" />
+    <Property Name="UserDepartment" Type="varchar" MaxLength="20" />
+    <Property Name="AccessTime" Type="datetime" Precision="0" />
+    <Property Name="AuditUser" Type="varchar" MaxLength="20" />
+    <Property Name="AuditTime" Type="datetime" Precision="0" />
+    <Property Name="AccessRole" Type="int" />
+    <Property Name="DIsLook" Type="int" />
+    <Property Name="RealName" Type="varchar" MaxLength="45" />
+    <Property Name="AuditUserRole" Type="int" />
+    <Property Name="redpoint" Type="int" />
+    <Property Name="Dredpoint" Type="int" />
+  </EntityType>
+  <EntityType Name="returnregister">
+    <Key>
+      <PropertyRef Name="UniqueCode" />
+    </Key>
+    <Property Name="ReturnTime" Type="datetime" Precision="0" />
+    <Property Name="ReturnPlace" Type="varchar" MaxLength="20" />
+    <Property Name="ReturnDetail" Type="varchar" MaxLength="255" />
+    <Property Name="user" Type="varchar" MaxLength="20" />
+    <Property Name="TravelMileage" Type="double" />
+    <Property Name="CarRepair" Type="int" />
+    <Property Name="RepairDetail" Type="varchar" MaxLength="255" />
+    <Property Name="CarNumber" Type="varchar" MaxLength="20" />
+    <Property Name="UniqueCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReturnState" Type="int" />
+  </EntityType>
+  <EntityType Name="trajectorylog">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="CarNumber" Type="varchar" MaxLength="50" />
+    <Property Name="User" Type="varchar" MaxLength="20" />
+    <Property Name="Time" Type="datetime" Precision="0" />
+    <Property Name="Longitude" Type="double" />
+    <Property Name="Latitude" Type="double" />
+    <Property Name="UniqueCode" Type="varchar" MaxLength="50" />
+    <Property Name="guid" Type="varchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Account" />
+    </Key>
+    <Property Name="Account" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="RealName" Type="varchar" MaxLength="20" />
+    <Property Name="Department" Type="int" />
+    <Property Name="AllowModel" Type="varchar" MaxLength="20" />
+    <Property Name="DriverType" Type="int" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="UserPhoto" Type="varchar" MaxLength="200" />
+    <Property Name="DriverLicensePhoto" Type="varchar" MaxLength="200" />
+    <Property Name="UserType" Type="int" />
+    <Property Name="Phone" Type="varchar" MaxLength="20" />
+    <Property Name="EffecDateStart" Type="datetime" Precision="0" />
+    <Property Name="EffecDateEnd" Type="datetime" Precision="0" />
+    <Property Name="LastLoginDate" Type="varchar" MaxLength="50" />
+    <Property Name="ApplyRole" Type="int" />
+    <Property Name="ApplyDate" Type="datetime" Precision="0" />
+    <Property Name="ApplyLevel" Type="int" />
+    <Property Name="ApplyState" Type="int" />
+    <Property Name="state" Type="int" />
+    <Property Name="Enable" Type="int" />
+    <Property Name="NotifySet" Type="varchar" MaxLength="1024" />
+    <Property Name="Regulation" Type="int" />
+    <Property Name="DeviceID" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityContainer Name="cmsdbModelStoreContainer">
+    <EntitySet Name="appversion" EntityType="Self.appversion" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="associatecardinfo" EntityType="Self.associatecardinfo" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="borrowregister" EntityType="Self.borrowregister" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="carcostregister" EntityType="Self.carcostregister" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="carinfo" EntityType="Self.carinfo" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="carlist" EntityType="Self.carlist" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="departmentmanage" EntityType="Self.departmentmanage" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="holidaydata" EntityType="Self.holidaydata" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="illegalstatistic" EntityType="Self.illegalstatistic" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="illegalusecar" EntityType="Self.illegalusecar" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="jijian" EntityType="Self.jijian" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="limitcarnumber" EntityType="Self.limitcarnumber" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="mainfuelingcard" EntityType="Self.mainfuelingcard" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="msg_borrowcar" EntityType="Self.msg_borrowcar" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="msg_expire" EntityType="Self.msg_expire" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="msg_maintain" EntityType="Self.msg_maintain" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="msg_outreturncar" EntityType="Self.msg_outreturncar" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="msg_userapply" EntityType="Self.msg_userapply" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="returnregister" EntityType="Self.returnregister" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="trajectorylog" EntityType="Self.trajectorylog" Schema="cmsdb" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="cmsdb" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="59850d2f9d6d4c1098c429c3e6f59c1f" Name="Diagram1">
+        <EntityTypeShape EntityType="cmsdbModel.departmentmanage" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsdbModel.returnregister" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cmsdbModel.carcostregister" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsdbModel.borrowregister" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsdbModel.mainfuelingcard" Width="1.5" PointX="11.75" PointY="4.75" />
+        <EntityTypeShape EntityType="cmsdbModel.limitcarnumber" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="cmsdbModel.holidaydata" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsdbModel.trajectorylog" Width="1.5" PointX="9.375" PointY="7.75" />
+        <EntityTypeShape EntityType="cmsdbModel.associatecardinfo" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="cmsdbModel.user" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="cmsdbModel.illegalusecar" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cmsdbModel.msg_borrowcar" Width="1.5" PointX="3.75" PointY="10.75" />
+        <EntityTypeShape EntityType="cmsdbModel.msg_expire" Width="1.5" PointX="5.75" PointY="10.75" />
+        <EntityTypeShape EntityType="cmsdbModel.msg_maintain" Width="1.5" PointX="11.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cmsdbModel.msg_outreturncar" Width="1.5" PointX="11.75" PointY="12.75" />
+        <EntityTypeShape EntityType="cmsdbModel.msg_userapply" Width="1.5" PointX="13.75" PointY="7.75" />
+        <EntityTypeShape EntityType="cmsdbModel.carlist" Width="1.5" PointX="8.375" PointY="3.75" />
+        <EntityTypeShape EntityType="cmsdbModel.carinfo" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="cmsdbModel.illegalstatistic" Width="1.5" PointX="5.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

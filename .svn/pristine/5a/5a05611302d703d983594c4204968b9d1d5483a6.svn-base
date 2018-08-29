@@ -1,0 +1,59 @@
+﻿<?xml version="1.0"?>
+<!--
+  有关如何配置 ASP.NET 应用程序的详细消息，请访问
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false"/>
+  </configSections>
+  <system.web>
+    <customErrors mode="Off"/>
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <add assembly="System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"/>
+      </assemblies>
+    </compilation>
+    <sessionState mode="InProc" timeout="30"/>
+    <pages controlRenderingCompatibilityVersion="4.0"/>
+  </system.web>
+  <connectionStrings>
+    <add name="cmsdbEntities" connectionString="metadata=res://*/cmsdb.csdl|res://*/cmsdb.ssdl|res://*/cmsdb.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=localhost;user id=jzht;password=jzht1688;persistsecurityinfo=True;database=cmsdb&quot;" providerName="System.Data.EntityClient"/>
+    <add name="baiduMapAK" connectionString="VeDSPIugmx05i3DHlfx1y27K2p19ag3T"/>
+    <!-- 1,GPS   2,地图定位  3,违章查询  4,节假日  5,限号          （0 关闭   1开启） -->
+    <add name="runService" connectionString="0,0,0,0,0"/>
+    <add name="gpsPort" connectionString="8000"/>
+    <add name="locationPort" connectionString="8001"/>
+    <!--相应的修改js里 轨迹 current.js 里的websocket 地址为服务器地址-->
+    <!--
+          地理围栏
+          格式  x1,y1,x2,y2;x1,y1,x2,y2;  ->  x1:左下点x y1:左下点 x2:右上点x y2:右上点y
+          百度地图坐标拾取系统  http://api.map.baidu.com/lbsapi/getpoint/index.html
+    -->
+    <add name="fence" connectionString="116.325679,39.906372,116.327961,39.908476;116.334708,39.916696,116.33726,39.917982;"/>
+  </connectionStrings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="v13.0"/>
+      </parameters>
+    </defaultConnectionFactory>
+  </entityFramework>
+  <system.webServer>
+    <httpProtocol>
+      <customHeaders>
+        <add name="Access-Control-Allow-Credentials" value="true"/>
+        <add name="Access-Control-Allow-Origin" value="http://127.0.0.1:8020"/>
+        <add name="Access-Control-Allow-Headers" value="*"/>
+        <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE"/>
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+</configuration>
+
+<!--
+    baidumap  javascript ak   ->   k5qdEecswsybcCTOdgTG8lHhlMeLO9W7
+    baidumap  webapi     ak   ->   VeDSPIugmx05i3DHlfx1y27K2p19ag3T
+    
+-->

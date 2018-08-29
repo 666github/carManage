@@ -1,0 +1,137 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.SessionState;
+
+namespace CarManageSystem.handler.CarManage
+{
+    /// <summary>
+    /// AccessMaintain 的摘要说明
+    /// </summary>
+    public class AccessMaintain : IHttpHandler,IRequiresSessionState
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if(currentUser==null)
+                return;
+
+            var carNumber = context.Request["carNumber"];
+            var needState = context.Request["needState"];
+            var access = "1";
+            var account = currentUser.Account;
+            
+            dynamic json = new JObject();
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                
+                var car = cms.carinfo
+                    .ToList()
+                    .FirstOrDefault(s => s.CarNumber == carNumber);
+                if(car.CarState!=0)
+                {
+                    json.state = "此车不是空闲状态，不可维修";
+                    context.Response.Write(json.ToString());
+                    return;
+                }
+                //var tempCar = cms.carinfo.FirstOrDefault(s => s.CarNumber == car.CarNumber);
+                //if (tempCar != null)
+                //{
+                //    if (tempCar.CarStateDetial>=1&& tempCar.CarStateDetial<=4)
+                //    {
+                //        var str = "";
+                //        switch (tempCar.CarStateDetial)
+                //        {
+                //            case 1:
+                //                str = "维修";
+
+                //                break;
+                //            case 2:
+                //                str = "保养";
+
+                //                break;
+                //            case 3:
+                //                str = "年检";
+
+                //                break;
+                //            case 4:
+                //                str = "续保";
+
+                //                break;
+                //            default: break;
+                //        }
+                //        json.state = "此车正在[" + str + "]状态中！";
+                //        context.Response.Write(json.ToString());
+                //        return;
+                //    }
+                //}
+
+                if (Convert.ToInt16(access) == 1)
+                {
+                    var costRegister = new carcostregister()
+                    {
+                        Id=Guid.NewGuid().ToString(),
+                        Type = Convert.ToInt16(needState),
+                        CarNumber = carNumber,
+                        AccessUser = account,
+                        MaintenanceStartDate = DateTime.Now,
+                        Code = ""
+                    };
+                    cms.carcostregister.Add(costRegister);
+                    car.MaintainUser = account;
+                    car.CarStateDetial = Convert.ToInt16(needState);
+                    car.CarState = 3;
+
+                    //更改到期和维修单子审核信息
+                    if (costRegister.Type==1)//维修
+                    {
+                        var _msg = cms.msg_maintain
+                            .Where(s => s.Car == carNumber && (s.IsAudit == 0||s.IsAudit==null))
+                            .ToList();
+                        foreach(var x in _msg)
+                        {
+                            x.IsAudit = 1;
+                            x.AuditTime = DateTime.Now;
+                            x.AuditUser = currentUser.Account;
+                        }
+                    }
+                    else
+                    {
+                        var _msg = cms.msg_expire
+                            .Where(s => s.Car == carNumber && (s.IsAudit == 0 || s.IsAudit == null))
+                            .ToList();
+                        foreach (var x in _msg)
+                        {
+                            x.IsAudit = 1;
+                            x.AuditTime = DateTime.Now;
+                            x.AuditUser = currentUser.Account;
+                        }
+                    }
+                }
+                car.NeedMaintain = 0;
+
+                
+
+
+                cms.SaveChanges();
+                json.state = "success";
+                context.Response.Write(json.ToString());
+            }
+
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

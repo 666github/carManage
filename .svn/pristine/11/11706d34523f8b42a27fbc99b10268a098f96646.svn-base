@@ -1,0 +1,55 @@
+﻿using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarManageSystem.handler.Trajectory
+{
+    /// <summary>
+    /// GetDriverInfo 的摘要说明
+    /// </summary>
+    public class GetDriverInfo : IHttpHandler
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+            //是否有部门管理员权限
+            var currentUser = CheckHelper.RoleCheck(context, 1);
+            if (currentUser == null)
+                return;
+            dynamic json = new JObject();
+            json.state = "success";
+            var carNumber = context.Request["carNumber"];
+            using (cmsdbEntities cms = new cmsdbEntities())
+            {
+                var info = cms.borrowregister
+                    .Where(b => b.CarNumber == carNumber)
+                    .Join(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b.CarNumber, b.User, b.Purposes, b.Destination, b.BorrowTime, r.UniqueCode })
+                    .Where(r => string.IsNullOrEmpty(r.UniqueCode))
+                    .Join(cms.user, r => r.User, u => u.Account, (r, u) => new { r, u.RealName })
+                    .Select(item => new
+                    {
+                        carNumber = item.r.CarNumber,
+                        user = item.RealName,
+                        purpose = item.r.Purposes,
+                        destination = item.r.Destination,
+                        time = item.r.BorrowTime
+                    }).FirstOrDefault();
+
+                json.userInfo = JObject.FromObject(info);
+                context.Response.Write(json.ToString());
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

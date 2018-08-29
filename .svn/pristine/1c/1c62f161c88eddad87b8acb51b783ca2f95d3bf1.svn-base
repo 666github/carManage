@@ -1,0 +1,72 @@
+﻿<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<!--<link rel="stylesheet" type="text/css" href="driverManagement/carsManage/css/carsManagement.css"/>-->
+	<script src="driverManagement/carsManage/js/carsManagement.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div class="wrap">
+			<ul class="wrap_top">
+				<li><p class="cartitle">车辆查询</p></li>
+				<li>
+					<ul class="carNum">
+						<li><span class="carsum">车辆总数:</span> <span class="sumNum">68</span></li>
+						<li><span class="carused">被使用车辆:</span> <span class="used">68</span></li>
+						<li><span class="carUnused">空闲车辆:</span> <span class="unUsed">68</span></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="allBran">
+				<select name="" class="allBranch" id="regBranch">
+					<option value=" ">所有部门</option>
+				</select>
+				<select name="" class="status">
+					<option value="">状态</option>
+					<option value="0">可预约</option>
+					<option value="1">被预约</option>
+					<option value="2">外出</option>
+					<option value="3">维修保养</option>
+				</select>
+			</div>
+			<div class="cars_Inf">
+				<div id="car_inf">
+					<!--<ul class="carInf">
+						<li class="choice"><input type="checkbox" name="" id="delinput" value="" class="ocheck" /></li>
+						<li class="carImg"><img src="img/car03.jpg"/></li>
+						<li class="brand"><span class="firBrand">马自达</span><span>&nbsp;-&nbsp;</span><span class="secBrand">阿特兹</span></li>
+						<li class="licence">车牌：<span class="carLicence">京V 00001</span><span class="carSpace">5座</span></li>
+						<li class="stateInf"><div class="carState">外出</div><div class="details">详情&raquo;</div></li>
+					</ul>
+					<ul class="carInf">
+						<li class="choice"><input type="checkbox" name="" id="delinput" value=""  class="ocheck" /></li>
+						<li class="carImg"><img src="img/car.png"/></li>
+						<li class="brand"><span class="firBrand">马自达</span><span class="secBrand">-阿特兹</span></li>
+						<li class="licence">车牌：<span class="carLicence">京V 00001</span><span class="carSpace">5座</span></li>
+						<li><div class="carState">预约</div><div class="details">详情>></div></li>
+					</ul>
+					<ul class="carInf">
+						<li class="choice"><input type="checkbox" name="" id="delinput" value=""  class="ocheck" /></li>
+						<li class="carImg"><img src="img/car.png"/></li>
+						<li class="brand"><span class="firBrand">马自达</span><span class="secBrand">-阿特兹</span></li>
+						<li class="licence">车牌：<span class="carLicence">京V 00001</span><span class="carSpace">5座</span></li>
+						<li><div class="carState">外出</div><div class="details">详情>></div></li>
+					</ul>-->
+				</div>
+			</div>
+								
+		</div>
+	</body>
+	<script>
+ 		
+	</script>
+</html>

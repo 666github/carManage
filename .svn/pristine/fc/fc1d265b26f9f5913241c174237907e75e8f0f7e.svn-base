@@ -1,0 +1,64 @@
+$(function(){
+getLicence();
+	function getLicence(){
+		var option = $('.licences').html();
+         $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "http://192.168.1.120:2238/handler/GetCarNumbers.ashx",
+            data:{from:0},
+            xhrFields:{withCredentials:true},
+            success: function (data) {
+                var obj = data;
+                for (var i = 0; i < obj.length; i++) {
+                   option += '<option value="' + obj[i] + '">' + obj[i] + '</option>';
+                }
+                $('.licences').html(option);
+            },
+            error: function () {
+                console.log("车牌获取失败");
+            }
+         })
+	}
+
+//change事件
+	var carLicence="";
+	$(".licences").change(function(){
+		carLicence=$(".licences").val();
+		queryBrearule();
+	});		
+	function queryBrearule(){debugger
+		var breakRuleInf="";
+		$.ajax({
+			type:"get",
+			url:"http://192.168.1.120:2238/handler/CarManage/Illegal/ViewIllegal.ashx",
+			async:false,
+			xhrFields: {withCredentials: true}, 
+			data:{"carLicence":carLicence,from:0},
+			success:function(data){
+				if(data.state=="success"){
+					var brearule=data.brearule;
+					for(var i=0;i<brearule.length;i++){
+						breakRuleInf +='<ul class="breakRulesInf">'+
+						'<li ><span>违章人:&nbsp;</span><span class="person">'+brearule[i].person+'</span></li>'+
+						'<li ><span>违章行为:&nbsp;</span><span class="act">'+brearule[i].act+'</span></li>'+
+						'<li ><span>违章地点:&nbsp;</span><span class="area">'+brearule[i].area+'</span></li>'+
+						'<li ><span>违章时间:&nbsp;</span><span class="date">'+brearule[i].date+'</span></li>'+
+						'<li ><span>违章扣分:&nbsp;</span><span class="fen">'+brearule[i].fen+'</span><span>分</span></li>'+
+						'<li ><span>是否处理:&nbsp;</span><span class="handled">'+(brearule[i].handled=="1"?"已处理":"未处理")+'</span></li>'+
+						'<li ><span>违章罚款:&nbsp;</span><span class="money">'+brearule[i].money+'</span><span>元</span></li>'+
+						'</ul>'
+					}
+					$(".breakRules").html(breakRuleInf);
+				}else if(data.state=="1"){
+					alert("请重新登录");
+					window.location.href="./login.html"
+				}else{
+					alert(data.state);
+				}
+			},error:function(e1,e2,e3){
+				console.log("请求失败");
+			}
+		})
+	}
+})

@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cmsdbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="associatecardinfo">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="AssociateCardId" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="CardHolder" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="TradeTime" Type="DateTime" Nullable="false" />
+    <Property Name="TradeType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="Decimal" />
+    <Property Name="OilProduct" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="Count" Type="Double" />
+    <Property Name="Price" Type="Decimal" />
+    <Property Name="BonusPoints" Type="Double" />
+    <Property Name="Balance" Type="Decimal" />
+    <Property Name="Place" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="guid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="carcostregister">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Type" Type="Int32" />
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AccessUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UseTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Table" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MaintenanceStartDate" Type="DateTime" />
+    <Property Name="MaintenanceEndDate" Type="DateTime" />
+    <Property Name="Cost" Type="Decimal" />
+    <Property Name="Time" Type="DateTime" />
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="carinfo">
+    <Key>
+      <PropertyRef Name="CarNumber" />
+    </Key>
+    <Property Name="CarBrand" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CarModel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EngineNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CarType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CarPrice" Type="Decimal" />
+    <Property Name="BuyDate" Type="DateTime" />
+    <Property Name="InsuranceStartDate" Type="DateTime" />
+    <Property Name="InsuranceEndDate" Type="DateTime" />
+    <Property Name="AnnualStartDate" Type="DateTime" />
+    <Property Name="AnnualEndDate" Type="DateTime" />
+    <Property Name="MaintenanceStartDate" Type="DateTime" />
+    <Property Name="MaintenanceEndDate" Type="DateTime" />
+    <Property Name="Mileage" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CarPhoto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NeedMaintain" Type="Int32" />
+    <Property Name="CarState" Type="Int32" />
+    <Property Name="CarStateDetial" Type="Int32" />
+    <Property Name="HolodayStart" Type="DateTime" />
+    <Property Name="HolodayEnd" Type="DateTime" />
+    <Property Name="LoginAdmin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MaintainUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentId" Type="Int32" />
+    <Property Name="IsOut" Type="Int32" />
+    <Property Name="CarPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CurrentUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GasL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="islimit" Type="Int32" />
+    <Property Name="SimId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Site" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="MtMile" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="MtMileOrDate" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="carlist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="state" Type="Int32" />
+    <Property Name="isillegal" Type="Int32" />
+    <Property Name="userName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="x" Type="Double" />
+    <Property Name="y" Type="Double" />
+  </EntityType>
+  <EntityType Name="departmentmanage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Index" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="holidaydata">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="start" Type="DateTime" />
+    <Property Name="end" Type="DateTime" />
+    <Property Name="isAlreadySet" Type="Int32" />
+  </EntityType>
+  <EntityType Name="illegalstatistic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Time" Type="DateTime" />
+    <Property Name="User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Place" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsPush" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="money" Type="Decimal" />
+    <Property Name="fen" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+    <Property Name="Handled" Type="Int32" />
+  </EntityType>
+  <EntityType Name="illegalusecar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="DateTime" />
+    <Property Name="User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Cause" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="Int32" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+    <Property Name="IsAdd" Type="Int32" />
+  </EntityType>
+  <EntityType Name="limitcarnumber">
+    <Key>
+      <PropertyRef Name="LimitDate" />
+    </Key>
+    <Property Name="LimitDate" Type="DateTime" Nullable="false" />
+    <Property Name="LimitNumber" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="mainfuelingcard">
+    <Key>
+      <PropertyRef Name="AssociateCardId" />
+    </Key>
+    <Property Name="MainCardId" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="AssociateCardId" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cardholder" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="DepartmentId" Type="Int32" />
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="msg_expire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="IsAudit" Type="Int32" />
+    <Property Name="Car" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Type" Type="Int32" />
+    <Property Name="AuditUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AuditTime" Type="DateTime" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="CarDepartment" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+    <Property Name="ApplyTime" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="msg_maintain">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="IsAudit" Type="Int32" />
+    <Property Name="User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Car" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ApplyTime" Type="DateTime" />
+    <Property Name="AuditUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AuditTime" Type="DateTime" />
+    <Property Name="UserDepartment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="CarDepartment" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+  </EntityType>
+  <EntityType Name="msg_outreturncar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="DateTime" />
+    <Property Name="Car" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Place" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="CarDepartment" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+  </EntityType>
+  <EntityType Name="returnregister">
+    <Key>
+      <PropertyRef Name="UniqueCode" />
+    </Key>
+    <Property Name="ReturnTime" Type="DateTime" />
+    <Property Name="ReturnPlace" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="ReturnDetail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="TravelMileage" Type="Double" />
+    <Property Name="CarRepair" Type="Int32" />
+    <Property Name="RepairDetail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UniqueCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ReturnState" Type="Int32" />
+  </EntityType>
+  <EntityType Name="trajectorylog">
+    <Key>
+      <PropertyRef Name="guid" />
+    </Key>
+    <Property Name="CarNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Time" Type="DateTime" />
+    <Property Name="Longitude" Type="Double" />
+    <Property Name="Latitude" Type="Double" />
+    <Property Name="UniqueCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="guid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="Account" />
+    </Key>
+    <Property Name="Account" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RealName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Department" Type="Int32" />
+    <Property Name="AllowModel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DriverType" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserPhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DriverLicensePhoto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="UserType" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EffecDateStart" Type="DateTime" />
+    <Property Name="EffecDateEnd" Type="DateTime" />
+    <Property Name="LastLoginDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApplyRole" Type="Int32" />
+    <Property Name="ApplyDate" Type="DateTime" />
+    <Property Name="ApplyLevel" Type="Int32" />
+    <Property Name="ApplyState" Type="Int32" />
+    <Property Name="state" Type="Int32" />
+    <Property Name="Enable" Type="Int32" />
+    <Property Name="NotifySet" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+    <Property Name="Regulation" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="cmsdbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="associatecardinfo" EntityType="Self.associatecardinfo" />
+    <EntitySet Name="carcostregister" EntityType="Self.carcostregister" />
+    <EntitySet Name="carinfo" EntityType="Self.carinfo" />
+    <EntitySet Name="carlist" EntityType="Self.carlist" />
+    <EntitySet Name="departmentmanage" EntityType="Self.departmentmanage" />
+    <EntitySet Name="holidaydata" EntityType="Self.holidaydata" />
+    <EntitySet Name="illegalstatistic" EntityType="Self.illegalstatistic" />
+    <EntitySet Name="illegalusecar" EntityType="Self.illegalusecar" />
+    <EntitySet Name="limitcarnumber" EntityType="Self.limitcarnumber" />
+    <EntitySet Name="mainfuelingcard" EntityType="Self.mainfuelingcard" />
+    <EntitySet Name="msg_expire" EntityType="Self.msg_expire" />
+    <EntitySet Name="msg_maintain" EntityType="Self.msg_maintain" />
+    <EntitySet Name="msg_outreturncar" EntityType="Self.msg_outreturncar" />
+    <EntitySet Name="returnregister" EntityType="Self.returnregister" />
+    <EntitySet Name="trajectorylog" EntityType="Self.trajectorylog" />
+    <EntitySet Name="user" EntityType="Self.user" />
+    <EntitySet Name="appversion" EntityType="cmsdbModel.appversion" />
+    <EntitySet Name="jijian" EntityType="cmsdbModel.jijian" />
+    <EntitySet Name="borrowregister" EntityType="cmsdbModel.borrowregister" />
+    <EntitySet Name="msg_borrowcar" EntityType="cmsdbModel.msg_borrowcar" />
+    <EntitySet Name="msg_userapply" EntityType="cmsdbModel.msg_userapply" />
+  </EntityContainer>
+  <EntityType Name="appversion">
+    <Key>
+      <PropertyRef Name="platform" />
+    </Key>
+    <Property Name="version" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="platform" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="jijian">
+    <Key>
+      <PropertyRef Name="user" />
+    </Key>
+    <Property Name="department" Type="Int32" />
+    <Property Name="user" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="level" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="borrowregister">
+    <Key>
+      <PropertyRef Name="UniqueCode" />
+    </Key>
+    <Property Name="CarNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UseCarTime" Type="DateTime" />
+    <Property Name="ExpectReturnTime" Type="DateTime" />
+    <Property Name="User" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Department" Type="Int32" />
+    <Property Name="Purposes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Cause" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Destination" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="BorrowState" Type="Int32" />
+    <Property Name="UniqueCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BorrowTime" Type="DateTime" />
+    <Property Name="BorrowStateOD" Type="Int32" />
+    <Property Name="nodeUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="pushtype" Type="Int32" />
+  </EntityType>
+  <EntityType Name="msg_borrowcar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="IsAudit" Type="Int32" />
+    <Property Name="AccessUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AccessTime" Type="DateTime" />
+    <Property Name="AccessCar" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserDepartment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AuditUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AuditTime" Type="DateTime" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="RealName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="type" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+    <Property Name="pushtype" Type="Int32" />
+    <Property Name="nodeLevel" Type="Int32" />
+  </EntityType>
+  <EntityType Name="msg_userapply">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsLook" Type="Int32" />
+    <Property Name="IsAudit" Type="Int32" />
+    <Property Name="AccessUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserDepartment" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AccessTime" Type="DateTime" />
+    <Property Name="AuditUser" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="AuditTime" Type="DateTime" />
+    <Property Name="AccessRole" Type="Int32" />
+    <Property Name="DIsLook" Type="Int32" />
+    <Property Name="RealName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="AuditUserRole" Type="Int32" />
+    <Property Name="redpoint" Type="Int32" />
+    <Property Name="Dredpoint" Type="Int32" />
+  </EntityType>
+</Schema>

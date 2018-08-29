@@ -1,0 +1,72 @@
+﻿using CarManageSystem.Model;
+using Fleck;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Web;
+
+namespace CarManageSystem.Service
+{
+    public class LocationService
+    {
+        static List<IWebSocketConnection> allSockets = new List<IWebSocketConnection>();
+        static WebSocketServer server;
+        static System.Threading.Timer timer;
+        static int timerPeriod = 0;
+        public LocationService(string ip, int port)
+        {
+            FleckLog.Level = LogLevel.Debug;
+            server = new WebSocketServer(string.Format("ws://{0}:", ip) + port);
+        }
+
+        public void Start()
+        { 
+            server.Start(socket =>
+            {
+                socket.OnOpen = () =>
+                {
+                    Debug.WriteLine(socket.ConnectionInfo.Id+"已连接");
+                    allSockets.Add(socket);
+                };
+                socket.OnClose = () =>
+                {
+                    Debug.WriteLine(socket.ConnectionInfo.Id + "已断开");
+                    allSockets.Remove(socket);
+                };
+                socket.OnMessage = message =>
+                {
+                    Debug.WriteLine("接收到：" + socket.ConnectionInfo.Id +"的消息："+ message);
+                };
+            });
+
+            Debug.WriteLine("websocket服务已开启...");
+            timer = new System.Threading.Timer(new System.Threading.TimerCallback(TimeDo), null, 1, 6000);
+            Debug.WriteLine("定时器开启，定时发送数据...");
+        }
+
+        private void TimeDo(object sender)
+        {
+            Debug.WriteLine("定时器j计数"+ timerPeriod++);
+            if (MyGlobal.carsList.Count > 0)
+            {
+                dynamic json = JArray.FromObject(MyGlobal.carsList);
+                allSockets.ToList().ForEach(s => s.Send(json.ToString()));
+                //把state为-1的清除掉
+                for (var i = MyGlobal.carsList.Count - 1; i >= 0; i--)
+                {
+                    if (MyGlobal.carsList[i].state == -1)
+                    {
+                        lock (MyGlobal.carsList)
+                        {
+                            MyGlobal.carsList.Remove(MyGlobal.carsList[i]);
+                        }
+                    }
+                }
+                string res = json.ToString();
+                Debug.WriteLine(res);
+            }
+        }
+    }
+}

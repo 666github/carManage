@@ -1,0 +1,47 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+html,body{width:100%;;height:100%;}
+.wrap{width: 100%; height: 100%;background: #f0f4fa;padding-left: 2%;position: relative;}
+.cartitle {height: 45px;line-height: 50px;font-size: 18px;font-weight: bold; border-bottom: solid 3px darkgray; text-align: center;}
+#branches{margin: 0 0 25px 0;}
+.#branches>select{border-radius: 2px;}
+.allBranch,.personnelName,.licences{width: 100px;height: 30px;margin-right: 10px;}
+.allBranch{width: 160px;}
+#usedTime1,#usedTime2{text-align: center;height:30px;background: #FFFFFF;cursor: pointer;width: 120px;}
+.queryInf,.exportInf{padding:5px 10px;margin:0 10px;color: #FFFFFF;background: #4275F8;border-radius: 5px;}
+.queryInf:hover,.exportInf:hover{cursor: pointer;background: #FF0060;}
+#usedDiv{width: 99%;height:70%;overflow: auto;}
+.usedInfs{width: 100%;}
+.usedInfsT{width: 100%;height: 30px;line-height: 30px;}
+.usedInfsB{width: 100%;color: gray;}
+.usedInfsT>li,.usedInfs>li{float: left;text-align: center;border: solid 1px gray;border-right: none;border-bottom: none;height: 100%;}
+.usedInfsT>li{border-bottom: solid 1px gray;}
+.usedInfsT>li:last-child,.usedInfs>li:last-child{border-right: 1px solid gray;}
+.usedInfsB>.usedInfs:first-child>li{border-top: none;}
+.usedInfsB>.usedInfs:last-child>li{border-bottom: solid 1px gray;}
+.list1{width: 10%;}
+.list2{width: 6%;}
+.list3{width: 7%;}
+.list4{width: 4%;}
+.list5{width: 14%;}
+.list6{width: 8%;}
+.list7{width: 11%;}
+.list8{width: 11%;}
+.list11{width: 11%;}
+.list10{width: 11%;}
+.list9{width: 7%;}	
+.list6Input{border: none;outline:none;background: none;width: 100%;height: 100%;font-size:16px;color: gray;
+	overflow: hidden;text-overflow:ellipsis;white-space: nowrap;
+}	
+.list6Input:hover{cursor: pointer;}
+@media only screen and (max-width: 1023px){
+	.usedInfsT,.usedInfsB{width: 180%;}
+}
+@media only screen and (min-width: 1024px) and (max-width: 1280px) {
+	.usedInfsT,.usedInfsB{width: 150%;}
+}
+@media only screen and (min-width: 1281px) and (max-width: 1599px) {
+	.usedInfsT,.usedInfsB{width: 120%;}
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
+    </startup>
+  <appSettings>
+    <add key="appkey" value="717d8741ad21f580177f5a34aa566518"/>
+    <add key="postIp" value="http://localhost:2239"/>
+  </appSettings>
+</configuration>

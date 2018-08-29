@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/trafficStatistics/drivers.css"/>
+		<script src="js/trafficStatistics/drivers.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul class="wrap_top">
+				<li><p class="cartitle">司机统计</p></li>
+				<li>
+					<ul class="driverCount">
+						<li><span class="partTimeDri">兼职司机:</span> <span class="partTimeDriCount">0</span></li>
+						<li><span class="fullTimeDri">全职司机:</span> <span class="fullTimeDriCount">0</span></li>
+						<li><span class="illegalDri">违章次数:</span> <span class="illegalDriCount">0</span></li>
+						<li><span class="ffycDri">非法用车次数:</span> <span class="ffycDriCount">0</span></li>				
+					</ul>
+				</li>
+				
+			</ul>
+			<div class="allBran">				
+				<select name="" class="allBranch driBranch">
+					<option value="">所有部门</option>
+				</select>
+				<div class="driTime">
+					<input type="text" name="driTime1" id="driTime1" class="Wdate olength" value="" placeholder="起始时间" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'driTime2\')}'})"/>
+					-
+					<input type="text" name="driTime2" id="driTime2" class="Wdate olength" value="" placeholder="结束时间" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'driTime1\')}'})"/>				        
+		        </div>
+		        <span class="exportInf">信息导出</span>
+			</div>
+			<div class="driversInfo">
+				<!--<ul class="driverInfo">
+					<li class="driverIcon">
+						<div class="icon"><img class="" src="img/driver.png"/></div>
+						<div class="iconInfo"><p>赵新宇</p><p>基础测绘部</p></div>
+					</li>
+					<li class="driveingInfo">
+						<span class="driverType">司机类型 : <span class="driverTypeInfo">兼职</span></span>
+						<span class="driverLicense">驾驶类型 : <span class="driverLicenseInfo">C1</span></span>
+						<span class="driverNum">驾驶次数 : <span class="driverNumInfo">15</span></span>
+						<span class="illegalNum">违章次数 : <span class="illegalNumInfo">2</span></span>
+						<span class="ffycCount">非法用车次数 : <span class="ffycCountInfo">2</span></span>
+					</li>
+					<li class="driverMileage">行驶里程 ：<span class="milesNum">451公里</span></li>
+				</ul>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+	</script>
+</html>

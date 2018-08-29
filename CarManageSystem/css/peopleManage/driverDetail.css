@@ -1,0 +1,43 @@
+*{margin: 0;padding: 0;box-sizing: border-box;font-family: "microsoft yahei","微软雅黑";}
+li{list-style: none;}
+a{text-decoration: none;color: black;}
+.clearfloat:after{display: block;clear: both;content: "";visibility: hidden;height: 0;}
+html,body{width:100%;;height:100%;}
+.wrap{width: 100%;height: 100%;padding-left: 2%;}
+/*详情*/
+.back_title>span{line-height:45px;font-size: 18px;font-weight: bold;border-bottom: solid 3px darkgray;cursor: pointer;}
+.wrap_back{margin-bottom: 10px;}
+.wrap_back>li{float: left;width: auto;}
+.detailsInf{border: solid 1px lightgray;border-radius: 2px;width: calc(100% - 15px);width: -webkit-calc(100% -15px);width: -moz-calc(100% -15px);/*height: calc(100% - 100px);height: -webkit-calc(100% -100px);height: -moz-calc(100% -100px);*/}
+#detailsInf{/*height: 265px;*/height: 225px;padding: 20px 0 0 10px;position: relative;}
+.top_branch{font-size: 16px;font-weight: bold;margin-bottom: 10px;}
+.top_img{width: 220px;position: relative;border:solid 1px lightgray;height: 120px;}
+.top_img>p{color: gray;}
+#top_img{position: relative;height: 100%;}
+.topPhoto{opacity: 0;position: absolute;left: 0;top: 0;border: solid red 1px;width: 100%;height: 100%;}
+#topPhoto{width:220px;height:120px;}
+.carInf_det{width: 100%;}
+.carInf_det>li{width: 25%;float: left;padding: 0.7% 0;}
+.carInf_det>li:nth-child(3),.carInf_det>li:nth-child(6),.carInf_det>li:nth-child(9){width: 40%;}
+.carInf_det input{border: none;height: 100%;background: #f0f4fa;}
+.safe_det>input,.annual_det>input,.maintan_det>input{width: 32%;text-align: center;}
+.firBrandDet{color:#4275f8;}
+.mtMoneyDet{color: #ff2275;}
+.mtNumDet{color: #45cced;}
+.state_det{padding:10px 0 0 10px;border-top: solid 1px lightgray;/*height: 140px;*/height: 125px;border-bottom: solid 1px lightgray;}
+.currentState{color: #ff2275;}
+.currentInf{width: 100%;}
+.currentInf>li{/*width:20%;*/width:33.33%;float: left;padding: 10px 0 0 0;}
+/*.currentInf>li:last-child{width: 100%;}*/
+.twoImgs{padding:10px 0 10px 10px;}
+.twoImgs>img{margin-right: 20px;width: 200px;height: 120px;}
+@media only screen and (max-width: 1280px){
+/*.top_img{width: 220px;position: relative;border:solid 1px lightgray;height: 120px;}*/
+.carInf_det>li{width: 30%;}
+.buyday_det,.safe_det,.annual_det,.maintan_det{width: 40%!important;}
+.enginDet{width: 140px;}
+/*.currentInf>li:last-child{width: 100%;}*/
+}
+@media only screen and (max-height: 720px){
+.carInf_det>li{float: left;padding: 0.4% 0;}
+}

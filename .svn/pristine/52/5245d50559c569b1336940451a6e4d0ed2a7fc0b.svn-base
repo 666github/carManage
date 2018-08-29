@@ -1,0 +1,241 @@
+﻿using CarManageSystem.Model;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading;
+using System.Web;
+
+namespace CarManageSystem.helper
+{
+    public class GPSService
+    {
+        static AsyncTCPServer ats;
+        static byte[] heartDate = Encoding.UTF8.GetBytes("heartbeat|1");
+        static byte[] successStr = Encoding.UTF8.GetBytes("success");
+        static byte[] errorStr = Encoding.UTF8.GetBytes("error|LoginFail");
+        static List<CarConnect> carConnList = new List<CarConnect>();
+        static double minX=0;
+        static double minY=0;
+        static double maxX=0;
+        static double maxY=0;
+
+        public GPSService(string ip,int port)
+        {
+            ats= new AsyncTCPServer(IPAddress.Parse(ip), port);
+
+            ats.DataReceived += Ats_DataReceived;
+            ats.ClientConnected += Ats_ClientConnected;
+            ats.ClientDisconnected += Ats_ClientDisconnected;
+        }
+
+        private static void Ats_ClientDisconnected(object sender, AsyncEventArgs e)
+        {
+            Console.WriteLine("已断开");
+            carConnList.FirstOrDefault(s => s.tcpClientState == e._state).timer.Dispose();
+            var car = carConnList.FirstOrDefault(s => s.tcpClientState == e._state);
+            var dataCar=MyGlobal.carsList.FirstOrDefault(s => s.id == car.id);
+            dataCar.state = 0;
+            carConnList.Remove(car);
+        }
+
+        private static void Ats_ClientConnected(object sender, AsyncEventArgs e)
+        {
+            Console.WriteLine("有新连接");
+            Timer t = new Timer((o) =>
+            {
+                ats.Send(e._state.TcpClient, heartDate);
+            }, null, 1, 1000);
+             
+            carConnList.Add(new CarConnect() { id = "", timer = t, tcpClientState = e._state });
+        }
+
+        private static void Ats_DataReceived(object sender, AsyncEventArgs e)
+        {
+            try
+            {
+                var str = Encoding.UTF8.GetString(e._buff);
+                var strs = str.Split('|');
+                switch (strs[0])
+                {
+                    case "login":
+                        //判断是不是系统内的车，不是就强制断开。 （userError|	TRUE	FALSE）
+                        var carId = strs[1];
+                        var pwd = strs[2];
+                        using (cmsdbEntities cms = new cmsdbEntities())
+                        {
+                            var car = cms.carinfo.FirstOrDefault(s => s.CarNumber == carId && s.CarPassword == pwd);
+                            if (car == null)
+                            {
+                                ats.Close(e._state);
+                                ats.Send(e._state.TcpClient, errorStr);
+                                return;
+                            }
+                            var carconn=carConnList.FirstOrDefault(s => s.tcpClientState == e._state);
+                            carconn.id = strs[1];
+                            carconn.user = car.CurrentUser;
+                            carconn.carState = Convert.ToInt16(car.CarState);
+                            carconn.uniqueCode = cms.borrowregister
+                                .Join(cms.returnregister, b => b.UniqueCode, r => r.UniqueCode, (b, r) => new { b, r })
+                                .FirstOrDefault(r => string.IsNullOrEmpty(r.r.UniqueCode)).b.UniqueCode;
+                            ats.Send(e._state.TcpClient, successStr);
+                            Debug.WriteLine("车辆登录\t" + "id:" + strs[1] + "\tpwd:" + strs[2]);
+                        }
+                        break;
+                    case "start":
+                        //车辆启动 暂时好像没什么作用
+                        using (cmsdbEntities cms=new cmsdbEntities())
+                        {
+                            var car = cms.carinfo.FirstOrDefault(c => c.CarNumber == strs[1]);
+                            if (car.CarState == 1)
+                            {
+                                car.CarState = 2;
+                            }
+                            cms.SaveChanges();
+                        }
+                        ats.Send(e._state.TcpClient, successStr);
+                        break;
+                    case "gps":
+                        //接收gps  存到数组
+                        ats.Send(e._state.TcpClient, successStr);
+                        Debug.WriteLine("GPS信号\t" + "x:" + strs[1] + "\ty:" + strs[2]);
+                        var id = strs[1];
+                        var x = Convert.ToDouble(strs[2]);
+                        var y = Convert.ToDouble(strs[3]);
+
+                        //根据百度接口 处理数据为百度地图坐标
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.map.baidu.com/geoconv/v1/?coords=114.21892734521,29.575429778924;114.21892734521,29.575429778924&from=1&to=5&ak=你的密钥");
+                        request.Method = "GET";
+                        StateObject stateObj = new StateObject();
+                        stateObj.id = id;
+                        stateObj.request = request;
+                        request.BeginGetRequestStream(new AsyncCallback(RequestStreamCallBack), stateObj);
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine("发送过来了" + str);
+            }
+            catch (Exception exc)
+            {
+                var bytes = Encoding.UTF8.GetBytes("error|" + exc.Message);
+                ats.Send(e._state.TcpClient, bytes);
+                Debug.WriteLine(exc.Message);
+            }
+
+            
+        }
+
+        public static void RequestStreamCallBack(IAsyncResult asynchronousResult)
+        {
+            var stateObj = (StateObject)asynchronousResult.AsyncState;
+            var request = stateObj.request;
+            var response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
+            using (var streamReader = new StreamReader(response.GetResponseStream()))
+            {
+                var resultString = streamReader.ReadToEnd();
+                var obj = JsonConvert.DeserializeObject<dynamic>(resultString);
+                if (obj.status != 0)
+                {
+                    return;
+                }
+                
+                var x =Convert.ToString(obj.result[0].x);
+                var y = Convert.ToString(obj.result[0].y);
+                var id = stateObj.id;
+
+                //如果车的连接集合里有此车，就往数据集合里保存数据，数据集合里没有此车 就创建。
+                var tempcar = carConnList.FirstOrDefault(s => s.id == id);
+                if (tempcar != null)
+                {
+                    if (tempcar.carState == 0)//空闲状态
+                    {
+                        var illcar = MyGlobal.illegalUseList.FirstOrDefault(s => s.CarNumber == id);
+                        if (illcar == null)
+                        {
+                            if (minX > x || x > maxX || minY > y || y > maxY)//出了围栏
+                            {
+                                //开始报警,发送手机短信之类的
+
+                                //记录警告
+                                illegalusecar iuc = new illegalusecar()
+                                {
+                                    id = Guid.NewGuid().ToString(),
+                                    Time = DateTime.Now,
+                                    CarNumber = tempcar.id,
+                                    State = 1,
+                                    IsLook=0,
+                                    DIsLook=0
+                                };
+                                lock (MyGlobal.illegalUseList)
+                                {
+                                    MyGlobal.illegalUseList.Add(iuc);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (illcar.State == 1)
+                            {
+                                if (minX < x && x < maxX && minY < y && y < maxY)//进了围栏
+                                {
+                                    illcar.State = 0;
+                                }
+                            }
+                        }
+                    }
+                    var carinfo = MyGlobal.carsList.FirstOrDefault(s => s.id == id);
+                    if (carinfo == null)
+                    {
+                        var tempCar = new Car()
+                        {
+                            id = id,
+                            state = 1,
+                            position = new Position()
+                            {
+                                x = x,
+                                y = y
+                            }
+                        };
+                        lock (MyGlobal.carsList)
+                        {
+                            MyGlobal.carsList.Add(tempCar);
+                        }
+                    }
+                    else
+                    {
+                        carinfo.state = 1;
+                        carinfo.position.x = x;
+                        carinfo.position.y = y;
+                    }
+
+                    //存储 gps 数据到数据库
+                    using (cmsdbEntities cms = new cmsdbEntities())
+                    {
+                        var traject = new trajectorylog()
+                        {
+                            CarNumber = tempcar.id,
+                            User = tempcar.user,
+                            Time = DateTime.Now,
+                            Longitude = x,
+                            Latitude = y,
+                            UniqueCode=tempcar.uniqueCode
+                        };
+                        cms.trajectorylog.Add(traject);
+                        cms.SaveChanges();
+                    }
+                }
+            }
+                
+        }
+
+        public void Start()
+        {
+            ats.Start();
+        }
+    }
+}

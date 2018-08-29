@@ -1,0 +1,119 @@
+﻿using CarManageSystem.Extension;
+using CarManageSystem.helper;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarManageSystem.handler.Trajectory
+{
+    /// <summary>
+    /// GetTrajectory 的摘要说明
+    /// </summary>
+    public class GetTrajectory : IHttpHandler
+    {
+
+        public void ProcessRequest(HttpContext context)
+        {
+            context.Response.ContentType = "text/plain";
+           
+            var role = context.Request["role"];
+            dynamic json = new JObject();
+            json.state = "success";
+            //0 司机 1 管理员
+            if (role == "0")
+            {
+                //是否登录
+                var currentUser = CheckHelper.RoleCheck(context, 0);
+                if (currentUser == null)
+                    return;
+
+                var account = context.Request["account"];
+                var date = Convert.ToDateTime(context.Request["date"]);
+                using (cmsdbEntities cms = new cmsdbEntities())
+                {
+                    var info = cms.returnregister
+                        .Where(s => s.user == account)
+                        .LeftJoin(cms.borrowregister, r => r.UniqueCode, b => b.UniqueCode, (r, b) => new { b.User, b.UniqueCode, r.ReturnTime, b.BorrowTime, b.Destination, b.Purposes,b.CarNumber })
+                        .Where(s => s.BorrowTime.Value.Date == Convert.ToDateTime(date).Date)
+                        .LeftJoin(cms.user, r=>r.User, u => u.Account, (r, u) => new { r, u.RealName, u.Department, u.UserPhoto, u.DriverType, u.UserType })
+                        .LeftJoin(cms.departmentmanage, r => r.Department, d => d.Id, (r, d) => new { r, d.Name })
+                        .LeftJoin(cms.carinfo,r=>r.r.r.CarNumber,c=>c.CarNumber,(r,c)=>new { r,c.CarBrand,c.CarNumber })
+                        .LeftJoin(cms.trajectorylog, result => result.r.r.r.UniqueCode, t => t.UniqueCode, (b, t) => new { b, t.Longitude, t.Latitude })
+                        .GroupBy(r => r.b.r.r.r.UniqueCode)
+                        .Select(item => new
+                        {
+                            brand= item.FirstOrDefault().b.CarBrand,
+                            carNumber = item.FirstOrDefault().b.CarNumber,
+                            detInf2 = item.FirstOrDefault().b.r.Name,
+                            destination = item.FirstOrDefault().b.r.r.r.Destination,
+                            Purposes = item.FirstOrDefault().b.r.r.r.Purposes,
+                            usedTime = item.FirstOrDefault().b.r.r.r.BorrowTime + "-" + item.FirstOrDefault().b.r.r.r.ReturnTime,
+                            position = item.Select(s => new { s.Longitude, s.Latitude })
+                        });
+
+                    //var infos = cms.borrowregister
+                    //    .Where(b => cms.returnregister.Where(r => r.user == account).Select(s => s.UniqueCode).Contains(b.UniqueCode) && b.BorrowTime.Value.Date == date.Date)
+                    //    .LeftJoin(cms.carinfo, r => r.CarNumber, c => c.CarNumber, (r, c) => new { r, c.CarBrand, c.DepartmentId })
+                    //    .LeftJoin(cms.departmentmanage, r => r.DepartmentId, d => d.Id, (r, d) => new { r, d.Name })
+                    //    .LeftJoin(cms.returnregister, r => r.r.r.UniqueCode, c => c.UniqueCode, (r, c) => new { r, c.ReturnTime })
+                    //    .ToList()
+                    //    .Select(item => new
+                    //    {
+                    //        brand = item.r.r.CarBrand,
+                    //        carNumber = item.r.r.r.CarNumber,
+                    //        detInf2 = item.r.Name,
+                    //        Purposes = item.r.r.r.Purposes,
+                    //        destination = item.r.r.r.Destination,
+                    //        usedTime = item.r.r.r.BorrowTime.Value + "-" + item.ReturnTime.Value
+                    //    });
+                    json.info = JArray.FromObject(info);
+                    context.Response.Write(json.ToString());
+                }
+            }
+            else if (role == "1")
+            {
+                //是否有部门管理员权限
+                var currentUser = CheckHelper.RoleCheck(context, 1);
+                if (currentUser == null)
+                    return;
+                var carNumber = context.Request["carNumber"];
+                var date = context.Request["date"];
+
+                using(cmsdbEntities cms=new cmsdbEntities())
+                {
+                    var info = cms.returnregister
+                        .Where(s => s.CarNumber == carNumber)
+                        .LeftJoin(cms.borrowregister, r => r.UniqueCode, b => b.UniqueCode, (r, b) => new { b.User, b.UniqueCode, r.ReturnTime, b.BorrowTime, b.Destination, b.Purposes })
+                        .Where(s => s.BorrowTime.Value.Date == Convert.ToDateTime(date).Date)
+                        .LeftJoin(cms.user, r => r.User, u => u.Account, (r, u) => new { r, u.RealName, u.Department, u.UserPhoto, u.DriverType, u.UserType })
+                        .LeftJoin(cms.departmentmanage, r => r.Department, d => d.Id, (r, d) => new { r, d.Name })
+                        .LeftJoin(cms.trajectorylog, result => result.r.r.UniqueCode, t => t.UniqueCode, (b, t) => new { b, t.Longitude, t.Latitude })
+                        .GroupBy(r => r.b.r.r.UniqueCode)
+                        .Select(item => new
+                        {
+                            driImg = item.FirstOrDefault().b.r.UserPhoto,
+                            driName = item.FirstOrDefault().b.r.RealName,
+                            detInf2 = item.FirstOrDefault().b.Name,
+                            branchName = item.FirstOrDefault().b.r.UserType == 0 ? (item.FirstOrDefault().b.r.DriverType == 0 ? "0" : "1") : (item.FirstOrDefault().b.r.UserType == 1 ? "2" : "3"),
+                            destination = item.FirstOrDefault().b.r.r.Destination,
+                            effect = item.FirstOrDefault().b.r.r.Purposes,
+                            usedTime = item.FirstOrDefault().b.r.r.BorrowTime + "-" + item.FirstOrDefault().b.r.r.ReturnTime,
+                            position = item.Select(s=>new { s.Longitude,s.Latitude})
+                        });
+                    json.info = JArray.FromObject(info);
+                    context.Response.Write(json.ToString());
+                }
+            }
+        }
+
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
+        }
+    }
+}

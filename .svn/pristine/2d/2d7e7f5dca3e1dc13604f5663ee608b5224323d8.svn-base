@@ -1,0 +1,58 @@
+$(document).ready(function(){
+	driverTask();
+});
+
+//请求司机信息
+function driverTask(){
+	var connent = this;
+	var node = this.node = $(".driversInfo");
+	$.ajax({
+		type:"get",
+		url: "http://192.168.1.120:2238/handler/UserManage/Driver/ViewDriver.ashx",
+		data: { "department": g_depart,"driverType":"" , "from":0},
+		dataType:"json",
+		async:true,
+		success:function(data){
+			if(data.state == "success"){
+				$(".carsCount").text(data.driversTotal);
+				connent.addNode(data.driversInfo);
+			}
+		},error:function(e1,e2,e3){
+			console.log("加载失败")
+		}
+	});
+	
+	this.addNode = function(_data){
+		var driver = "";
+		var state = "";
+		for(var i=0;i<_data.length;i++){
+			if(_data[i].driverState == 0 ){
+				var state = "空闲";
+			}else{
+				var state = "外出";
+			}
+			//设置基本信息值			
+			driver += '<ul class="driverInfo">'+
+				'<li class="driverIcon">'+
+					'<div class="icon"><img class="" src="'+_data[i].pictureUrl+'"/></div>'+
+					'<div class="iconInfo"><p class="driverName" datatype="driverName">'+_data[i].driverName+'</p><p class="departMent" datatype="departMent">'+_data[i].departMent+'</p></div>'+
+				'</li>'+
+				'<li class="driveingInfo">'+
+					'<p><span class="driverType">司机类型 : <span class="driverTypeInfo" datatype="typeInfo">'+_data[i].typeInfo+'</span></span>'+
+					'<span class="driverLicense">驾驶类型 : <span class="driverLicenseInfo" datatype="licenseInfo">'+_data[i].licenseInfo+'</span></span></p>'+
+					'<p class="driverTel">电话 : <span class="driverTelInfo" datatype="telInfo">'+_data[i].telInfo+'</span></p>'+
+					'<p class="mailNum">邮箱 : <span class="mailNumInfo" datatype="mailNumInfo">'+_data[i].mailNumInfo+'</span></p>'+
+				'</li>'+
+				'<li class="driverState"><span class="free" datatype="driverState">'+state+'</span></li>'+
+			'</ul>';
+		};
+		node.find('#driverInfo').append(driver);
+		$(".free").each(function(){
+			if($(this).text().indexOf("外")==0){
+				$(this).removeClass("free");
+				$(this).addClass("goOut");
+			}
+		});
+	}
+}
+

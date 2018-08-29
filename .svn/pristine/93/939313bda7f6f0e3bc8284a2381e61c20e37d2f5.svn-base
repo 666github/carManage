@@ -1,0 +1,121 @@
+<!doctype html>
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->	
+<html lang="en"><!--<![endif]-->     
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">		
+	</head>
+	<link rel="stylesheet" type="text/css" href="css/carManage/gasCard.css"/>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/carManage/gasCard.js" type="text/javascript" charset="utf-8"></script>
+	<body >		
+		<div class="wrap">
+			<p><span  class="cartitle">油卡信息</span></p>
+			<div class="allBran" id="branchs">				
+				<select name="" class="allBranch" id="regBranch">
+					<option value="">所属部门</option>
+				</select>
+				<span class="">油卡总数：</span><span class="gasSum">10</span>
+			</div>
+			<div class="">
+				<ul class="gasQtitle">					
+					<li class="gasNums">副卡卡号</li>
+					<li class="gasLicence">持卡(人/车辆)</li>
+					<li class="personId">身份证号</li>
+					<li class="gasState">卡状态</li>
+					<li class="gasDetail">详情</li>
+				</ul>
+				<div class="gasBranch">
+					<ul class="gasQuery">
+						<li class="gasNums">1000111100007331225</li>
+						<li class="gasLicence">京AV0001</li>
+						<li class="personId">11010919640128****</li>
+						<li class="gasState">使用</li>
+						<li class="gasDetail"><span class="gasDetailSpan">查看详情</span></li>
+					</ul>
+					<ul class="gasQuery">
+						<li class="gasNums">1000111100007331225</li>
+						<li class="gasLicence">京AV0001</li>
+						<li class="personId">11010919640128****</li>
+						<li class="gasState">使用</li>
+						<li class="gasDetail"><span class="gasDetailSpan">查看详情</span></li>
+					</ul>
+				</div>	
+			</div>
+			<form action="" method="post" enctype="multipart/form-data" target="picIframe" id="myform">				
+				<input type="file" name="gasInf" id="gasInf" value="" />
+				<iframe width="0" height="0" name="picIframe" style="visibility: hidden;" onload="ifmload(this)"></iframe>
+				<input type="button" value="录入" id="mysubmit"/>
+			</form>			
+			<div class="carInfBg ohide">
+				<div class="blackBg"></div>
+				<div id="gasDiv" class="">
+					<p><span class="closed" style="float: right;margin-right: 20px;">&times;</span></p >
+					<ul class="gasIns">
+						<li class="list1">卡号</li>
+						<li class="list2">持卡人</li>
+						<li class="list3">交易时间</li>
+						<li class="list4">交易类型</li>
+						<li class="list5">金额</li>
+						<li class="list6">油品</li>
+						<li class="list7">数量</li>
+						<li class="list8">单价</li>
+						<li class="list9">奖励积分</li>
+						<li class="list10">余额</li>
+						<li class="list11">地点</li>
+					</ul>
+					<div class="gasInfs">
+						<ul class="gasIns">
+							<li class="list1">1111111111111111111</li>
+							<li class="list2">京AV0000</li>
+							<li class="list3">2012-20-10 10:08:08</li>
+							<li class="list4">加油</li>
+							<li class="list5">2156.2</li>
+							<li class="list6">95号京标(VI)汽油</li>
+							<li class="list7">50.36</li>
+							<li class="list8">7.2</li>
+							<li class="list9">155</li>
+							<li class="list10">8554.55</li>
+							<li class="list11">羊坊店路加油站</li>
+						</ul>
+					</div>
+				</div>			
+			</div>
+		</div>
+        <script>
+//          var option = $('#branchs').html().trim();
+//          $.ajax({
+//              type: "post",
+//              dataType: "json",
+//              url: "/handler/GetDepartment.ashx",
+//              success: function (data) {
+//                  var obj = data;
+//                  for (var i = 0; i < obj.length; i++) {
+//                      option += '<option value="' + obj[i].Id + '">' + obj[i].Name + '</option>';
+//                  }
+//                  $('#branchs').html(option);
+//              },
+//              error: function () {
+//                  console.log("部门获取失败");
+//              }
+//          });
+            //时间插件
+//          $("#tradeTime").jeDateGas({
+////          	isinitVal:true,
+////          	ishmsVal:false,
+//				minDate:'2008-08-08',
+////				maxDate:'2050-08-08',
+//				maxDate:$.nowDate({DD:0}),
+//			    format: 'YYYY-MM-DD hh:mm:ss',
+//			    zIndex:3000
+//          })
+        </script>
+	</body>	
+</html>
